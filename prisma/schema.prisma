@@ -23,7 +23,6 @@ model Tent {
   state          State
   complete       Boolean  @default(true)
   integrated     Boolean  @default(false)
-  location       String   @default("local")
   comments       String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
