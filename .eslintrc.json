@@ -1,0 +1,63 @@
+{
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "next/core-web-vitals",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "react"],
+  "root": true,
+  "rules": {
+    "indent": "off",
+    "linebreak-style": ["error", "unix"],
+    "newline-before-return": "error",
+    "no-implicit-globals": "error",
+    "no-warning-comments": ["warn", { "terms": ["fixme", "todo"] }],
+    "no-unused-vars": "off",
+    "padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "always",
+        "next": [
+          "break",
+          "case",
+          "cjs-export",
+          "class",
+          "continue",
+          "do",
+          "if",
+          "switch",
+          "try",
+          "while"
+        ],
+        "prev": "*"
+      }
+    ],
+    "quotes": [
+      "error",
+      "double",
+      { "allowTemplateLiterals": true, "avoidEscape": true }
+    ],
+    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react/no-unescaped-entities": [
+      "error",
+      {
+        "forbid": [">", "}"]
+      }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off"
+  }
+}

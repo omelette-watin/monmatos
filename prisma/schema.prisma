@@ -1,0 +1,65 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Group {
+  id        String   @id @default(uuid())
+  name      String
+  movement  Movement
+  createdAt DateTime @default(now())
+  tents     Tent[]
+}
+
+model Tent {
+  id             String   @id @default(uuid())
+  identifyingNum Int
+  size           Int
+  unit           Unit     @default(GROUPE)
+  state          State
+  complete       Boolean  @default(true)
+  integrated     Boolean  @default(false)
+  location       String   @default("local")
+  comments       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  groupId        String
+  group          Group    @relation(fields: [groupId], references: [id])
+
+  @@unique([groupId, identifyingNum], name: "TentIdentifier")
+}
+
+enum Movement {
+  SGDF
+  SUF
+  AGSE
+}
+
+enum Unit {
+  FARFADETS
+  JEANNETTES
+  LOUVETTES
+  LOUVETEAUX
+  ECLAIREUSES
+  GUIDES
+  ECLAIREURS
+  SCOUTS
+  ROUTIERS
+  GUIDESAINNES
+  EQUIPIERS
+  EQUIPIERES
+  PIONNIERS
+  CARAVELLES
+  GROUPE
+}
+
+enum State {
+  INUTILISABLE
+  MAUVAIS
+  BON
+  NEUF
+}
