@@ -3,19 +3,25 @@ import cn from "classnames"
 import { signOut } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { FC, useEffect, useState } from "react"
+import { FC, HTMLAttributeAnchorTarget, useEffect, useState } from "react"
 import Container from "./Container"
 import Icon from "./Icon"
 import Logo from "./Logo"
 
 const MenuLink: FC<
-  UIProps<{ label: string; href: string; currentPath: string }>
-> = ({ href, label, currentPath, className }) => {
+  UIProps<{
+    label: string
+    href: string
+    currentPath: string
+    target?: HTMLAttributeAnchorTarget
+  }>
+> = ({ href, label, currentPath, className, target }) => {
   const isActive = currentPath === href
 
   return (
     <Link href={href}>
       <a
+        target={target}
         className={cn("transition-colors hover:text-emerald-600", className, {
           "text-black": !isActive,
           "text-emerald-600": isActive,
@@ -64,7 +70,6 @@ const MobileSideMenu = () => {
           </div>
 
           <div className="flex flex-col items-start space-y-3 p-6">
-            <MenuLink label="Accueil" href={"/"} currentPath={asPath} />
             <MenuLink
               label="Mon groupe"
               href={"/groupe"}
@@ -75,23 +80,30 @@ const MobileSideMenu = () => {
               href={"/tentes"}
               currentPath={asPath}
             />
-            <MenuLink label="Guide" href={"/guide"} currentPath={asPath} />
+            <MenuLink
+              label="Bien commencer"
+              href={"/guide"}
+              currentPath={asPath}
+              target="_blank"
+            />
           </div>
           <div className="flex flex-col items-start space-y-3 p-6">
             <MenuLink
               label="Nous contacter"
               href={"/contact"}
               currentPath={asPath}
+              target="_blank"
             />
             <MenuLink
               label="Nous soutenir"
               href={"/nous-soutenir"}
               currentPath={asPath}
+              target="_blank"
             />
             <button
               type="button"
               className="text-red-600"
-              onClick={() => signOut()}
+              onClick={() => signOut({ callbackUrl: "/connexion" })}
             >
               Déconnexion
             </button>
@@ -142,6 +154,7 @@ const Header = () => {
                 href={"/guide"}
                 className="hidden md:block"
                 currentPath={asPath}
+                target="_blank"
               />
             </div>
           </div>
@@ -151,14 +164,20 @@ const Header = () => {
               href={"/contact"}
               currentPath={asPath}
               className="px-4"
+              target="_blank"
             />
             <MenuLink
               label="Nous soutenir"
               href={"/nous-soutenir"}
               currentPath={asPath}
               className="px-4"
+              target="_blank"
             />
-            <button className="px-4" type="button">
+            <button
+              className="px-4"
+              type="button"
+              onClick={() => signOut({ callbackUrl: "/connexion" })}
+            >
               <Icon name="LogoutIcon" />
             </button>
           </div>
