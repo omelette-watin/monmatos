@@ -3,12 +3,12 @@ import Head from "next/head"
 import { FC } from "react"
 import Container from "./Container"
 
-const Page: FC<UIProps<{ title: string }>> = ({
+const Page: FC<UIProps<{ title?: string }>> = ({
   children,
   title,
   ...otherProps
 }) => {
-  const pageTitle = `Mon Matos - ${title}`
+  const pageTitle = `Mon Matos ${title ? `- ${title}` : ""}`
 
   return (
     <main {...otherProps}>

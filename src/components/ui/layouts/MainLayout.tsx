@@ -7,7 +7,7 @@ const MainLayout = ({
   title,
 }: {
   children: ReactElement
-  title: string
+  title?: string
 }) => {
   return (
     <div className="min-h-screen w-[100vw]">
