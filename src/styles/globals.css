@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.expends {
+  animation: expending 1000ms cubic-bezier(0.1, 0.35, 0.37, 0.83);
+}
+
+@keyframes expending {
+  from {
+    height: 0;
+  }
+  to: {
+    height: full;
+  }
+}
