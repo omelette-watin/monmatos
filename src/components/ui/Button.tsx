@@ -55,7 +55,7 @@ const Button: FC<
     <button
       {...otherProps}
       className={cn(
-        "flex items-center justify-center rounded-xl border shadow-lg transition hover:scale-[0.98] hover:shadow-sm disabled:opacity-80 disabled:hover:scale-100",
+        "flex w-fit items-center justify-center rounded-xl border shadow-lg transition hover:scale-[0.98] hover:shadow-sm disabled:opacity-80 disabled:hover:scale-100",
         variants[variant],
         buttonSizes[size],
         className,
