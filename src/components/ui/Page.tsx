@@ -8,7 +8,7 @@ const Page: FC<UIProps<{ title?: string }>> = ({
   title,
   ...otherProps
 }) => {
-  const pageTitle = `Mon Matos ${title ? `- ${title}` : ""}`
+  const pageTitle = `${title ? `${title} | ` : ""}Mon Matos`
 
   return (
     <main {...otherProps}>

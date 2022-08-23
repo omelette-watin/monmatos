@@ -70,14 +70,10 @@ const MobileSideMenu = () => {
           </div>
 
           <div className="flex flex-col items-start space-y-3 p-6">
-            <MenuLink
-              label="Mon groupe"
-              href={"/groupe"}
-              currentPath={asPath}
-            />
+            <MenuLink label="Mon groupe" href={"/app"} currentPath={asPath} />
             <MenuLink
               label="Mes tentes"
-              href={"/tentes"}
+              href={"/app/tentes"}
               currentPath={asPath}
             />
             <MenuLink
@@ -139,14 +135,10 @@ const Header = () => {
               <Logo size="sm" />
             </div>
             <div className="ml-10 hidden items-center gap-4 sm:flex">
-              <MenuLink
-                label="Mon groupe"
-                href={"/groupe"}
-                currentPath={asPath}
-              />
+              <MenuLink label="Mon groupe" href={"/app"} currentPath={asPath} />
               <MenuLink
                 label="Mes tentes"
-                href={"/tentes"}
+                href={"/app/tentes"}
                 currentPath={asPath}
               />
               <MenuLink
