@@ -63,7 +63,12 @@ const MobileSideMenu = () => {
       >
         <div className="flex h-full w-full flex-col items-start">
           <div className="flex w-full items-center justify-between p-4 shadow-md">
-            <Logo size="sm" />
+            <Link href="/app">
+              <a>
+                <Logo size="sm" />
+              </a>
+            </Link>
+
             <button type="button" onClick={hideMenu}>
               <Icon name="XIcon" />
             </button>
@@ -129,10 +134,18 @@ const Header = () => {
         <div className="flex items-center justify-between font-medium">
           <div className="flex items-center">
             <div className="hidden lg:block">
-              <Logo />
+              <Link href="/app">
+                <a>
+                  <Logo />
+                </a>
+              </Link>
             </div>
             <div className="lg:hidden">
-              <Logo size="sm" />
+              <Link href="/app">
+                <a>
+                  <Logo size="sm" />
+                </a>
+              </Link>
             </div>
             <div className="ml-10 hidden items-center gap-4 sm:flex">
               <MenuLink label="Mon groupe" href={"/app"} currentPath={asPath} />
