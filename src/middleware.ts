@@ -3,14 +3,11 @@ import { withAuth } from "next-auth/middleware"
 export default withAuth({
   callbacks: {
     authorized: ({ token, req }) => {
-      if (
-        req.nextUrl.pathname.startsWith("/inscription") ||
-        req.nextUrl.pathname.startsWith("/connexion")
-      ) {
-        return true
+      if (req.nextUrl.pathname.startsWith("/app")) {
+        return token?.user.id
       }
 
-      return token?.user.id
+      return true
     },
   },
 })
