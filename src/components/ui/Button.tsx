@@ -7,7 +7,7 @@ const variants = {
   green: "text-white bg-emerald-500 border-emerald-500",
   black: "text-white bg-black border-black",
   blue: "text-white bg-blue-500 border-blue-500",
-  white: "text-black bg-white border-black",
+  white: "text-black bg-main border-black",
   red: "text-white bg-red-500 border-red-500",
 }
 const buttonSizes = {

@@ -12,7 +12,7 @@ const MainLayout = ({
   return (
     <div className="min-h-screen w-[100vw]">
       <Header />
-      <Page title={title} className="min-h-[50000px] p-4">
+      <Page title={title} className="py-4">
         {children}
       </Page>
     </div>
