@@ -6,6 +6,7 @@ import "../styles/globals.css"
 import { NextPage } from "next"
 import { ReactElement, ReactNode } from "react"
 import { AppProps } from "next/app"
+import { AppContextProvider } from "@/components/business/AppContext"
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -23,7 +24,9 @@ const App = ({
 
   return (
     <SessionProvider session={session}>
-      {getLayout(<Component {...pageProps} />)}
+      <AppContextProvider>
+        {getLayout(<Component {...pageProps} />)}
+      </AppContextProvider>
     </SessionProvider>
   )
 }
