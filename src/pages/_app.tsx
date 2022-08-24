@@ -10,6 +10,12 @@ import { AppContextProvider } from "@/components/business/AppContext"
 import NProgress from "nprogress"
 import { Router } from "next/router"
 
+NProgress.configure({
+  showSpinner: false,
+  easing: "ease",
+  speed: 600,
+})
+
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
 }
