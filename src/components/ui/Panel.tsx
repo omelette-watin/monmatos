@@ -7,7 +7,7 @@ const Panel: FC<
 > = ({ children, className, id, ...otherProps }) => {
   return (
     <section
-      className={classNames("rounded-xl border-4 bg-slate-50 p-4", className)}
+      className={classNames("border-t-2 py-6 sm:p-6", className)}
       {...otherProps}
     >
       {id && <span id={id} className="invisible scroll-mt-[110px]" />}
