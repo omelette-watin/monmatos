@@ -4,9 +4,11 @@ import superjson from "superjson"
 import { SessionProvider } from "next-auth/react"
 import "../styles/globals.css"
 import { NextPage } from "next"
-import { ReactElement, ReactNode } from "react"
+import { ReactElement, ReactNode, useEffect } from "react"
 import { AppProps } from "next/app"
 import { AppContextProvider } from "@/components/business/AppContext"
+import NProgress from "nprogress"
+import { Router } from "next/router"
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -21,6 +23,11 @@ const App = ({
   pageProps: { session, ...pageProps },
 }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout || ((page) => page)
+  useEffect(() => {
+    Router.events.on("routeChangeStart", () => NProgress.start())
+    Router.events.on("routeChangeComplete", () => NProgress.done())
+    Router.events.on("routeChangeError", () => NProgress.done())
+  }, [])
 
   return (
     <SessionProvider session={session}>
