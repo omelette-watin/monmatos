@@ -4,15 +4,16 @@ import Icon, { IconName } from "./Icon"
 import cn from "classnames"
 
 const variants = {
-  primary: "text-white bg-emerald-500 border-emerald-500",
-  secondary: "text-white bg-black border-black",
+  green: "text-white bg-emerald-500 border-emerald-500",
+  black: "text-white bg-black border-black",
+  blue: "text-white bg-blue-500 border-blue-500",
   white: "text-black bg-white border-black",
   red: "text-white bg-red-500 border-red-500",
 }
 const buttonSizes = {
   sm: "px-5 py-2 text-base font-semibold",
   md: "px-7 py-2 text-lg font-semibold",
-  lg: "px-10 py-2 text-xl font-semibold",
+  lg: "px-9 py-2 text-xl font-semibold",
 }
 
 const iconMargins = {
@@ -42,7 +43,7 @@ const Button: FC<
   >
 > = ({
   children,
-  variant = "primary",
+  variant = "green",
   size = "md",
   iconPosition = "left",
   icon,
