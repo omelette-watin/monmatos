@@ -1,0 +1,33 @@
+import { Group, Unit } from "@prisma/client"
+
+export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
+  SGDF: {
+    FARFADETS: "FARFADETS",
+    LOUVETEAUX: "LOUVETEAUX",
+    JEANNETTES: "JEANNETTES",
+    SCOUTS: "SCOUTS",
+    GUIDES: "GUIDES",
+    PIONNIERS: "PIONNERS",
+    CARAVELLES: "CARAVELLES",
+    GROUPE: "GROUPE",
+  },
+  AGSE: {
+    LOUVETEAUX: "LOUVETEAUX",
+    JEANNETTES: "LOUVETTES",
+    ECLAIREURS: "ÉCLAIREURS",
+    ECLAIREUSES: "ÉCLAIREUSES",
+    EQUIPIERES: "ÉQUIPIÈRES PILOTES",
+    EQUIPIERS: "ÉQUIPIERS PILOTES",
+    GROUPE: "GROUPE",
+  },
+  SUF: {
+    LOUVETEAUX: "LOUVETEAUX",
+    JEANNETTES: "JEANNETTES",
+    ECLAIREURS: "ÉCLAIREURS",
+    GUIDES: "GUIDES",
+    SCOUTS: "SCOUTS",
+    ROUTIERS: "ROUTIER",
+    GUIDESAINNES: "GUIDES-AÎNÉES",
+    GROUPE: "GROUPE",
+  },
+}
