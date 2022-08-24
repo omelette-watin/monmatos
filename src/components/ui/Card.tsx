@@ -9,7 +9,7 @@ const Card: FC<UIProps<{ children: ReactNode; className?: string }>> = ({
   return (
     <div
       className={classNames(
-        "space-y-4 rounded-xl bg-white p-6 pt-4 shadow-md",
+        "bg-card space-y-4 rounded-xl p-6 pt-4 shadow-lg",
         className,
       )}
       {...otherProps}
