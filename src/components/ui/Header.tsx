@@ -54,7 +54,7 @@ const MobileSideMenu = () => {
       </button>
       <div
         className={cn(
-          "fixed top-0 left-0 bottom-0 z-50 w-4/5 max-w-[100vw] overflow-y-scroll overscroll-contain bg-white shadow-xl transition-transform duration-500 sm:w-1/3",
+          "bg-main fixed top-0 left-0 bottom-0 z-50 w-4/5 max-w-[100vw] overflow-y-scroll overscroll-contain shadow-xl transition-transform duration-500 sm:w-1/3",
           {
             "-translate-x-full": !visible,
             "translate-x-0": visible,
@@ -129,7 +129,7 @@ const Header = () => {
   const { asPath } = useRouter()
 
   return (
-    <div className="sticky top-0 z-20 border-b bg-white shadow-md lg:px-5">
+    <div className="bg-main sticky top-0 z-20 border-b shadow-md lg:px-5">
       <Container>
         <div className="flex items-center justify-between font-medium">
           <div className="flex items-center">
