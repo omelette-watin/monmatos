@@ -65,7 +65,7 @@ const Button: FC<
       {!icon ? null : iconPosition === "right" ? null : (
         <Icon name={icon} className={iconMarginClassName} />
       )}
-      {children}
+      <span className="truncate">{children}</span>
       {!icon ? null : iconPosition === "left" ? null : (
         <Icon name={icon} className={iconMarginClassName} />
       )}
