@@ -3,7 +3,7 @@ import cn from "classnames"
 import { signOut } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { FC, HTMLAttributeAnchorTarget, useEffect, useState } from "react"
+import { FC, HTMLAttributeAnchorTarget, useState } from "react"
 import Container from "./Container"
 import Icon from "./Icon"
 import Logo from "./Logo"
@@ -38,14 +38,6 @@ const MobileSideMenu = () => {
   const [visible, setVisible] = useState(false)
   const showMenu = () => setVisible(true)
   const hideMenu = () => setVisible(false)
-
-  useEffect(() => {
-    if (visible) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = "visible"
-    }
-  }, [visible])
 
   return (
     <div className="flex items-center lg:hidden">
