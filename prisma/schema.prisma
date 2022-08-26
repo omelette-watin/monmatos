@@ -23,6 +23,7 @@ model Tent {
   state          State
   complete       Boolean  @default(true)
   integrated     Boolean  @default(false)
+  type           String   @default("Canadienne")
   comments       String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
