@@ -12,6 +12,7 @@ import { downloadExcel, downloadImageFromCanvas } from "@/utils/downloadFns"
 import { Group, Tent } from "@prisma/client"
 import { useReactToPrint } from "react-to-print"
 import AllQRCodes from "./AllQRCodes"
+import { copyToClipBoard } from "@/utils/helpers"
 
 const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
   session,
@@ -42,22 +43,11 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
       3: () => router.push("app/tentes"),
     },
     partager: {
-      1: async () => {
-        try {
-          await navigator.clipboard.writeText(
-            `localhost:3000/connexion?i=${session.user?.id}&callbackUrl=/app`,
-          )
-          setNotification({
-            message: "Lien copié dans le presse papier !",
-            type: "success",
-          })
-        } catch (error) {
-          setNotification({
-            message: "Erreur, veuillez réessayer plus tard",
-            type: "error",
-          })
-        }
-      },
+      1: async () =>
+        copyToClipBoard(
+          `http://localhost:3000/connexion?i=${session.user?.id}&callbackUrl=/app`,
+          setNotification,
+        ),
       2: async () => {
         try {
           await downloadImageFromCanvas("QR", `${session.user?.name} QR Code`)
@@ -69,21 +59,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
           })
         }
       },
-      3: async () => {
-        try {
-          await navigator.clipboard.writeText(session.user?.id || "")
-          setNotification({
-            message: "Identifiant copié dans le presse papier !",
-            type: "success",
-          })
-        } catch (error) {
-          console.log(error)
-          setNotification({
-            message: "Erreur, veuillez réessayer plus tard",
-            type: "error",
-          })
-        }
-      },
+      3: async () => copyToClipBoard(session.user?.id || "", setNotification),
     },
     exporter: {
       1: downloadExcel(tents, session.user?.movement as Group["movement"]),
