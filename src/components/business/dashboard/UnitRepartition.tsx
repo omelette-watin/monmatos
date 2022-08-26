@@ -55,7 +55,7 @@ const RepartitionChart: FC<
 
   return (
     <Card className="max-w-full">
-      <h3 className="flex items-center space-x-2 self-start text-xl font-semibold text-blue-500">
+      <h3 className="flex items-center space-x-2 self-start text-xl font-semibold">
         <Icon name="FaUserAlt" />
         <span className="text-black">
           Répartition des <span className="text-emerald-600">tentes</span>
