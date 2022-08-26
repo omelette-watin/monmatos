@@ -31,6 +31,9 @@ export const tentsRouter = createProtectedRouter()
         where: {
           groupId: id,
         },
+        orderBy: {
+          identifyingNum: "asc",
+        },
       })
 
       return tents
