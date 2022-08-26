@@ -5,11 +5,11 @@ import { State, Tent } from "@prisma/client"
 import classNames from "classnames"
 import { FC } from "react"
 
-const colors: Record<State, string> = {
-  INUTILISABLE: "bg-black",
-  MAUVAIS: "bg-red-500",
-  BON: "bg-lime-500",
-  NEUF: "bg-green-500",
+export const stateColors: Record<State, string> = {
+  INUTILISABLE: "bg-red-500/90",
+  MAUVAIS: "bg-orange-400/90",
+  BON: "bg-lime-500/90",
+  NEUF: "bg-green-500/90",
 }
 
 const Bar: FC<UIProps<{ state: State; count: number; total: number }>> = ({
@@ -24,7 +24,7 @@ const Bar: FC<UIProps<{ state: State; count: number; total: number }>> = ({
       </div>
       <div
         style={{ height: `${(count / total) * 230 + 4}px` }}
-        className={classNames("expends w-full rounded-sm", colors[state])}
+        className={classNames("expends w-full rounded-sm", stateColors[state])}
       />
     </div>
   )
@@ -60,7 +60,7 @@ const StateChart: FC<UIProps<{ tents: Tent[]; className?: string }>> = ({
                     <div
                       className={classNames(
                         "h-5 w-5 rounded-sm",
-                        colors[value],
+                        stateColors[value],
                       )}
                     />
                     <span className="text-xs">{value}</span>
