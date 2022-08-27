@@ -2,6 +2,7 @@ import { ReactElement } from "react"
 import Page from "../Page"
 import Header from "../Header"
 import Notification from "@/components/business/Notification"
+import Modal from "../modal"
 
 const MainLayout = ({
   children,
@@ -15,6 +16,7 @@ const MainLayout = ({
       <Header />
       <Page title={title} className="py-4">
         {children}
+        <Modal />
         <Notification />
       </Page>
     </div>
