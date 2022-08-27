@@ -1,4 +1,4 @@
-import { inferQueryOutput, trpc } from "@/utils/trpc"
+import { inferQueryOutput } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import {
   createContext,
@@ -6,7 +6,6 @@ import {
   FC,
   ReactNode,
   SetStateAction,
-  useEffect,
   useState,
 } from "react"
 import { Modal } from "../ui/modal"
@@ -21,7 +20,6 @@ export type AppContext = {
   setModal: Dispatch<SetStateAction<Modal>>
   tents: Tents
   setTents: Dispatch<SetStateAction<Tents>>
-  isLoadingTents: boolean
 }
 
 export const AppContext = createContext<AppContext>({} as AppContext)
@@ -29,16 +27,9 @@ export const AppContext = createContext<AppContext>({} as AppContext)
 export const AppContextProvider: FC<UIProps<{ children: ReactNode }>> = ({
   children,
 }) => {
-  const { data, isLoading } = trpc.useQuery(["tents.getAll"])
   const [notification, setNotification] = useState({} as Notification)
   const [modal, setModal] = useState({} as Modal)
-  const [tents, setTents] = useState(data as Tents)
-
-  useEffect(() => {
-    if (data) {
-      setTents(data)
-    }
-  }, [data])
+  const [tents, setTents] = useState([] as Tents)
 
   return (
     <AppContext.Provider
@@ -49,7 +40,6 @@ export const AppContextProvider: FC<UIProps<{ children: ReactNode }>> = ({
         setModal,
         tents,
         setTents,
-        isLoadingTents: isLoading,
       }}
     >
       {children}
