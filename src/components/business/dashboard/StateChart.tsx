@@ -39,7 +39,7 @@ const StateChart: FC<UIProps<{ tents: Tent[]; className?: string }>> = ({
   const average =
     Object.values(State)
       .map((value, index) => countOf(value) * index)
-      .reduce((acc, curr) => acc + curr) / tents.length
+      .reduce((acc, curr) => acc + curr) / tents.length || 0
   const note = (average * 20) / 3
 
   return (
