@@ -34,7 +34,7 @@ const Notification = () => {
     <div
       onClick={() => setVisible(false)}
       className={classNames(
-        "fixed right-4 top-20 max-w-[90vw] cursor-pointer rounded-lg px-4 py-2 text-white shadow-xl transition-transform duration-500 sm:max-w-[600px] md:pb-1",
+        "fixed right-4 top-20 z-[100] max-w-[90vw] cursor-pointer rounded-lg px-4 py-2 text-white shadow-xl transition-transform duration-500 sm:max-w-[600px] md:pb-1",
         variants[notification.type || "success"]["className"],
         {
           "translate-full-x": !visible || !notification.message,
