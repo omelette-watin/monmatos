@@ -5,7 +5,7 @@ import { Group, Tent } from "@prisma/client"
 import { Session } from "next-auth"
 import { FC } from "react"
 import StateChart from "./StateChart"
-import RepartitionChart from "./UnitRepartition"
+import RepartitionChart from "./RepartionChart"
 import Card from "@/components/ui/Card"
 import { units } from "@/utils/unit"
 

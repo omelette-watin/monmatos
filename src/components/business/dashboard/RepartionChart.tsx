@@ -36,7 +36,7 @@ const Bar: FC<UIProps<{ unit: Unit; count: number; total: number }>> = ({
         <span className="text-lg">{count}</span>
       </div>
       <div
-        style={{ height: `${(count / total) * 230 + 4}px` }}
+        style={{ height: `${(count / total) * 230 || 4}px` }}
         className={classNames("expends w-full rounded-sm", colors[unit])}
       />
     </div>
