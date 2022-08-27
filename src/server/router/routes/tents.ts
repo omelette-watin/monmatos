@@ -103,3 +103,72 @@ export const tentsRouter = createProtectedRouter()
       return deletedTent
     },
   })
+  .mutation("seed", {
+    resolve: async ({ ctx }) => {
+      const {
+        prisma,
+        session: {
+          user: { id },
+        },
+      } = ctx
+
+      await prisma.tent.deleteMany()
+      await prisma.tent.createMany({
+        data: [
+          {
+            identifyingNum: 1,
+            size: 6,
+            complete: true,
+            state: "BON",
+            groupId: id,
+          },
+          {
+            identifyingNum: 2,
+            size: 6,
+            complete: true,
+            state: "MAUVAIS",
+            groupId: id,
+          },
+          {
+            identifyingNum: 3,
+            size: 6,
+            complete: true,
+            state: "INUTILISABLE",
+            groupId: id,
+          },
+          {
+            identifyingNum: 4,
+            size: 6,
+            complete: true,
+            state: "MAUVAIS",
+            groupId: id,
+          },
+          {
+            identifyingNum: 7,
+            size: 6,
+            complete: true,
+            state: "MAUVAIS",
+            groupId: id,
+          },
+          {
+            identifyingNum: 319,
+            size: 6,
+            complete: true,
+            state: "INUTILISABLE",
+            groupId: id,
+          },
+          {
+            identifyingNum: 12,
+            size: 6,
+            complete: true,
+            state: "NEUF",
+            groupId: id,
+          },
+        ],
+      })
+
+      const tents = await prisma.tent.findMany()
+
+      return tents
+    },
+  })

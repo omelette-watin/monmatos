@@ -13,13 +13,23 @@ import { Group, Tent } from "@prisma/client"
 import { useReactToPrint } from "react-to-print"
 import AllQRCodes from "./AllQRCodes"
 import { copyToClipBoard } from "@/utils/helpers"
+import { trpc } from "@/utils/trpc"
 
 const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
   session,
   tents,
 }) => {
   const router = useRouter()
-  const { setNotification } = useAppContext()
+  const { setNotification, setTents } = useAppContext()
+  const seedMutation = trpc.useMutation(["tents.seed"], {
+    onSuccess(data) {
+      setTents(data)
+      setNotification({
+        message: "Seed successful",
+        type: "success",
+      })
+    },
+  })
   const pdfRef = useRef<HTMLDivElement>(null)
   const handlePrint = useReactToPrint({
     content: () => pdfRef.current as HTMLDivElement,
@@ -38,7 +48,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
     Record<number, () => void>
   > = {
     tentes: {
-      1: () => router.push("/app/tentes/ajouter"),
+      1: () => seedMutation.mutate(),
       2: () => router.push("/app/tentes/scanner"),
       3: () => router.push("app/tentes"),
     },
