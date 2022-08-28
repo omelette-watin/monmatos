@@ -39,7 +39,6 @@ const TentInput = <T extends recordableKeyOf<Tent>>({
           <select
             className="w-full border-none bg-transparent px-4 font-semibold outline-none"
             value={value}
-            defaultValue={value}
             onChange={(e) => setValue(e.target.value as Tent[T])}
           >
             {options.map((option) => (
