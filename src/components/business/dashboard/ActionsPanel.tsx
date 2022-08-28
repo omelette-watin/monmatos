@@ -168,7 +168,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
               size="sm"
               onClick={actions["exporter"][1]}
             >
-              Télécharger en Excel
+              Exporter en .xlsx
             </Button>
             <Button
               type="button"
