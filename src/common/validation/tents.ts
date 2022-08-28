@@ -25,6 +25,7 @@ export const createTentSchema = z.object({
   size: z.number(),
   unit,
   state,
+  type: z.string(),
   complete: z.boolean(),
   integrated: z.boolean(),
   comments: z.string().optional(),
