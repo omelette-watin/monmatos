@@ -8,8 +8,7 @@ interface TentCharacteristicProps<T extends recordableKeyOf<Tent>> {
   label: string
   value: Tent[T] | string
   setValue: Dispatch<SetStateAction<Tent[T]>>
-  options?: [Tent[T], string][]
-  datalist?: string[]
+  options: [Tent[T], string][]
   variants?: Record<Tent[T] | string, string>
 }
 
@@ -18,7 +17,6 @@ const TentInput = <T extends recordableKeyOf<Tent>>({
   value,
   setValue,
   options,
-  datalist,
   variants,
 }: TentCharacteristicProps<T>) => {
   return (
@@ -35,33 +33,17 @@ const TentInput = <T extends recordableKeyOf<Tent>>({
         {label}
       </span>
       <div className="w-full px-1 py-1 ">
-        {options && (
-          <select
-            className="w-full border-none bg-transparent px-4 font-semibold outline-none"
-            value={value}
-            onChange={(e) => setValue(e.target.value as Tent[T])}
-          >
-            {options.map((option) => (
-              <option value={option[0]} key={option[0]} className="text-black">
-                {option[1]}
-              </option>
-            ))}
-          </select>
-        )}
-        {datalist && (
-          <>
-            <input
-              type="text"
-              list={label}
-              className="w-full border-none bg-transparent px-4 font-semibold outline-none"
-            />
-            <datalist id={label}>
-              {datalist.map((option) => (
-                <option value={option} key={option} />
-              ))}
-            </datalist>
-          </>
-        )}
+        <select
+          className="w-full border-none bg-transparent px-4 font-semibold outline-none"
+          value={value}
+          onChange={(e) => setValue(e.target.value as Tent[T])}
+        >
+          {options.map((option) => (
+            <option value={option[0]} key={option[0]} className="text-black">
+              {option[1]}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   )
