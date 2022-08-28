@@ -113,10 +113,6 @@ const TentViewPanel: FC<
           <TentCharacteristic
             label="Complète ?"
             value={complete ? "OUI" : "NON"}
-            variants={{
-              OUI: "bg-emerald-500/90",
-              NON: "bg-red-600/90",
-            }}
           />
           <TentCharacteristic
             type="type"

@@ -160,10 +160,6 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
             ["OUI", "OUI"],
             ["NON", "NON"],
           ]}
-          variants={{
-            OUI: "bg-emerald-500/90",
-            NON: "bg-red-600/90",
-          }}
         />
         <TentInput
           type="type"

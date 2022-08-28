@@ -129,10 +129,6 @@ const TentUpdatePanel: FC<
             ["OUI", "OUI"],
             ["NON", "NON"],
           ]}
-          variants={{
-            OUI: "bg-emerald-500/90",
-            NON: "bg-red-600/90",
-          }}
         />
         <TentInput
           type="type"
