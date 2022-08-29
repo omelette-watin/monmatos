@@ -134,7 +134,7 @@ const TentUpdatePanel: FC<
         />
         <TentInput
           label="Tapis de sol"
-          value={integrated ? "OUI" : "NON"}
+          value={integrated ? "INTÉGRÉ" : "NORMAL"}
           setValue={(value) =>
             setIntegrated(value === "INTÉGRÉ" ? true : false)
           }
