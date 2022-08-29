@@ -5,9 +5,8 @@ import { Modal } from "@/components/ui/modal"
 import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import { units } from "@/utils/unit"
-import { Group, Unit } from "@prisma/client"
+import { Group, State, Unit } from "@prisma/client"
 import { FC, useState } from "react"
-import { stateColors } from "../dashboard/StateChart"
 import { SingleTent } from "./TentCard"
 import TentInput from "./TentInput"
 import TentViewPanel from "./TentViewPanel"
@@ -82,10 +81,9 @@ const TentUpdatePanel: FC<
       </div>
       <div className="space-y-2">
         <TentInput
-          type="unit"
           label={`Attribué au${unit !== "GROUPE" ? "x" : ""}`}
           value={unit}
-          setValue={setUnit}
+          setValue={(value) => setUnit(value as Unit)}
           options={Object.entries(units[movement]).map(([key, value]) => [
             key as Unit,
             value,
@@ -93,33 +91,31 @@ const TentUpdatePanel: FC<
         />
         <TentInput
           label="Taille"
-          value={size}
-          setValue={(value: unknown) => {
+          value={size.toString()}
+          setValue={(value) => {
             const int = parseInt(value as string)
             setSize(int)
           }}
           options={[
-            [1, "1 place"],
-            [2, "2 places"],
-            [3, "3 places"],
-            [4, "4 places"],
-            [5, "5 places"],
-            [6, "6 places"],
-            [8, "8 places"],
+            ["1", "1 place"],
+            ["2", "2 places"],
+            ["3", "3 places"],
+            ["4", "4 places"],
+            ["5", "5 places"],
+            ["6", "6 places"],
+            ["8", "8 places"],
           ]}
         />
         <TentInput
-          type="state"
           label="ÉTAT"
           value={state}
-          setValue={setState}
+          setValue={(value) => setState(value as State)}
           options={[
             ["BON", "BON"],
             ["MAUVAIS", "MAUVAIS"],
             ["INUTILISABLE", "INUTILISABLE"],
             ["NEUF", "NEUF"],
           ]}
-          variants={stateColors}
         />
         <TentInput
           label="Complète ?"
@@ -131,7 +127,6 @@ const TentUpdatePanel: FC<
           ]}
         />
         <TentInput
-          type="type"
           label="TYPE"
           value={type.toUpperCase()}
           setValue={setType}

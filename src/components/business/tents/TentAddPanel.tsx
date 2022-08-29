@@ -8,7 +8,6 @@ import { units } from "@/utils/unit"
 import { Group, State, Unit } from "@prisma/client"
 import classNames from "classnames"
 import { FC, useState } from "react"
-import { stateColors } from "../dashboard/StateChart"
 import TentInput from "./TentInput"
 
 const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
@@ -113,10 +112,9 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
       </div>
       <div className="space-y-2">
         <TentInput
-          type="unit"
           label={`Attribué au${unit !== "GROUPE" ? "x" : ""}`}
           value={unit}
-          setValue={setUnit}
+          setValue={(value) => setUnit(value as Unit)}
           options={Object.entries(units[movement]).map(([key, value]) => [
             key as Unit,
             value,
@@ -124,33 +122,31 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
         />
         <TentInput
           label="Taille"
-          value={size}
-          setValue={(value: unknown) => {
+          value={size.toString()}
+          setValue={(value) => {
             const int = parseInt(value as string)
             setSize(int)
           }}
           options={[
-            [1, "1 place"],
-            [2, "2 places"],
-            [3, "3 places"],
-            [4, "4 places"],
-            [5, "5 places"],
-            [6, "6 places"],
-            [8, "8 places"],
+            ["1", "1 place"],
+            ["2", "2 places"],
+            ["3", "3 places"],
+            ["4", "4 places"],
+            ["5", "5 places"],
+            ["6", "6 places"],
+            ["8", "8 places"],
           ]}
         />
         <TentInput
-          type="state"
           label="ÉTAT"
           value={state}
-          setValue={setState}
+          setValue={(value) => setState(value as State)}
           options={[
             ["BON", "BON"],
             ["MAUVAIS", "MAUVAIS"],
             ["INUTILISABLE", "INUTILISABLE"],
             ["NEUF", "NEUF"],
           ]}
-          variants={stateColors}
         />
         <TentInput
           label="Complète ?"
@@ -162,7 +158,6 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
           ]}
         />
         <TentInput
-          type="type"
           label="TYPE"
           value={type.toUpperCase()}
           setValue={setType}

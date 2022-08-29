@@ -1,31 +1,27 @@
-import { Tent } from "@prisma/client"
+import { State } from "@prisma/client"
 import classNames from "classnames"
 import { Dispatch, SetStateAction } from "react"
-import { recordableKeyOf } from "./TentCharacteristic"
+import { stateColors } from "../dashboard/StateChart"
 
-interface TentCharacteristicProps<T extends recordableKeyOf<Tent>> {
-  type?: T
+interface TentInputProps {
   label: string
-  value: Tent[T] | string
-  setValue: Dispatch<SetStateAction<Tent[T]>>
-  options: [Tent[T], string][]
-  variants?: Record<Tent[T] | string, string>
+  value: string
+  setValue: Dispatch<SetStateAction<string>>
+  options: [string, string][]
 }
-
-const TentInput = <T extends recordableKeyOf<Tent>>({
-  label,
-  value,
-  setValue,
-  options,
-  variants,
-}: TentCharacteristicProps<T>) => {
+const TentInput = ({ label, value, setValue, options }: TentInputProps) => {
   return (
     <div
       className={classNames(
         "flex items-center rounded-md text-center text-sm font-semibold",
         {
-          [`${variants ? `${variants[value]} text-white` : "bg-slate-200"}`]:
-            true,
+          [`${
+            Object.entries(State)
+              .map(([, value]) => value)
+              .includes(value as State)
+              ? `${stateColors[value as State]} text-white`
+              : "bg-slate-200"
+          }`]: true,
         },
       )}
     >
@@ -36,7 +32,7 @@ const TentInput = <T extends recordableKeyOf<Tent>>({
         <select
           className="w-full border-none bg-transparent px-4 font-semibold outline-none"
           value={value}
-          onChange={(e) => setValue(e.target.value as Tent[T])}
+          onChange={(e) => setValue(e.target.value)}
         >
           {options.map((option) => (
             <option value={option[0]} key={option[0]} className="text-black">
