@@ -28,9 +28,9 @@ const TentInput = ({ label, value, setValue, options }: TentInputProps) => {
       <span className="w-[50%] truncate rounded-md rounded-r-none bg-black px-1 py-2 text-slate-50">
         {label}
       </span>
-      <div className="w-full px-1 py-1 ">
+      <div className="w-full cursor-pointer pr-1">
         <select
-          className="w-full border-none bg-transparent px-4 font-semibold outline-none"
+          className="w-full cursor-pointer border-none bg-transparent py-1 px-4 font-semibold outline-none"
           value={value}
           onChange={(e) => setValue(e.target.value)}
         >
