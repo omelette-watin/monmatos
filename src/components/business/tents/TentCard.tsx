@@ -26,19 +26,23 @@ const TentCard: FC<
       component: <TentViewPanel tent={tent} />,
       visible: true,
     })
-  const openDeletePanel = () =>
+  const openDeletePanel = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation()
     setModal({
       component: <TentDeletePanel tent={tent} />,
       visible: true,
     })
-  const openUpdatePanel = () =>
+  }
+  const openUpdatePanel = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation()
     setModal({
       component: <TentUpdatePanel tent={tent} />,
       visible: true,
     })
+  }
 
   return (
-    <Card className="cursor-pointer">
+    <Card className="cursor-pointer" onClick={openViewPanel}>
       <div className="space-y-6">
         <div className="flex items-center space-x-3">
           <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-slate-800">
