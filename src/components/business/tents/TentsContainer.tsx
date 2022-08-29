@@ -30,14 +30,14 @@ const TentsContainer: FC<
   return (
     <>
       {!tents.length && (
-        <div className="flex w-full flex-col items-center justify-center gap-4 py-32">
+        <div className="flex w-full flex-col items-center justify-center gap-4 py-24">
           <div className="text-lg font-semibold text-slate-400">
             Vous n'avez pas encore ajouté de tente ...
           </div>
           <Button
             onClick={openAddTentPanel}
             type="button"
-            variant="black"
+            variant="green"
             size="sm"
             className="max-w-fit"
             icon="BsPlusLg"
@@ -60,7 +60,7 @@ const TentsContainer: FC<
         </div>
       ) : (
         tents.length > 0 && (
-          <div className="flex w-full flex-col items-center justify-center gap-4 py-32">
+          <div className="flex w-full flex-col items-center justify-center gap-4 py-24">
             <div className="text-lg font-semibold text-slate-400">
               Aucune tente ne correspond à vos critères de recherche ...
             </div>
