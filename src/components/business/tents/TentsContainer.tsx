@@ -1,5 +1,6 @@
 import Button from "@/components/ui/Button"
 import { useAppContext } from "@/components/ui/hooks/useAppContext"
+import Panel from "@/components/ui/Panel"
 import { Filters } from "@/pages/app/tentes"
 import { UIProps } from "@/utils/typedProps"
 import { Tent } from "@prisma/client"
@@ -28,10 +29,10 @@ const TentsContainer: FC<
     setModal({ component: <TentAddPanel />, visible: true })
 
   return (
-    <>
+    <Panel className="text-center">
       {!tents.length && (
         <div className="flex w-full flex-col items-center justify-center gap-4 py-24">
-          <div className="text-lg font-semibold text-slate-400">
+          <div className="font-medium text-slate-400 sm:text-lg">
             Vous n'avez pas encore ajouté de tente ...
           </div>
           <Button
@@ -61,13 +62,13 @@ const TentsContainer: FC<
       ) : (
         tents.length > 0 && (
           <div className="flex w-full flex-col items-center justify-center gap-4 py-24">
-            <div className="text-lg font-semibold text-slate-400">
+            <div className="font-medium text-slate-400 sm:text-lg">
               Aucune tente ne correspond à vos critères de recherche ...
             </div>
           </div>
         )
       )}
-    </>
+    </Panel>
   )
 }
 
