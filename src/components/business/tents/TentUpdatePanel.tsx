@@ -17,11 +17,7 @@ const TentUpdatePanel: FC<
   const { setModal, setNotification, setTents } = useAppContext()
   const updateMutation = trpc.useMutation(["tents.update"], {
     onSuccess(data) {
-      setTents((prev) =>
-        [...prev.filter((tent) => tent.id !== data.id), data].sort(
-          (a, b) => a.identifyingNum - b.identifyingNum,
-        ),
-      )
+      setTents((prev) => [...prev.filter((tent) => tent.id !== data.id), data])
       setNotification({
         message: "Modifications sauvegardées",
         type: "success",

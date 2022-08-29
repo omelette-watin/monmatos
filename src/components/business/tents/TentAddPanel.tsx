@@ -16,9 +16,7 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
   const { setModal, setNotification, setTents, tents } = useAppContext()
   const updateMutation = trpc.useMutation(["tents.create"], {
     onSuccess(data) {
-      setTents((prev) =>
-        [...prev, data].sort((a, b) => a.identifyingNum - b.identifyingNum),
-      )
+      setTents((prev) => [...prev, data])
       setNotification({
         message: "Votre tente a bien été ajoutée",
         type: "success",
