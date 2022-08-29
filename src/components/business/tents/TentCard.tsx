@@ -48,7 +48,7 @@ const TentCard: FC<
           <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-slate-800">
             <h2 className="text-2xl font-bold">{identifyingNum}</h2>
           </div>
-          <div>
+          <div className="text-left">
             <h3 className="text-lg font-bold leading-tight">
               {units[movement][unit] || "GROUPE"}
             </h3>
