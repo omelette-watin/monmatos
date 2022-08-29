@@ -11,6 +11,7 @@ const variants = {
   red: "text-white bg-red-500 border-red-500",
 }
 const buttonSizes = {
+  xs: "px-4 py-2 text-sm font-medium",
   sm: "px-5 py-2 text-base font-semibold",
   md: "px-7 py-2 text-lg font-semibold",
   lg: "px-9 py-2 text-xl font-semibold",
@@ -29,13 +30,17 @@ const iconMargins = {
     left: "-ml-1 mr-2 w-4",
     right: "ml-2 -mr-1 w-4",
   },
+  xs: {
+    left: "mr-2 w-3",
+    right: "ml-2 w-3",
+  },
 }
 
 const Button: FC<
   UIProps<
     {
       variant?: keyof typeof variants
-      size?: "sm" | "md" | "lg"
+      size?: "sm" | "md" | "lg" | "xs"
       icon?: IconName
       iconPosition?: "left" | "right"
     },
