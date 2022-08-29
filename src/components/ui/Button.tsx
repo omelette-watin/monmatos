@@ -26,8 +26,8 @@ const iconMargins = {
     right: "ml-3 -mr-2 w-4",
   },
   sm: {
-    left: "-ml-2 mr-2 w-4",
-    right: "ml-2 -mr-2 w-4",
+    left: "-ml-1 mr-2 w-4",
+    right: "ml-2 -mr-1 w-4",
   },
 }
 
