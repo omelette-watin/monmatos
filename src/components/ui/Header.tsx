@@ -3,18 +3,21 @@ import cn from "classnames"
 import { signOut } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { FC, HTMLAttributeAnchorTarget, useState } from "react"
+import { FC, HTMLAttributeAnchorTarget, useEffect, useState } from "react"
 import Container from "./Container"
 import Icon from "./Icon"
 import Logo from "./Logo"
 
 const MenuLink: FC<
-  UIProps<{
-    label: string
-    href: string
-    currentPath: string
-    target?: HTMLAttributeAnchorTarget
-  }>
+  UIProps<
+    {
+      label: string
+      href: string
+      currentPath: string
+      target?: HTMLAttributeAnchorTarget
+    },
+    "a"
+  >
 > = ({ href, label, currentPath, className, target }) => {
   const isActive = currentPath === href
 
@@ -34,10 +37,15 @@ const MenuLink: FC<
 }
 
 const MobileSideMenu = () => {
-  const { asPath } = useRouter()
+  const router = useRouter()
+  const asPath = router.asPath
   const [visible, setVisible] = useState(false)
   const showMenu = () => setVisible(true)
   const hideMenu = () => setVisible(false)
+
+  useEffect(() => {
+    hideMenu()
+  }, [router])
 
   return (
     <div className="flex items-center lg:hidden">
