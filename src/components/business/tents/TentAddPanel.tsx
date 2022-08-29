@@ -168,10 +168,12 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
         <TentInput
           label="Tapis de sol"
           value={integrated ? "OUI" : "NON"}
-          setValue={(value) => setIntegrated(value === "OUI" ? true : false)}
+          setValue={(value) =>
+            setIntegrated(value === "INTÉGRÉ" ? true : false)
+          }
           options={[
-            ["OUI", "OUI"],
-            ["NON", "NON"],
+            ["INTÉGRÉ", "INTÉGRÉ"],
+            ["NORMAL", "NORMAL"],
           ]}
         />
       </div>
