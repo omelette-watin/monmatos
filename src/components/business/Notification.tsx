@@ -34,10 +34,10 @@ const Notification = () => {
     <div
       onClick={() => setVisible(false)}
       className={classNames(
-        "fixed right-4 top-20 z-[100] max-w-[90vw] cursor-pointer rounded-lg px-4 py-2 text-white shadow-xl transition-transform duration-500 sm:max-w-[600px] md:pb-1",
+        "fixed left-4 bottom-20 z-[100] max-w-[90vw] cursor-pointer rounded-lg px-4 py-2 text-white shadow-xl transition-transform duration-500 sm:max-w-[600px] md:pb-1",
         variants[notification.type || "success"]["className"],
         {
-          "translate-full-x": !visible || !notification.message,
+          "-translate-full-x": !visible || !notification.message,
           "translate-x-0": visible && notification.message,
         },
       )}
@@ -49,7 +49,7 @@ const Notification = () => {
         />
         <span className="text-sm md:text-base">{notification.message}</span>
       </div>
-      <div className="absolute -top-2 -left-3 flex h-5 w-5 items-center justify-center rounded-full bg-white text-sm text-black shadow-sm">
+      <div className="absolute -top-2 -right-3 flex h-5 w-5 items-center justify-center rounded-full bg-white text-sm text-black shadow-sm">
         <Icon name="CgClose" />
       </div>
     </div>
