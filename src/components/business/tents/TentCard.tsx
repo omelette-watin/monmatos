@@ -42,7 +42,7 @@ const TentCard: FC<
   }
 
   return (
-    <Card className="cursor-pointer" onClick={openViewPanel}>
+    <Card className="max-w-none cursor-pointer" onClick={openViewPanel}>
       <div className="space-y-6">
         <div className="flex items-center space-x-3">
           <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-slate-800">
