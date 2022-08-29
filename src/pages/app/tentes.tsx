@@ -103,36 +103,34 @@ const TentsPage: NextPageWithLayout = () => {
         </button>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-6">
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={openFilterModal}
-            className="flex items-center space-x-2 text-slate-500 transition-colors hover:text-black"
-          >
-            <Icon name="AdjustmentsIcon" />
-            <span className="font-semibold">Filtrer</span>
-          </button>
-          <button
-            type="button"
-            onClick={() =>
-              setSorting((prev) => (prev === "asc" ? "desc" : "asc"))
-            }
-            className="flex items-center space-x-1 text-slate-500 transition-colors hover:text-black"
-          >
-            {sorting === "desc" ? (
-              <>
-                <Icon name="FaSortNumericDown" className="text-lg" />
-                <span className="font-semibold">Ordre croissant</span>
-              </>
-            ) : (
-              <>
-                <Icon name="FaSortNumericDownAlt" className="text-lg" />
-                <span className="font-semibold">Ordre décroissant</span>
-              </>
-            )}
-          </button>
-        </div>
+      <div className="flex flex-wrap items-center justify-end gap-3">
+        <button
+          type="button"
+          onClick={openFilterModal}
+          className="flex items-center space-x-2 text-slate-500 transition-colors hover:text-black"
+        >
+          <Icon name="AdjustmentsIcon" />
+          <span className="font-semibold">Filtrer</span>
+        </button>
+        <button
+          type="button"
+          onClick={() =>
+            setSorting((prev) => (prev === "asc" ? "desc" : "asc"))
+          }
+          className="flex items-center space-x-1 text-slate-500 transition-colors hover:text-black"
+        >
+          {sorting === "desc" ? (
+            <>
+              <Icon name="FaSortNumericDown" className="text-lg" />
+              <span className="font-semibold">Ordre croissant</span>
+            </>
+          ) : (
+            <>
+              <Icon name="FaSortNumericDownAlt" className="text-lg" />
+              <span className="font-semibold">Ordre décroissant</span>
+            </>
+          )}
+        </button>
       </div>
       {isLoading && (
         <div className="m-auto w-fit py-32">
