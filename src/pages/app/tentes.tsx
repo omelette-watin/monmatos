@@ -78,7 +78,7 @@ const TentsPage: NextPageWithLayout = () => {
   }, [router, data])
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div className="flex items-center justify-between gap-4">
         <h1 className="whitespace-nowrap text-4xl font-bold lg:text-5xl">
           <span>Mes </span>
