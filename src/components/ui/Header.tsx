@@ -1,4 +1,5 @@
 import { UIProps } from "@/utils/typedProps"
+import classNames from "classnames"
 import cn from "classnames"
 import { signOut } from "next-auth/react"
 import Link from "next/link"
@@ -127,9 +128,24 @@ const MobileSideMenu = () => {
 
 const Header = () => {
   const { asPath } = useRouter()
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 0)
+
+    window.addEventListener("scroll", handleScroll)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
   return (
-    <div className="bg-main sticky top-0 z-20 border-b shadow-md lg:px-5">
+    <div
+      className={classNames("bg-main sticky top-0 z-20 lg:px-5", {
+        "shadow-lg": scrolled,
+      })}
+    >
       <Container>
         <div className="flex items-center justify-between font-medium">
           <div className="flex items-center">
