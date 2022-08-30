@@ -25,6 +25,7 @@ export const downloadExcel = (
       ["Numéro de tente"]: tent.identifyingNum,
       ["Unité"]: tent.unit,
       ["Nombres de place"]: tent.size,
+      ["Type de tente"]: tent.type,
       ["Tapis de sol intégré"]: tent.integrated ? "OUI" : "NON",
       ["État"]: tent.state,
       ["Complète"]: tent.complete ? "OUI" : "NON",
