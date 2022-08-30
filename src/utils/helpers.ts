@@ -49,8 +49,8 @@ export const copyToClipBoard = async (
     } catch (error) {
       console.error(error)
       callback({
-        message: "Veuillez réessayer plus tard !",
-        type: "error",
+        message: "Presse-papier non pris en charge",
+        type: "warning",
       })
     } finally {
       if (textarea) document.body.removeChild(textarea)
