@@ -7,7 +7,7 @@ import { UIProps } from "@/utils/typedProps"
 import { units } from "@/utils/unit"
 import { Group, State, Unit } from "@prisma/client"
 import classNames from "classnames"
-import { FC, useState } from "react"
+import { FC, FormEvent, useState } from "react"
 import TentInput from "./TentInput"
 
 const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
@@ -43,7 +43,9 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
   const [comments, setComments] = useState("")
   const forbidenIdentifyingNumbers = tents.map((tent) => tent.identifyingNum)
   const closePanel = () => setModal({} as Modal)
-  const handleAdd = () => {
+  const handleAdd = (e: FormEvent) => {
+    e.preventDefault()
+
     if (identifyingNum) {
       updateMutation.mutate({
         identifyingNum,
@@ -59,7 +61,7 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
   }
 
   return (
-    <div className="mx-auto max-w-[450px] space-y-6 py-4">
+    <form className="mx-auto max-w-[450px] space-y-6 py-4" onSubmit={handleAdd}>
       <div
         className={classNames(
           "mx-auto flex h-28 w-28 items-center justify-center rounded-full border-4",
@@ -195,8 +197,7 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
           Annuler
         </Button>
         <Button
-          type="button"
-          onClick={handleAdd}
+          type="submit"
           disabled={!identifyingNum}
           size="sm"
           icon="RiSave2Fill"
@@ -205,7 +206,7 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
           Ajouter
         </Button>
       </div>
-    </div>
+    </form>
   )
 }
 

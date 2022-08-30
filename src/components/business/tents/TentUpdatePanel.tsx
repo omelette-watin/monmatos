@@ -6,7 +6,7 @@ import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import { units } from "@/utils/unit"
 import { Group, State, Unit } from "@prisma/client"
-import { FC, useState } from "react"
+import { FC, FormEvent, useState } from "react"
 import { SingleTent } from "./TentCard"
 import TentInput from "./TentInput"
 import TentViewPanel from "./TentViewPanel"
@@ -44,7 +44,9 @@ const TentUpdatePanel: FC<
       component: <TentViewPanel tent={tent} />,
       visible: true,
     })
-  const handleUpdate = () =>
+  const handleUpdate = (e: FormEvent) => {
+    e.preventDefault()
+
     updateMutation.mutate({
       id: tent.id,
       values: {
@@ -58,9 +60,13 @@ const TentUpdatePanel: FC<
         comments,
       },
     })
+  }
 
   return (
-    <div className="mx-auto max-w-[450px] space-y-6 py-4">
+    <form
+      className="mx-auto max-w-[450px] space-y-6 py-4"
+      onSubmit={handleUpdate}
+    >
       <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full border-4 border-slate-800">
         <h2 className="text-3xl font-bold">{tent.identifyingNum}</h2>
       </div>
@@ -162,8 +168,7 @@ const TentUpdatePanel: FC<
           Annuler
         </Button>
         <Button
-          type="button"
-          onClick={handleUpdate}
+          type="submit"
           size="sm"
           icon="RiSave2Fill"
           className="max-w-fit"
@@ -171,7 +176,7 @@ const TentUpdatePanel: FC<
           Sauvegarder
         </Button>
       </div>
-    </div>
+    </form>
   )
 }
 
