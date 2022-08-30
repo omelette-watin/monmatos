@@ -50,6 +50,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
     partager: {
       1: async () =>
         copyToClipBoard(
+          "Lien",
           `http://localhost:3000/connexion?i=${session.user?.id}&callbackUrl=/app`,
           setNotification,
         ),
@@ -64,7 +65,8 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
           })
         }
       },
-      3: async () => copyToClipBoard(session.user?.id || "", setNotification),
+      3: async () =>
+        copyToClipBoard("Identifiant", session.user?.id || "", setNotification),
     },
     exporter: {
       1: downloadExcel(tents, session.user?.movement as Group["movement"]),

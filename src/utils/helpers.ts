@@ -1,6 +1,7 @@
 import { Notification } from "@/components/business/Notification"
 
 export const copyToClipBoard = async (
+  label: string,
   str: string,
   callback: ({
     message,
@@ -13,7 +14,7 @@ export const copyToClipBoard = async (
   try {
     await navigator.clipboard.writeText(str)
     callback({
-      message: "Lien copié dans le presse-papier !",
+      message: `${label} copié dans le presse-papier !`,
       type: "success",
     })
   } catch (error) {
@@ -42,13 +43,13 @@ export const copyToClipBoard = async (
       textarea.setSelectionRange(0, textarea.value.length)
       document.execCommand("copy")
       callback({
-        message: "Lien copié dans le presse-papier !",
+        message: `${label} copié dans le presse-papier !`,
         type: "success",
       })
     } catch (error) {
       console.error(error)
       callback({
-        message: "Votre navigateur ne supporte pas le presse-papier !",
+        message: "Veuillez réessayer plus tard !",
         type: "error",
       })
     } finally {
