@@ -1,4 +1,4 @@
-import MainLayout from "@/components/ui/layouts/MainLayout"
+import AppLayout from "@/components/ui/layouts/AppLayout"
 import { ReactElement, useEffect, useState } from "react"
 import { NextPageWithLayout } from "../_app"
 import { QrReader } from "react-qr-reader"
@@ -90,7 +90,7 @@ const ScanPage: NextPageWithLayout = () => {
 }
 
 ScanPage.getLayout = (page: ReactElement) => (
-  <MainLayout title="Mon Groupe">{page}</MainLayout>
+  <AppLayout title="Mon Groupe">{page}</AppLayout>
 )
 
 export default ScanPage

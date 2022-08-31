@@ -1,6 +1,6 @@
 import ActionsPanel from "@/components/business/dashboard/ActionsPanel"
 import OverviewPanel from "@/components/business/dashboard/OverviewPanel"
-import MainLayout from "@/components/ui/layouts/MainLayout"
+import AppLayout from "@/components/ui/layouts/AppLayout"
 import Loading from "@/components/ui/Loading"
 import { trpc } from "@/utils/trpc"
 import { useSession } from "next-auth/react"
@@ -35,7 +35,7 @@ const GroupPage: NextPageWithLayout = () => {
 }
 
 GroupPage.getLayout = (page: ReactElement) => (
-  <MainLayout title="Mon Groupe">{page}</MainLayout>
+  <AppLayout title="Mon Groupe">{page}</AppLayout>
 )
 
 export default GroupPage

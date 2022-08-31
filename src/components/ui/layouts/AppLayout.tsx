@@ -4,7 +4,7 @@ import Header from "../Header"
 import Notification from "@/components/business/Notification"
 import Modal from "../modal"
 
-const MainLayout = ({
+const AppLayout = ({
   children,
   title,
 }: {
@@ -23,4 +23,4 @@ const MainLayout = ({
   )
 }
 
-export default MainLayout
+export default AppLayout

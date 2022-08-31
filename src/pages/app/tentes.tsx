@@ -3,7 +3,7 @@ import TentsContainer from "@/components/business/tents/TentsContainer"
 import TentViewPanel from "@/components/business/tents/TentViewPanel"
 import Button from "@/components/ui/Button"
 import { useAppContext } from "@/components/ui/hooks/useAppContext"
-import MainLayout from "@/components/ui/layouts/MainLayout"
+import AppLayout from "@/components/ui/layouts/AppLayout"
 import Loading from "@/components/ui/Loading"
 import { Modal } from "@/components/ui/modal"
 import { trpc } from "@/utils/trpc"
@@ -146,7 +146,7 @@ const TentsPage: NextPageWithLayout = () => {
 }
 
 TentsPage.getLayout = (page: ReactElement) => (
-  <MainLayout title="Mes Tentes">{page}</MainLayout>
+  <AppLayout title="Mes Tentes">{page}</AppLayout>
 )
 
 export default TentsPage
