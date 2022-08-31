@@ -29,7 +29,7 @@ const ScanPage: NextPageWithLayout = () => {
 
   return (
     <div>
-      <div className="flex flex-col items-center justify-center gap-10">
+      <div className="flex flex-col items-center justify-center gap-8">
         <h1 className="whitespace-nowrap text-4xl font-bold lg:text-5xl">
           <span>Scanner ma </span>
           <span className="text-emerald-600">Tente</span>
@@ -49,7 +49,7 @@ const ScanPage: NextPageWithLayout = () => {
             ViewFinder={() => (
               <div
                 className={classNames(
-                  "absolute left-1/2 top-1/2 z-30 h-[90%] w-[93%] -translate-x-1/2 -translate-y-1/2 rounded-lg border-8 border-dashed transition-colors duration-700",
+                  "absolute left-1/2 top-1/2 h-[90%] w-[93%] -translate-x-1/2 -translate-y-1/2 rounded-lg border-8 border-dashed transition-colors duration-700",
                   {
                     "border-green-300": result,
                   },
