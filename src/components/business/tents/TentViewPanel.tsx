@@ -141,7 +141,7 @@ const TentViewPanel: FC<
           <QRCodeCanvas
             id={id}
             size={250}
-            value={`http://localhost:3000/connexion?i=${session?.user?.id}&callbackUrl=/app/tentes?i=${id}`}
+            value={`${process.env.NEXT_PUBLIC_URL}/connexion?i=${session?.user?.id}&callbackUrl=/app/tentes?i=${id}`}
             includeMargin={true}
             className="hidden"
           />

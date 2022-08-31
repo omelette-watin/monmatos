@@ -25,7 +25,7 @@ const AllQRCodes = forwardRef(
                   <QRCodeCanvas
                     id="QR"
                     size={180}
-                    value={`http://localhost:3000/connexion?i=${session.user?.id}&callbackUrl=/app/tentes${tent.id}`}
+                    value={`${process.env.NEXT_PUBLIC_URL}/connexion?i=${session.user?.id}&callbackUrl=/app/tentes${tent.id}`}
                     includeMargin={true}
                   />
                   <p className="text-sm font-semibold">

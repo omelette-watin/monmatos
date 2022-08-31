@@ -44,14 +44,14 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
           visible: true,
           component: <TentAddPanel movement={session?.user?.movement} />,
         }),
-      2: () => router.push("/app/tentes/scanner"),
+      2: () => router.push("/app/scanner"),
       3: () => router.push("app/tentes"),
     },
     partager: {
       1: async () =>
         copyToClipBoard(
           "Lien",
-          `http://localhost:3000/connexion?i=${session.user?.id}&callbackUrl=/app`,
+          `${process.env.NEXT_PUBLIC_URL}/connexion?i=${session.user?.id}&callbackUrl=/app`,
           setNotification,
         ),
       2: async () => {
@@ -152,7 +152,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
             <QRCodeCanvas
               id="QR"
               size={250}
-              value={`http://localhost:3000/connexion?i=${session.user?.id}&callbackUrl=/app`}
+              value={`${process.env.NEXT_PUBLIC_URL}/connexion?i=${session.user?.id}&callbackUrl=/app`}
               includeMargin={true}
               className="hidden"
             />
