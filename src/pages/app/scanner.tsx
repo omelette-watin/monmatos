@@ -90,7 +90,7 @@ const ScanPage: NextPageWithLayout = () => {
 }
 
 ScanPage.getLayout = (page: ReactElement) => (
-  <AppLayout title="Mon Groupe">{page}</AppLayout>
+  <AppLayout title="Scanner une tente">{page}</AppLayout>
 )
 
 export default ScanPage
