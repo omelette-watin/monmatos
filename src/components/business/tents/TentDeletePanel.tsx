@@ -17,7 +17,7 @@ const TentDeletePanel: FC<UIProps<{ tent: SingleTent }>> = ({ tent }) => {
       setTents((prev) => prev.filter((tent) => tent.id !== id))
       setModal({} as Modal)
       setNotification({
-        message: `la tente ${identifyingNum} a bien été supprimée !`,
+        message: `la tente ${identifyingNum} a bien été supprimée`,
         type: "success",
       })
     },
