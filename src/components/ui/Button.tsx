@@ -36,8 +36,8 @@ const iconMargins = {
     right: "ml-2 w-3",
   },
   xxs: {
-    left: "mr-1 w-2",
-    right: "ml-1 w-2",
+    left: "mr-1 w-3",
+    right: "ml-1 w-3",
   },
 }
 
