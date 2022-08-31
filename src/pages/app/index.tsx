@@ -24,7 +24,9 @@ const GroupPage: NextPageWithLayout = () => {
         )}
       >
         <span>Groupe </span>
-        <span className="text-emerald-600">{data?.user?.name}</span>
+        <span className="text-emerald-600">
+          {data?.user?.name || "placeholder"}
+        </span>
       </h1>
       {isLoading && (
         <div className="m-auto w-fit py-32">
