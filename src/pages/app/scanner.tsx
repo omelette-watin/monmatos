@@ -14,6 +14,12 @@ const ScanPage: NextPageWithLayout = () => {
   const [result, setResult] = useState("")
 
   useEffect(() => {
+    router.prefetch("/app/tentes")
+    router.prefetch("/inscription")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
     if (result && session) {
       const url = new URL(result)
       const queries = url.search.split("&callbackUrl=")

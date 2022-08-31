@@ -2,8 +2,8 @@ import classNames from "classnames"
 import { signOut } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useCallback, useEffect, useState } from "react"
-import Button from "./Button"
+import { useEffect, useState } from "react"
+import ButtonLink from "./ButtonLink"
 import Container from "./Container"
 import HeaderLink from "./HeaderLink"
 import Icon from "./Icon"
@@ -15,7 +15,6 @@ const Header = () => {
   const { asPath } = router
   const isPublic = !asPath.startsWith("/app")
   const [scrolled, setScrolled] = useState(false)
-  const goToConnexion = useCallback(() => router.push("/connexion"), [router])
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 0)
@@ -84,14 +83,14 @@ const Header = () => {
                   href={"/nous-soutenir"}
                   className="px-4"
                 />
-                <Button
+                <ButtonLink
+                  href="/connection"
                   size="xxs"
                   className="max-w-fit"
                   variant="black"
-                  onClick={goToConnexion}
                 >
                   Me connecter
-                </Button>
+                </ButtonLink>
               </>
             ) : (
               <>

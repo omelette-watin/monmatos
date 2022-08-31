@@ -5,7 +5,6 @@ import Icon from "@/components/ui/Icon"
 import Panel from "@/components/ui/Panel"
 import { UIProps } from "@/utils/typedProps"
 import { Session } from "next-auth"
-import { useRouter } from "next/router"
 import { FC, useRef } from "react"
 import { QRCodeCanvas } from "qrcode.react"
 import { downloadExcel, downloadImageFromCanvas } from "@/utils/downloadFns"
@@ -14,12 +13,12 @@ import { useReactToPrint } from "react-to-print"
 import AllQRCodes from "./AllQRCodes"
 import { copyToClipBoard } from "@/utils/helpers"
 import TentAddPanel from "../tents/TentAddPanel"
+import ButtonLink from "@/components/ui/ButtonLink"
 
 const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
   session,
   tents,
 }) => {
-  const router = useRouter()
   const { setNotification, setModal } = useAppContext()
   const pdfRef = useRef<HTMLDivElement>(null)
   const handlePrint = useReactToPrint({
@@ -44,8 +43,6 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
           visible: true,
           component: <TentAddPanel movement={session?.user?.movement} />,
         }),
-      2: () => router.push("/app/scanner"),
-      3: () => router.push("app/tentes"),
     },
     partager: {
       1: async () =>
@@ -96,24 +93,22 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
             >
               Ajouter une tente
             </Button>
-            <Button
-              onClick={actions["tentes"][2]}
-              type="button"
+            <ButtonLink
+              href="/app/scanner"
               variant="black"
               icon="MdOutlineQrCodeScanner"
               size="sm"
             >
               Scanner ma tente
-            </Button>
-            <Button
-              onClick={actions["tentes"][3]}
-              type="button"
+            </ButtonLink>
+            <ButtonLink
+              href="/app/tentes"
               variant="white"
               icon="TiThList"
               size="sm"
             >
               Parcourir les tentes
-            </Button>
+            </ButtonLink>
           </div>
         </Card>
         <Card>

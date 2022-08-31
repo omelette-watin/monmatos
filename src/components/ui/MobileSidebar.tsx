@@ -2,8 +2,9 @@ import classNames from "classnames"
 import { signOut } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect } from "react"
 import Button from "./Button"
+import ButtonLink from "./ButtonLink"
 import HeaderLink from "./HeaderLink"
 import Icon from "./Icon"
 import Logo from "./Logo"
@@ -15,11 +16,6 @@ const MobileSidebar = () => {
   const [visible, setVisible] = useState(false)
   const showMenu = () => setVisible(true)
   const hideMenu = () => setVisible(false)
-  const goToInscription = useCallback(
-    () => router.push("/inscription"),
-    [router],
-  )
-  const goToConnexion = useCallback(() => router.push("/connexion"), [router])
 
   useEffect(() => {
     hideMenu()
@@ -81,25 +77,23 @@ const MobileSidebar = () => {
                 </div>
 
                 <div className="flex w-full flex-col items-center space-y-3">
-                  <Button
-                    type="button"
+                  <ButtonLink
+                    href="/connexion"
                     size="xs"
                     variant="black"
                     className="-ml-1 max-w-fit"
-                    onClick={goToConnexion}
                   >
                     Me connecter
-                  </Button>
+                  </ButtonLink>
                   <p className="text-base text-slate-500">ou</p>
-                  <Button
-                    type="button"
+                  <ButtonLink
+                    href="/inscription"
                     size="xs"
                     variant="blue"
                     className="-ml-1 max-w-fit"
-                    onClick={goToInscription}
                   >
                     Inscrire mon groupe
-                  </Button>
+                  </ButtonLink>
                 </div>
               </>
             ) : (

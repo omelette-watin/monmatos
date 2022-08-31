@@ -3,14 +3,14 @@ import { FC } from "react"
 import Icon, { IconName } from "./Icon"
 import cn from "classnames"
 
-const variants = {
+export const buttonVariants = {
   green: "text-white bg-emerald-500 border-emerald-500",
   black: "text-white bg-black border-black",
   blue: "text-white bg-blue-500 border-blue-500",
   white: "text-black bg-main border-black",
   red: "text-white bg-red-500 border-red-500",
 }
-const buttonSizes = {
+export const buttonSizes = {
   xxs: "px-3 py-[6px] text-xs font-medium",
   xs: "px-4 py-2 text-sm font-medium",
   sm: "px-5 py-2 text-base font-semibold",
@@ -18,7 +18,7 @@ const buttonSizes = {
   lg: "px-9 py-2 text-xl font-semibold",
 }
 
-const iconMargins = {
+export const iconMargins = {
   lg: {
     left: "-ml-4 mr-3 w-6",
     right: "ml-3 -mr-4 w-6",
@@ -44,7 +44,7 @@ const iconMargins = {
 const Button: FC<
   UIProps<
     {
-      variant?: keyof typeof variants
+      variant?: keyof typeof buttonVariants
       size?: "sm" | "md" | "lg" | "xs" | "xxs"
       icon?: IconName
       iconPosition?: "left" | "right"
@@ -67,7 +67,7 @@ const Button: FC<
       {...otherProps}
       className={cn(
         "flex w-full items-center justify-center rounded-xl border shadow-lg transition hover:scale-[0.98] hover:shadow-sm disabled:opacity-50 disabled:shadow-lg disabled:hover:scale-100",
-        variants[variant],
+        buttonVariants[variant],
         buttonSizes[size],
         className,
       )}
