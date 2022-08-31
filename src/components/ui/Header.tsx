@@ -9,6 +9,7 @@ import HeaderLink from "./HeaderLink"
 import Icon from "./Icon"
 import Logo from "./Logo"
 import MobileSidebar from "./MobileSidebar"
+import Tooltip from "./Tooltip"
 
 const Header = () => {
   const router = useRouter()
@@ -107,10 +108,11 @@ const Header = () => {
                   target="_blank"
                 />
                 <button
-                  className="px-4"
+                  className="group relative px-4"
                   type="button"
                   onClick={() => signOut({ callbackUrl: "/connexion" })}
                 >
+                  <Tooltip className="-left-10">Déconnexion</Tooltip>
                   <Icon name="LogoutIcon" />
                 </button>
               </>
