@@ -106,14 +106,6 @@ const TentsPage: NextPageWithLayout = () => {
       <div className="flex flex-wrap items-center justify-end gap-3">
         <button
           type="button"
-          onClick={openFilterModal}
-          className="flex items-center space-x-2 text-slate-500 transition-colors hover:text-black"
-        >
-          <Icon name="AdjustmentsIcon" />
-          <span className="font-semibold">Filtrer</span>
-        </button>
-        <button
-          type="button"
           onClick={() =>
             setSorting((prev) => (prev === "asc" ? "desc" : "asc"))
           }
@@ -130,6 +122,14 @@ const TentsPage: NextPageWithLayout = () => {
               <span className="font-semibold">Ordre décroissant</span>
             </>
           )}
+        </button>
+        <button
+          type="button"
+          onClick={openFilterModal}
+          className="flex items-center space-x-2 text-slate-500 transition-colors hover:text-black"
+        >
+          <Icon name="AdjustmentsIcon" />
+          <span className="font-semibold">Filtrer</span>
         </button>
       </div>
       {isLoading && (
