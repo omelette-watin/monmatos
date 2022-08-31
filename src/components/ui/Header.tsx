@@ -84,7 +84,7 @@ const Header = () => {
                   className="px-4"
                 />
                 <ButtonLink
-                  href="/connection"
+                  href="/connexion"
                   size="xxs"
                   className="max-w-fit"
                   variant="black"
