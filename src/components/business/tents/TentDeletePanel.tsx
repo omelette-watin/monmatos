@@ -48,7 +48,7 @@ const TentDeletePanel: FC<UIProps<{ tent: SingleTent }>> = ({ tent }) => {
           Voulez vraiment <span className="text-red-500">supprimer</span> la
           tente numéro {identifyingNum} ?
         </p>
-        <div className="mx-auto flex w-fit items-center space-x-2 rounded-md bg-amber-100 py-1 px-2 text-sm font-medium text-amber-700 sm:text-base">
+        <div className="mx-auto flex w-fit items-center space-x-2 rounded-md bg-amber-100 py-1 px-2 text-sm font-medium text-amber-800 sm:text-base">
           <Icon name="MdOutlineErrorOutline" className="text-xl" />
           <span>Attention cette action est irreversible !</span>
         </div>
