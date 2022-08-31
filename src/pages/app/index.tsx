@@ -13,10 +13,12 @@ const GroupPage: NextPageWithLayout = () => {
 
   return (
     <div className="space-y-10">
-      <h1 className="text-4xl font-bold lg:text-5xl">
-        <span>Groupe </span>
-        <span className="text-emerald-600">{data?.user?.name}</span>
-      </h1>
+      {data?.user?.name && (
+        <h1 className="text-4xl font-bold lg:text-5xl">
+          <span>Groupe </span>
+          <span className="text-emerald-600">{data.user.name}</span>
+        </h1>
+      )}
       {isLoading && (
         <div className="m-auto w-fit py-32">
           <Loading />
