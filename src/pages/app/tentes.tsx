@@ -1,28 +1,17 @@
-import TentInput from "@/components/business/tents/TentInput"
 import TentsContainer from "@/components/business/tents/TentsContainer"
 import TentViewPanel from "@/components/business/tents/TentViewPanel"
 import Button from "@/components/ui/Button"
 import { useAppContext } from "@/components/ui/hooks/useAppContext"
 import AppLayout from "@/components/ui/layouts/AppLayout"
 import Loading from "@/components/ui/Loading"
-import { Modal } from "@/components/ui/modal"
 import { trpc } from "@/utils/trpc"
-import { UIProps } from "@/utils/typedProps"
-import { units } from "@/utils/unit"
-import { State, Tent, Unit } from "@prisma/client"
-import Head from "next/head"
+import { Tent } from "@prisma/client"
 import { useRouter } from "next/router"
-import {
-  Dispatch,
-  FC,
-  ReactElement,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react"
+import { ReactElement, useEffect, useState } from "react"
 import { NextPageWithLayout } from "../_app"
 import TentAddPanel from "@/components/business/tents/TentAddPanel"
 import Icon from "@/components/ui/Icon"
+import TentFilterPanel from "@/components/business/tents/TentFilterPanel"
 
 export type Filters = {
   size: Tent["size"] | null
@@ -47,7 +36,7 @@ const TentsPage: NextPageWithLayout = () => {
     })
   const openFilterModal = () =>
     setModal({
-      component: <TentFilter filters={filters} setFilters={setFilters} />,
+      component: <TentFilterPanel filters={filters} setFilters={setFilters} />,
       visible: true,
     })
 
@@ -150,109 +139,3 @@ TentsPage.getLayout = (page: ReactElement) => (
 )
 
 export default TentsPage
-
-export const TentFilter: FC<
-  UIProps<{ filters: Filters; setFilters: Dispatch<SetStateAction<Filters>> }>
-> = ({ filters, setFilters }) => {
-  const { setModal } = useAppContext()
-  const [wantedFilters, setWantedFilters] = useState<Filters>(filters)
-  const resetFilters = () => {
-    setWantedFilters({
-      size: null,
-      unit: null,
-      state: null,
-    })
-  }
-  const applyFilters = () => {
-    setFilters(wantedFilters)
-    setModal({} as Modal)
-  }
-  const getOptions = (obj: Record<string, string>) =>
-    [
-      ...Object.entries(obj).map(
-        ([key, value]) => [key, value] as [string, string],
-      ),
-      ["TOUTES", "TOUTES"],
-    ] as [string, string][]
-
-  return (
-    <>
-      <Head>
-        <title>Filtrer mes tentes | MonMatos</title>
-      </Head>
-      <div className="mx-auto max-w-[450px] space-y-2 py-4">
-        <h2 className="mb-8 text-3xl font-bold">Choisir mes filtres</h2>
-        <TentInput
-          value={wantedFilters.unit || "TOUTES"}
-          label="Par unité"
-          setValue={(value) =>
-            setWantedFilters((prev) => {
-              return {
-                ...prev,
-                unit: value === "TOUTES" ? null : (value as Unit),
-              }
-            })
-          }
-          options={getOptions(units["SGDF"])}
-        />
-        <TentInput
-          value={wantedFilters.state || "TOUTES"}
-          label="Par état"
-          setValue={(value) =>
-            setWantedFilters((prev) => {
-              return {
-                ...prev,
-                state: value === "TOUTES" ? null : (value as State),
-              }
-            })
-          }
-          options={getOptions(State)}
-        />
-        <TentInput
-          value={wantedFilters.size?.toString() || "TOUTES"}
-          label="Par taille"
-          setValue={(value) =>
-            setWantedFilters((prev) => {
-              return {
-                ...prev,
-                size: value === "TOUTES" ? null : parseInt(value as string),
-              }
-            })
-          }
-          options={getOptions({
-            1: "1 place",
-            2: "2 places",
-            3: "3 places",
-            4: "4 places",
-            5: "5 places",
-            6: "6 places",
-            8: "8 places",
-            10: "10 places",
-          })}
-        />
-        <div className="flex flex-wrap items-center justify-center gap-4 py-9">
-          <Button
-            type="button"
-            onClick={resetFilters}
-            icon="GrPowerReset"
-            variant="white"
-            size="sm"
-            className="max-w-fit"
-          >
-            Réinitialiser
-          </Button>
-          <Button
-            type="button"
-            onClick={applyFilters}
-            icon="FaFilter"
-            variant="blue"
-            size="sm"
-            className="max-w-fit"
-          >
-            Filtrer
-          </Button>
-        </div>
-      </div>
-    </>
-  )
-}
