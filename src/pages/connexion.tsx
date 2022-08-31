@@ -9,7 +9,7 @@ import { useCallback } from "react"
 const SignInPage: NextPage = () => {
   const { query } = useRouter()
   const groupId = query.i as string
-  const callbackUrl = (query.callbackUrl as string) || "/"
+  const callbackUrl = (query.callbackUrl as string) || "/app"
   const credsError = query.error as string
   const errorMessage = credsError ? "Identifiant incorrect" : null
 
