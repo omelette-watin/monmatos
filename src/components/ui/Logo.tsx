@@ -45,11 +45,12 @@ const Logo: FC<
     size?: keyof typeof sizes
     white?: boolean
   }>
-> = ({ size = "md", white }) => {
+> = ({ size = "md", white, className }) => {
   return (
     <div
       className={cn(
         "flex items-center truncate font-bold",
+        className,
         sizes[size].className,
         {
           "text-emerald-600": !white,
