@@ -1,13 +1,12 @@
-import AppLayout from "@/components/ui/layouts/AppLayout"
-import { ReactElement, useEffect, useState } from "react"
-import { NextPageWithLayout } from "../_app"
+import { useEffect, useState } from "react"
 import { QrReader } from "react-qr-reader"
 import classNames from "classnames"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import Icon from "@/components/ui/Icon"
+import Head from "next/head"
 
-const ScanPage: NextPageWithLayout = () => {
+const TentScanPanel = () => {
   const router = useRouter()
   const { data: session } = useSession()
   const [error, setError] = useState("")
@@ -15,7 +14,7 @@ const ScanPage: NextPageWithLayout = () => {
 
   useEffect(() => {
     router.prefetch("/app/tentes")
-    router.prefetch("/inscription")
+    router.prefetch("/connexion")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -34,9 +33,12 @@ const ScanPage: NextPageWithLayout = () => {
   }, [result, session, router])
 
   return (
-    <div>
+    <>
+      <Head>
+        <title>Scanner une tente | MonMatos</title>
+      </Head>
       <div className="flex flex-col items-center justify-center gap-8">
-        <h1 className="whitespace-nowrap text-4xl font-bold lg:text-5xl">
+        <h1 className="whitespace-nowrap text-2xl font-bold lg:text-3xl">
           <span>Scanner ma </span>
           <span className="text-emerald-600">Tente</span>
         </h1>
@@ -44,7 +46,6 @@ const ScanPage: NextPageWithLayout = () => {
           <QrReader
             onResult={(result, error) => {
               if (error) {
-                console.log(error)
                 setError(error.message)
               }
 
@@ -91,12 +92,8 @@ const ScanPage: NextPageWithLayout = () => {
           </span>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
-ScanPage.getLayout = (page: ReactElement) => (
-  <AppLayout title="Scanner une tente">{page}</AppLayout>
-)
-
-export default ScanPage
+export default TentScanPanel

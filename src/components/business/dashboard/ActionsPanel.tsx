@@ -14,6 +14,7 @@ import AllQRCodes from "./AllQRCodes"
 import { copyToClipBoard } from "@/utils/helpers"
 import TentAddPanel from "../tents/TentAddPanel"
 import ButtonLink from "@/components/ui/ButtonLink"
+import TentScanPanel from "@/components/business/tents/TentScanPanel"
 
 const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
   session,
@@ -42,6 +43,11 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
         setModal({
           visible: true,
           component: <TentAddPanel movement={session?.user?.movement} />,
+        }),
+      2: () =>
+        setModal({
+          visible: true,
+          component: <TentScanPanel />,
         }),
     },
     partager: {
@@ -93,14 +99,15 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
             >
               Ajouter une tente
             </Button>
-            <ButtonLink
-              href="/app/scanner"
+            <Button
+              onClick={actions["tentes"][2]}
+              type="button"
               variant="black"
               icon="MdOutlineQrCodeScanner"
               size="sm"
             >
               Scanner ma tente
-            </ButtonLink>
+            </Button>
             <ButtonLink
               href="/app/tentes"
               variant="white"
