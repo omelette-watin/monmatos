@@ -1,6 +1,6 @@
 import { UIProps } from "@/utils/typedProps"
+import classNames from "classnames"
 import { FC } from "react"
-import cn from "classnames"
 
 const sizes = {
   xs: {
@@ -25,14 +25,14 @@ const sizes = {
     },
   },
   lg: {
-    className: "text-3xl space-x-3",
+    className: "text-3xl space-x-3 font-extrabold",
     svgProps: {
       width: 40,
       height: 40,
     },
   },
   xl: {
-    className: "text-5xl space-x-4",
+    className: "text-5xl space-x-4 font-black",
     svgProps: {
       width: 60,
       height: 60,
@@ -48,7 +48,7 @@ const Logo: FC<
 > = ({ size = "md", white, className }) => {
   return (
     <div
-      className={cn(
+      className={classNames(
         "flex items-center truncate font-bold",
         className,
         sizes[size].className,
