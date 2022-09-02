@@ -1,7 +1,7 @@
 import { UIProps } from "@/utils/typedProps"
+import cn from "classnames"
 import { FC } from "react"
 import Icon, { IconName } from "./Icon"
-import cn from "classnames"
 
 export const buttonVariants = {
   green: "text-white bg-emerald-500 border-emerald-500",
@@ -13,9 +13,9 @@ export const buttonVariants = {
 export const buttonSizes = {
   xxs: "px-3 py-[6px] text-xs font-medium",
   xs: "px-4 py-2 text-sm font-medium",
-  sm: "px-5 py-2 text-base font-semibold",
-  md: "px-7 py-2 text-lg font-semibold",
-  lg: "px-9 py-2 text-xl font-semibold",
+  sm: "px-5 py-2 text-base font-medium",
+  md: "px-6 py-2 text-lg font-semibold",
+  lg: "px-7 py-2 text-xl font-semibold",
 }
 
 export const iconMargins = {
@@ -24,8 +24,8 @@ export const iconMargins = {
     right: "ml-3 -mr-4 w-6",
   },
   md: {
-    left: "-ml-2 mr-3 w-4",
-    right: "ml-3 -mr-2 w-4",
+    left: "-ml-1 mr-3 w-5",
+    right: "ml-3 -mr-1 w-5",
   },
   sm: {
     left: "-ml-1 mr-2 w-4",
@@ -36,7 +36,7 @@ export const iconMargins = {
     right: "ml-2 w-3",
   },
   xxs: {
-    left: "mr-2-ml-1 w-3",
+    left: "mr-2 -ml-1 w-3",
     right: "ml-2 -mr-1 w-3",
   },
 }
