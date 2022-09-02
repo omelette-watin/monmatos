@@ -1,6 +1,6 @@
+import { prisma } from "@/server/db/client"
 import NextAuth, { type NextAuthOptions } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
-import { prisma } from "@/server/db/client"
 
 import { loginSchema } from "@/common/validation/auth"
 
@@ -43,12 +43,10 @@ export const authOptions: NextAuthOptions = {
       return token
     },
     session: async ({ session, token: { user } }) => {
-      if (session.user) {
-        session.user = {
-          id: user.id,
-          name: user.name,
-          movement: user.movement,
-        }
+      session.user = {
+        id: user.id,
+        name: user.name,
+        movement: user.movement,
       }
 
       return session
