@@ -151,12 +151,10 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
             label="ÉTAT"
             value={state}
             setValue={(value) => setState(value as State)}
-            options={[
-              ["BON", "BON"],
-              ["MAUVAIS", "MAUVAIS"],
-              ["INUTILISABLE", "INUTILISABLE"],
-              ["NEUF", "NEUF"],
-            ]}
+            options={Object.entries(State).map(([key, value]) => [
+              key as Unit,
+              value,
+            ])}
           />
           <TentInput
             label="Complète ?"
