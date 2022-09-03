@@ -48,6 +48,7 @@ const TentsPage: NextPageWithLayout = () => {
         visible: true,
         component: <TentAddPanel />,
       })
+      router.replace("/app/tentes", undefined, { shallow: true })
 
       return
     }
