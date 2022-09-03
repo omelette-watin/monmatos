@@ -1,4 +1,3 @@
-import TentScanPanel from "@/components/business/tents/TentScanPanel"
 import Button from "@/components/ui/Button"
 import ButtonLink from "@/components/ui/ButtonLink"
 import Card from "@/components/ui/Card"
@@ -19,7 +18,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
   session,
   tents,
 }) => {
-  const { setNotification, setModal } = useAppContext()
+  const { setNotification } = useAppContext()
   const pdfRef = useRef<HTMLDivElement>(null)
   const handlePrint = useReactToPrint({
     content: () => pdfRef.current as HTMLDivElement,
@@ -34,17 +33,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
       })
     },
   })
-  const actions: Record<
-    "tentes" | "partager" | "exporter",
-    Record<number, () => void>
-  > = {
-    tentes: {
-      1: () =>
-        setModal({
-          visible: true,
-          component: <TentScanPanel />,
-        }),
-    },
+  const actions: Record<"partager" | "exporter", Record<number, () => void>> = {
     partager: {
       1: async () =>
         copyToClipBoard(
@@ -94,15 +83,14 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
             >
               Ajouter une tente
             </ButtonLink>
-            <Button
-              onClick={actions["tentes"][1]}
-              type="button"
+            <ButtonLink
+              href="/scan"
               variant="black"
               icon="MdOutlineQrCodeScanner"
               size="sm"
             >
               Scanner ma tente
-            </Button>
+            </ButtonLink>
             <ButtonLink
               href="/app/tentes"
               variant="white"
