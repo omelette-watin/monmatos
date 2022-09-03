@@ -1,5 +1,6 @@
 import classNames from "classnames"
-import { ReactNode } from "react"
+import { useRouter } from "next/router"
+import { ReactNode, useEffect } from "react"
 import { useAppContext } from "../hooks/useAppContext"
 import Icon from "../Icon"
 
@@ -9,12 +10,18 @@ export type Modal = {
 }
 
 const Modal = () => {
+  const router = useRouter()
   const {
     modal: { component, visible },
     setModal,
   } = useAppContext()
 
   const hideModal = () => setModal({} as Modal)
+
+  useEffect(() => {
+    hideModal()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router])
 
   return (
     <>
