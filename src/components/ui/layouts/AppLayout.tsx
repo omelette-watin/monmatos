@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { ReactElement, useEffect } from "react"
 import Header from "../Header"
-import Modal from "../modal"
 import Page from "../Page"
 
 const AppLayout = ({
@@ -32,7 +31,6 @@ const AppLayout = ({
       <Header />
       <Page title={title} className="py-4">
         {children}
-        <Modal />
         <Notification />
       </Page>
     </div>

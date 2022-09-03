@@ -1,6 +1,5 @@
 import ActionsPanel from "@/components/business/dashboard/ActionsPanel"
 import OverviewPanel from "@/components/business/dashboard/OverviewPanel"
-import { TentsContextProvider } from "@/components/business/TentsContext"
 import AppLayout from "@/components/ui/layouts/AppLayout"
 import Loading from "@/components/ui/Loading"
 import { trpc } from "@/utils/trpc"
@@ -45,9 +44,7 @@ const GroupPage: NextPageWithLayout = () => {
 }
 
 GroupPage.getLayout = (page: ReactElement) => (
-  <TentsContextProvider>
-    <AppLayout title="Mon Groupe">{page}</AppLayout>
-  </TentsContextProvider>
+  <AppLayout title="Mon Groupe">{page}</AppLayout>
 )
 
 export default GroupPage

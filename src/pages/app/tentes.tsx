@@ -8,6 +8,7 @@ import { useAppContext } from "@/components/ui/hooks/useAppContext"
 import Icon from "@/components/ui/Icon"
 import AppLayout from "@/components/ui/layouts/AppLayout"
 import Loading from "@/components/ui/Loading"
+import Modal from "@/components/ui/modal"
 import { trpc } from "@/utils/trpc"
 import { Tent } from "@prisma/client"
 import { useRouter } from "next/router"
@@ -143,7 +144,12 @@ const TentsPage: NextPageWithLayout = () => {
 
 TentsPage.getLayout = (page: ReactElement) => (
   <TentsContextProvider>
-    <AppLayout title="Mes Tentes">{page}</AppLayout>
+    <AppLayout title="Mes Tentes">
+      <>
+        {page}
+        <Modal />
+      </>
+    </AppLayout>
   </TentsContextProvider>
 )
 
