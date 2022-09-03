@@ -14,7 +14,12 @@ import TentInput from "./TentInput"
 const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
   movement = "SGDF",
 }) => {
-  const { setModal, setNotification, setTents, tents } = useAppContext()
+  const {
+    setModal,
+    setNotification,
+    setCtxTents: setTents,
+    ctxTents: tents,
+  } = useAppContext()
   const updateMutation = trpc.useMutation(["tents.create"], {
     onSuccess(data) {
       setTents((prev) => [...prev, data])

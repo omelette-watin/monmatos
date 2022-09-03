@@ -15,7 +15,7 @@ import TentViewPanel from "./TentViewPanel"
 const TentUpdatePanel: FC<
   UIProps<{ tent: SingleTent; movement?: Group["movement"] }>
 > = ({ tent, movement = "SGDF" }) => {
-  const { setModal, setNotification, setTents } = useAppContext()
+  const { setModal, setNotification, setCtxTents: setTents } = useAppContext()
   const updateMutation = trpc.useMutation(["tents.update"], {
     onSuccess(data) {
       setTents((prev) => [...prev.filter((tent) => tent.id !== data.id), data])

@@ -11,7 +11,7 @@ import TentViewPanel from "./TentViewPanel"
 
 const TentDeletePanel: FC<UIProps<{ tent: SingleTent }>> = ({ tent }) => {
   const { id, identifyingNum } = tent
-  const { setModal, setNotification, setTents } = useAppContext()
+  const { setModal, setNotification, setCtxTents: setTents } = useAppContext()
   const deleteMutation = trpc.useMutation(["tents.delete"], {
     onSuccess() {
       setTents((prev) => prev.filter((tent) => tent.id !== id))

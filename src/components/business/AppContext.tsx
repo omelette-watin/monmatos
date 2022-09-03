@@ -18,8 +18,8 @@ export type AppContext = {
   setNotification: Dispatch<SetStateAction<Notification>>
   modal: Modal
   setModal: Dispatch<SetStateAction<Modal>>
-  tents: Tents
-  setTents: Dispatch<SetStateAction<Tents>>
+  ctxTents: Tents
+  setCtxTents: Dispatch<SetStateAction<Tents>>
 }
 
 export const AppContext = createContext<AppContext>({} as AppContext)
@@ -38,8 +38,8 @@ export const AppContextProvider: FC<UIProps<{ children: ReactNode }>> = ({
         setNotification,
         modal,
         setModal,
-        tents,
-        setTents,
+        ctxTents: tents,
+        setCtxTents: setTents,
       }}
     >
       {children}
