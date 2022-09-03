@@ -14,7 +14,7 @@ const ScanPage: NextPageWithLayout = () => {
   const { data: session } = useSession()
   const [cameraError, setCameraError] = useState("")
   const [urlError, setUrlError] = useState("")
-  const [result, setResult] = useState("")
+  const [URLResult, setURLResult] = useState("")
 
   useEffect(() => {
     router.prefetch("/app/tentes")
@@ -24,27 +24,23 @@ const ScanPage: NextPageWithLayout = () => {
   }, [])
 
   useEffect(() => {
-    if (result) {
-      const url = new URL(result)
+    if (URLResult) {
+      const url = new URL(URLResult)
 
-      if (url.hostname === process.env.NEXT_PUBLIC_URL) {
-        if (!session) {
-          router.push(url)
-        } else {
-          const queries = url.search.split("&callbackUrl=")
-          const groupId = queries[0]?.substring(3)
-
-          if (groupId === session.user.id && queries[1]) {
-            router.push(queries[1])
-          } else {
-            router.push(url)
-          }
-        }
+      if (!session) {
+        router.push(url)
       } else {
-        setUrlError("Ce QR Code ne vient pas de MonMatos")
+        const queries = url.search.split("&callbackUrl=")
+        const groupId = queries[0]?.substring(3)
+
+        if (groupId === session.user.id && queries[1]) {
+          router.push(queries[1])
+        } else {
+          router.push(url)
+        }
       }
     }
-  }, [result, session, router])
+  }, [URLResult, session, router])
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 py-4">
@@ -62,7 +58,17 @@ const ScanPage: NextPageWithLayout = () => {
               }
 
               if (result) {
-                setResult(result.toString())
+                const resultToString = result.toString()
+
+                if (
+                  resultToString.startsWith(
+                    process.env.NEXT_PUBLIC_URL as string,
+                  )
+                ) {
+                  setURLResult(resultToString)
+                } else {
+                  setUrlError("Ce QR Code ne vient pas de MonMatos")
+                }
               }
             }}
             ViewFinder={() => (
@@ -70,7 +76,7 @@ const ScanPage: NextPageWithLayout = () => {
                 className={classNames(
                   "absolute left-1/2 top-1/2 z-50 h-[90%] w-[93%] -translate-x-1/2 -translate-y-1/2 rounded-lg border-8 border-dashed transition-colors duration-700",
                   {
-                    "border-green-300": result && !urlError,
+                    "border-green-300": URLResult && !urlError,
                     "border-amber-600": urlError,
                   },
                 )}
