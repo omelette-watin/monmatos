@@ -42,6 +42,15 @@ const TentsPage: NextPageWithLayout = () => {
     })
 
   useEffect(() => {
+    if (router.query.t === "add") {
+      setModal({
+        visible: true,
+        component: <TentAddPanel />,
+      })
+
+      return
+    }
+
     if (tents && router.query.i) {
       const targetTent = tents.filter((tent) => tent.id === router.query.i)[0]
       router.replace("/app/tentes", undefined, { shallow: true })

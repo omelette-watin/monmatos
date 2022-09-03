@@ -1,20 +1,19 @@
+import TentScanPanel from "@/components/business/tents/TentScanPanel"
 import Button from "@/components/ui/Button"
+import ButtonLink from "@/components/ui/ButtonLink"
 import Card from "@/components/ui/Card"
 import { useAppContext } from "@/components/ui/hooks/useAppContext"
 import Icon from "@/components/ui/Icon"
 import Panel from "@/components/ui/Panel"
-import { UIProps } from "@/utils/typedProps"
-import { Session } from "next-auth"
-import { FC, useRef } from "react"
-import { QRCodeCanvas } from "qrcode.react"
 import { downloadExcel, downloadImageFromCanvas } from "@/utils/downloadFns"
+import { copyToClipBoard } from "@/utils/helpers"
+import { UIProps } from "@/utils/typedProps"
 import { Group, Tent } from "@prisma/client"
+import { Session } from "next-auth"
+import { QRCodeCanvas } from "qrcode.react"
+import { FC, useRef } from "react"
 import { useReactToPrint } from "react-to-print"
 import AllQRCodes from "./AllQRCodes"
-import { copyToClipBoard } from "@/utils/helpers"
-import TentAddPanel from "../tents/TentAddPanel"
-import ButtonLink from "@/components/ui/ButtonLink"
-import TentScanPanel from "@/components/business/tents/TentScanPanel"
 
 const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
   session,
@@ -40,11 +39,6 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
   > = {
     tentes: {
       1: () =>
-        setModal({
-          visible: true,
-          component: <TentAddPanel movement={session?.user?.movement} />,
-        }),
-      2: () =>
         setModal({
           visible: true,
           component: <TentScanPanel />,
@@ -90,17 +84,16 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
             <span>Tentes</span>
           </h3>
           <div className="flex flex-col items-center justify-center gap-6">
-            <Button
-              onClick={actions["tentes"][1]}
-              type="button"
+            <ButtonLink
+              href="/app/tentes?t=add"
               variant="green"
               size="sm"
               icon="BsPlusLg"
             >
               Ajouter une tente
-            </Button>
+            </ButtonLink>
             <Button
-              onClick={actions["tentes"][2]}
+              onClick={actions["tentes"][1]}
               type="button"
               variant="black"
               icon="MdOutlineQrCodeScanner"
