@@ -25,6 +25,7 @@ const TentUpdatePanel: FC<
         data,
       ])
       setNotification({
+        visible: true,
         message: "Modifications sauvegardées",
         type: "success",
       })
@@ -33,6 +34,7 @@ const TentUpdatePanel: FC<
     onError(error) {
       console.log(error)
       setNotification({
+        visible: true,
         message: "Veuillez réessayer plus tard",
         type: "error",
       })

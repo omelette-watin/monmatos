@@ -27,6 +27,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
     onPrintError(errorLocation, error) {
       console.log({ error, errorLocation })
       setNotification({
+        visible: true,
         message:
           "Votre navigateur est trop ancien, veuillez utiliser un autre appareil",
         type: "error",
@@ -56,6 +57,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
           await downloadImageFromCanvas("QR", `${session.user?.name} QR Code`)
         } catch (error) {
           setNotification({
+            visible: true,
             message:
               "Votre navigateur est trop ancien, veuillez utiliser un autre appareil",
             type: "error",

@@ -65,6 +65,7 @@ const TentsPage: NextPageWithLayout = () => {
       }
 
       setNotification({
+        visible: true,
         type: "error",
         message: "Cette tente n'existe pas",
       })

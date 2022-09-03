@@ -1,21 +1,17 @@
 import { Notification } from "@/components/business/Notification"
+import { Dispatch, SetStateAction } from "react"
 
 export const copyToClipBoard = async (
   label: string,
   str: string,
-  callback: ({
-    message,
-    type,
-  }: {
-    message: Notification["message"]
-    type: Notification["type"]
-  }) => void,
+  callback: Dispatch<SetStateAction<Notification>>,
 ) => {
   try {
     await navigator.clipboard.writeText(str)
     callback({
       message: `${label} copié dans le presse-papier`,
       type: "success",
+      visible: true,
     })
   } catch (error) {
     console.log(error)
@@ -43,12 +39,14 @@ export const copyToClipBoard = async (
       textarea.setSelectionRange(0, textarea.value.length)
       document.execCommand("copy")
       callback({
+        visible: true,
         message: `${label} copié dans le presse-papier`,
         type: "success",
       })
     } catch (error) {
       console.error(error)
       callback({
+        visible: true,
         message: "Presse-papier non pris en charge",
         type: "warning",
       })

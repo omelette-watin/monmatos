@@ -19,12 +19,14 @@ const TentDeletePanel: FC<UIProps<{ tent: SingleTent }>> = ({ tent }) => {
       setCtxTents((prev) => prev.filter((tent) => tent.id !== id))
       setModal({} as Modal)
       setNotification({
+        visible: true,
         message: `la tente ${identifyingNum} a bien été supprimée`,
         type: "success",
       })
     },
     onError() {
       setNotification({
+        visible: true,
         message: "Veuillez réessayer plus tard",
         type: "error",
       })

@@ -37,6 +37,7 @@ const TentViewPanel: FC<
       await downloadImageFromCanvas(id, `tente ${identifyingNum} QR Code`)
     } catch (error) {
       setNotification({
+        visible: true,
         message:
           "Votre navigateur est trop ancien, veuillez utiliser un autre appareil",
         type: "error",

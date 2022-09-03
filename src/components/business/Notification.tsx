@@ -1,11 +1,12 @@
 import classNames from "classnames"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useAppContext } from "../ui/hooks/useAppContext"
 import Icon, { IconName } from "../ui/Icon"
 
 export type Notification = {
   message: string
   type: "error" | "warning" | "success"
+  visible: boolean
 }
 
 const variants: Record<
@@ -27,26 +28,28 @@ const variants: Record<
 }
 
 const Notification = () => {
-  const { notification } = useAppContext()
-  const [visible, setVisible] = useState(false)
-
+  const { notification, setNotification } = useAppContext()
+  const hideNotification = () =>
+    setNotification((prev) => {
+      return { ...prev, visible: false }
+    })
   useEffect(() => {
-    setVisible(true)
-    const timer = setTimeout(() => setVisible(false), 2000)
+    const timer = setTimeout(hideNotification, 2000)
 
     return () => {
       clearTimeout(timer)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notification])
 
   return (
     <div
-      onClick={() => setVisible(false)}
+      onClick={hideNotification}
       className={classNames(
         "fixed bottom-8 right-0 left-0 z-[100] flex w-full items-center justify-center transition-transform duration-200 ease-in-out",
         {
-          "translate-full-y": !visible || !notification.message,
-          "translate-y-0": visible && notification.message,
+          "translate-full-y": !notification.visible || !notification.message,
+          "translate-y-0": notification.visible && notification.message,
         },
       )}
     >

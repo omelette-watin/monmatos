@@ -21,6 +21,7 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
     onSuccess(data) {
       setCtxTents((prev) => [...prev, data])
       setNotification({
+        visible: true,
         message: "Votre tente a bien été ajoutée",
         type: "success",
       })
@@ -31,6 +32,7 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
       forbidenIdentifyingNumbers.push(identifyingNum as number)
       setIdentifyingNum(null)
       setNotification({
+        visible: true,
         message: "Ce numéro de tente est déjà attribué",
         type: "error",
       })
