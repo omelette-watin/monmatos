@@ -13,6 +13,7 @@ import { trpc } from "@/utils/trpc"
 import { Tent } from "@prisma/client"
 import { useRouter } from "next/router"
 import { ReactElement, useEffect, useState } from "react"
+import { toast } from "react-hot-toast"
 import { NextPageWithLayout } from "../_app"
 
 export type Filters = {
@@ -23,7 +24,7 @@ export type Filters = {
 
 const TentsPage: NextPageWithLayout = () => {
   const router = useRouter()
-  const { setNotification, setModal } = useAppContext()
+  const { setModal } = useAppContext()
   const { data: tents, isLoading } = trpc.useQuery(["tents.getAll"])
   const [filters, setFilters] = useState<Filters>({
     size: null,
@@ -66,11 +67,7 @@ const TentsPage: NextPageWithLayout = () => {
         return
       }
 
-      setNotification({
-        visible: true,
-        type: "error",
-        message: "Cette tente n'existe pas",
-      })
+      toast.error("Cette tente n'existe pas")
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, tents])

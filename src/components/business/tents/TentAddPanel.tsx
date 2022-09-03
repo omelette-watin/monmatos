@@ -10,32 +10,23 @@ import { Group, State, Unit } from "@prisma/client"
 import classNames from "classnames"
 import Head from "next/head"
 import { FC, FormEvent, useState } from "react"
+import { toast } from "react-hot-toast"
 import TentInput from "./TentInput"
 
 const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
   movement = "SGDF",
 }) => {
-  const { setModal, setNotification } = useAppContext()
+  const { setModal } = useAppContext()
   const { ctxTents, setCtxTents } = useTentsContext()
   const updateMutation = trpc.useMutation(["tents.create"], {
     onSuccess(data) {
       setCtxTents((prev) => [...prev, data])
-      setNotification({
-        visible: true,
-        message: "Votre tente a bien été ajoutée",
-        type: "success",
-      })
       setModal({} as Modal)
     },
     onError(error) {
       console.log(error)
       forbidenIdentifyingNumbers.push(identifyingNum as number)
       setIdentifyingNum(null)
-      setNotification({
-        visible: true,
-        message: "Ce numéro de tente est déjà attribué",
-        type: "error",
-      })
     },
   })
   const [identifyingNum, setIdentifyingNum] = useState<number | null>(null)
@@ -52,16 +43,23 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
     e.preventDefault()
 
     if (identifyingNum) {
-      updateMutation.mutate({
-        identifyingNum,
-        state,
-        size,
-        unit,
-        complete,
-        integrated,
-        type,
-        comments,
-      })
+      toast.promise(
+        updateMutation.mutateAsync({
+          identifyingNum,
+          state,
+          size,
+          unit,
+          complete,
+          integrated,
+          type,
+          comments,
+        }),
+        {
+          success: "Tente ajoutée !",
+          error: "Veuillez réessayer plus tard",
+          loading: "Ajout en cours ...",
+        },
+      )
     }
   }
 
@@ -82,10 +80,10 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
 
               "border-emerald-500/90 text-emerald-500/90":
                 identifyingNum &&
-                !forbidenIdentifyingNumbers.includes(identifyingNum as number),
+                !forbidenIdentifyingNumbers.includes(identifyingNum),
               "border-red-500/90 text-red-500/90":
                 identifyingNum &&
-                forbidenIdentifyingNumbers.includes(identifyingNum as number),
+                forbidenIdentifyingNumbers.includes(identifyingNum),
             },
           )}
         >
@@ -210,7 +208,10 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
           </Button>
           <Button
             type="submit"
-            disabled={!identifyingNum}
+            disabled={
+              !identifyingNum ||
+              forbidenIdentifyingNumbers.includes(identifyingNum)
+            }
             size="sm"
             icon="RiSave2Fill"
             className="max-w-fit"

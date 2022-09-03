@@ -1,7 +1,7 @@
-import Notification from "@/components/business/Notification"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { ReactElement, useEffect } from "react"
+import { Toaster } from "react-hot-toast"
 import Header from "../Header"
 import Page from "../Page"
 
@@ -29,9 +29,9 @@ const AppLayout = ({
   return (
     <div className="min-h-screen w-[100vw]">
       <Header />
+      <Toaster />
       <Page title={title} className="py-4">
         {children}
-        <Notification />
       </Page>
     </div>
   )

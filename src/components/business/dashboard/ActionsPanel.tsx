@@ -1,10 +1,9 @@
 import Button from "@/components/ui/Button"
 import ButtonLink from "@/components/ui/ButtonLink"
-import { useAppContext } from "@/components/ui/hooks/useAppContext"
 import Icon from "@/components/ui/Icon"
 import Panel from "@/components/ui/Panel"
+import { copyToClipBoard } from "@/utils/copyToClipBoard"
 import { downloadExcel, downloadImageFromCanvas } from "@/utils/downloadFns"
-import { copyToClipBoard } from "@/utils/helpers"
 import { UIProps } from "@/utils/typedProps"
 import { Group, Tent } from "@prisma/client"
 import { Session } from "next-auth"
@@ -15,29 +14,15 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
   session,
   tents,
 }) => {
-  const { setNotification } = useAppContext()
   const actions: Record<"partager" | "exporter", Record<number, () => void>> = {
     partager: {
-      1: async () =>
+      1: () =>
         copyToClipBoard(
           "Lien",
           `${process.env.NEXT_PUBLIC_URL}/connexion?i=${session.user?.id}&callbackUrl=/app`,
-          setNotification,
         ),
-      2: async () => {
-        try {
-          await downloadImageFromCanvas("QR", `${session.user?.name} QR Code`)
-        } catch (error) {
-          setNotification({
-            visible: true,
-            message:
-              "Votre navigateur est trop ancien, veuillez utiliser un autre appareil",
-            type: "error",
-          })
-        }
-      },
-      3: async () =>
-        copyToClipBoard("Identifiant", session.user?.id || "", setNotification),
+      2: () => downloadImageFromCanvas("QR", `${session.user?.name} QR Code`),
+      3: () => copyToClipBoard("Identifiant", session.user?.id || ""),
     },
     exporter: {
       1: downloadExcel(tents, session.user?.movement as Group["movement"]),

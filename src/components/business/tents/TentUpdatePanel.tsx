@@ -9,6 +9,7 @@ import { units } from "@/utils/unit"
 import { Group, State, Unit } from "@prisma/client"
 import Head from "next/head"
 import { FC, FormEvent, useState } from "react"
+import { toast } from "react-hot-toast"
 import { SingleTent } from "./TentCard"
 import TentInput from "./TentInput"
 import TentViewPanel from "./TentViewPanel"
@@ -16,7 +17,7 @@ import TentViewPanel from "./TentViewPanel"
 const TentUpdatePanel: FC<
   UIProps<{ tent: SingleTent; movement?: Group["movement"] }>
 > = ({ tent, movement = "SGDF" }) => {
-  const { setModal, setNotification } = useAppContext()
+  const { setModal } = useAppContext()
   const { setCtxTents } = useTentsContext()
   const updateMutation = trpc.useMutation(["tents.update"], {
     onSuccess(data) {
@@ -24,20 +25,7 @@ const TentUpdatePanel: FC<
         ...prev.filter((tent) => tent.id !== data.id),
         data,
       ])
-      setNotification({
-        visible: true,
-        message: "Modifications sauvegardées",
-        type: "success",
-      })
       setModal({} as Modal)
-    },
-    onError(error) {
-      console.log(error)
-      setNotification({
-        visible: true,
-        message: "Veuillez réessayer plus tard",
-        type: "error",
-      })
     },
   })
   const [state, setState] = useState(tent.state)
@@ -54,20 +42,26 @@ const TentUpdatePanel: FC<
     })
   const handleUpdate = (e: FormEvent) => {
     e.preventDefault()
-
-    updateMutation.mutate({
-      id: tent.id,
-      values: {
-        identifyingNum: tent.identifyingNum,
-        state,
-        size,
-        unit,
-        complete,
-        integrated,
-        type,
-        comments,
+    toast.promise(
+      updateMutation.mutateAsync({
+        id: tent.id,
+        values: {
+          identifyingNum: tent.identifyingNum,
+          state,
+          size,
+          unit,
+          complete,
+          integrated,
+          type,
+          comments,
+        },
+      }),
+      {
+        success: "Modifications sauvegardées !",
+        error: "Veuillez réessayer plus tard",
+        loading: "Sauvegarde en cours ...",
       },
-    })
+    )
   }
 
   return (

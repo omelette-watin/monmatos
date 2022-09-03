@@ -7,32 +7,26 @@ import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import Head from "next/head"
 import { FC } from "react"
+import { toast } from "react-hot-toast"
 import { SingleTent } from "./TentCard"
 import TentViewPanel from "./TentViewPanel"
 
 const TentDeletePanel: FC<UIProps<{ tent: SingleTent }>> = ({ tent }) => {
   const { id, identifyingNum } = tent
-  const { setModal, setNotification } = useAppContext()
+  const { setModal } = useAppContext()
   const { setCtxTents } = useTentsContext()
   const deleteMutation = trpc.useMutation(["tents.delete"], {
     onSuccess() {
       setCtxTents((prev) => prev.filter((tent) => tent.id !== id))
       setModal({} as Modal)
-      setNotification({
-        visible: true,
-        message: `la tente ${identifyingNum} a bien été supprimée`,
-        type: "success",
-      })
-    },
-    onError() {
-      setNotification({
-        visible: true,
-        message: "Veuillez réessayer plus tard",
-        type: "error",
-      })
     },
   })
-  const handleDeletion = () => deleteMutation.mutate(id)
+  const handleDeletion = () =>
+    toast.promise(deleteMutation.mutateAsync(id), {
+      success: "Tente supprimée !",
+      error: "Veuillez réessayer plus tard",
+      loading: "Suppression en cours ...",
+    })
   const goBackToViewPanel = () =>
     setModal({
       component: <TentViewPanel tent={tent} />,
