@@ -1,8 +1,8 @@
+import { useModalContext } from "@/components/business/hooks/useModalContext"
+import { useTentsContext } from "@/components/business/hooks/useTentsContext"
+import { Modal } from "@/components/business/modal"
 import Button from "@/components/ui/Button"
-import { useAppContext } from "@/components/ui/hooks/useAppContext"
-import { useTentsContext } from "@/components/ui/hooks/useTentsContext"
 import Icon from "@/components/ui/Icon"
-import { Modal } from "@/components/ui/modal"
 import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import { units } from "@/utils/unit"
@@ -17,7 +17,7 @@ import TentViewPanel from "./TentViewPanel"
 const TentUpdatePanel: FC<
   UIProps<{ tent: SingleTent; movement?: Group["movement"] }>
 > = ({ tent, movement = "SGDF" }) => {
-  const { setModal } = useAppContext()
+  const { setModal } = useModalContext()
   const { setCtxTents } = useTentsContext()
   const updateMutation = trpc.useMutation(["tents.update"], {
     onSuccess(data) {

@@ -1,14 +1,13 @@
 import { withTRPC } from "@trpc/next"
-import type { AppRouter } from "../server/router"
-import superjson from "superjson"
-import { SessionProvider } from "next-auth/react"
-import "../styles/globals.css"
 import { NextPage } from "next"
-import { ReactElement, ReactNode, useEffect } from "react"
+import { SessionProvider } from "next-auth/react"
 import { AppProps } from "next/app"
-import { AppContextProvider } from "@/components/business/AppContext"
-import NProgress from "nprogress"
 import { Router } from "next/router"
+import NProgress from "nprogress"
+import { ReactElement, ReactNode, useEffect } from "react"
+import superjson from "superjson"
+import type { AppRouter } from "../server/router"
+import "../styles/globals.css"
 
 NProgress.configure({
   showSpinner: false,
@@ -37,9 +36,7 @@ const App = ({
 
   return (
     <SessionProvider session={session}>
-      <AppContextProvider>
-        {getLayout(<Component {...pageProps} />)}
-      </AppContextProvider>
+      {getLayout(<Component {...pageProps} />)}
     </SessionProvider>
   )
 }

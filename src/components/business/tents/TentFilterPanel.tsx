@@ -1,18 +1,18 @@
+import { useModalContext } from "@/components/business/hooks/useModalContext"
+import { Modal } from "@/components/business/modal"
 import Button from "@/components/ui/Button"
-import { useAppContext } from "@/components/ui/hooks/useAppContext"
-import { Modal } from "@/components/ui/modal"
 import { Filters } from "@/pages/app/tentes"
 import { UIProps } from "@/utils/typedProps"
 import { units } from "@/utils/unit"
-import { Unit, State } from "@prisma/client"
+import { State, Unit } from "@prisma/client"
 import Head from "next/head"
-import { FC, Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, FC, SetStateAction, useState } from "react"
 import TentInput from "./TentInput"
 
 const TentFilterPanel: FC<
   UIProps<{ filters: Filters; setFilters: Dispatch<SetStateAction<Filters>> }>
 > = ({ filters, setFilters }) => {
-  const { setModal } = useAppContext()
+  const { setModal } = useModalContext()
   const [wantedFilters, setWantedFilters] = useState<Filters>(filters)
   const resetFilters = () => {
     setWantedFilters({

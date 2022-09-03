@@ -1,5 +1,5 @@
+import { useModalContext } from "@/components/business/hooks/useModalContext"
 import Button from "@/components/ui/Button"
-import { useAppContext } from "@/components/ui/hooks/useAppContext"
 import { downloadImageFromCanvas } from "@/utils/downloadFns"
 import { UIProps } from "@/utils/typedProps"
 import { units } from "@/utils/unit"
@@ -31,7 +31,7 @@ const TentViewPanel: FC<
     updatedAt,
     createdAt,
   } = tent
-  const { setModal } = useAppContext()
+  const { setModal } = useModalContext()
   const downloadQRCode = () =>
     downloadImageFromCanvas(id, `tente ${identifyingNum} QR Code`)
 

@@ -8,30 +8,30 @@ import {
   SetStateAction,
   useState,
 } from "react"
-import { Modal } from "../ui/modal"
+import { Modal } from "."
 
 export type Tents = inferQueryOutput<"tents.getAll">
 
-export type AppContext = {
+export type ModalContext = {
   modal: Modal
   setModal: Dispatch<SetStateAction<Modal>>
 }
 
-export const AppContext = createContext<AppContext>({} as AppContext)
+export const ModalContext = createContext<ModalContext>({} as ModalContext)
 
-export const AppContextProvider: FC<UIProps<{ children: ReactNode }>> = ({
+export const ModalContextProvider: FC<UIProps<{ children: ReactNode }>> = ({
   children,
 }) => {
   const [modal, setModal] = useState({} as Modal)
 
   return (
-    <AppContext.Provider
+    <ModalContext.Provider
       value={{
         modal,
         setModal,
       }}
     >
       {children}
-    </AppContext.Provider>
+    </ModalContext.Provider>
   )
 }

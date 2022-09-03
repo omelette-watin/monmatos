@@ -1,5 +1,5 @@
+import { useModalContext } from "@/components/business/hooks/useModalContext"
 import Card from "@/components/ui/Card"
-import { useAppContext } from "@/components/ui/hooks/useAppContext"
 import Icon from "@/components/ui/Icon"
 import Tooltip from "@/components/ui/Tooltip"
 import { inferQueryOutput } from "@/utils/trpc"
@@ -20,7 +20,7 @@ const TentCard: FC<
   UIProps<{ tent: SingleTent; movement?: Group["movement"] }>
 > = ({ tent, movement = "SGDF" }) => {
   const { identifyingNum, size, unit, state, type } = tent
-  const { setModal } = useAppContext()
+  const { setModal } = useModalContext()
   const openViewPanel = () =>
     setModal({
       component: <TentViewPanel tent={tent} />,

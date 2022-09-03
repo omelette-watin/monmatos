@@ -1,7 +1,7 @@
 import classNames from "classnames"
 import { ReactNode } from "react"
-import { useAppContext } from "../hooks/useAppContext"
-import Icon from "../Icon"
+import Icon from "../../ui/Icon"
+import { useModalContext } from "../hooks/useModalContext"
 
 export type Modal = {
   component: ReactNode
@@ -12,7 +12,7 @@ const Modal = () => {
   const {
     modal: { component, visible },
     setModal,
-  } = useAppContext()
+  } = useModalContext()
 
   const hideModal = () => setModal({} as Modal)
 

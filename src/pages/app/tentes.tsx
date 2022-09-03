@@ -1,14 +1,15 @@
+import { useModalContext } from "@/components/business/hooks/useModalContext"
+import Modal from "@/components/business/modal"
+import { ModalContextProvider } from "@/components/business/modal/ModalContext"
 import TentAddPanel from "@/components/business/tents/TentAddPanel"
 import TentFilterPanel from "@/components/business/tents/TentFilterPanel"
 import TentsContainer from "@/components/business/tents/TentsContainer"
 import TentViewPanel from "@/components/business/tents/TentViewPanel"
 import { TentsContextProvider } from "@/components/business/TentsContext"
 import Button from "@/components/ui/Button"
-import { useAppContext } from "@/components/ui/hooks/useAppContext"
 import Icon from "@/components/ui/Icon"
 import AppLayout from "@/components/ui/layouts/AppLayout"
 import Loading from "@/components/ui/Loading"
-import Modal from "@/components/ui/modal"
 import { trpc } from "@/utils/trpc"
 import { Tent } from "@prisma/client"
 import { useRouter } from "next/router"
@@ -24,7 +25,7 @@ export type Filters = {
 
 const TentsPage: NextPageWithLayout = () => {
   const router = useRouter()
-  const { setModal } = useAppContext()
+  const { setModal } = useModalContext()
   const { data: tents, isLoading } = trpc.useQuery(["tents.getAll"])
   const [filters, setFilters] = useState<Filters>({
     size: null,
@@ -141,14 +142,16 @@ const TentsPage: NextPageWithLayout = () => {
 }
 
 TentsPage.getLayout = (page: ReactElement) => (
-  <TentsContextProvider>
-    <AppLayout title="Mes Tentes">
-      <>
-        {page}
-        <Modal />
-      </>
-    </AppLayout>
-  </TentsContextProvider>
+  <ModalContextProvider>
+    <TentsContextProvider>
+      <AppLayout title="Mes Tentes">
+        <>
+          {page}
+          <Modal />
+        </>
+      </AppLayout>
+    </TentsContextProvider>
+  </ModalContextProvider>
 )
 
 export default TentsPage

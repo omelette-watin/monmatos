@@ -1,6 +1,6 @@
+import { useModalContext } from "@/components/business/hooks/useModalContext"
+import { useTentsContext } from "@/components/business/hooks/useTentsContext"
 import Button from "@/components/ui/Button"
-import { useAppContext } from "@/components/ui/hooks/useAppContext"
-import { useTentsContext } from "@/components/ui/hooks/useTentsContext"
 import Panel from "@/components/ui/Panel"
 import { Filters } from "@/pages/app/tentes"
 import { UIProps } from "@/utils/typedProps"
@@ -16,7 +16,7 @@ const TentsContainer: FC<
     sorting: "asc" | "desc"
   }>
 > = ({ tents, filters, sorting = "asc" }) => {
-  const { setModal } = useAppContext()
+  const { setModal } = useModalContext()
   const { ctxTents, setCtxTents } = useTentsContext()
   const getTentToBeDisplayed = (tents: Tent[]) =>
     tents.filter((tent) => {
