@@ -18,8 +18,6 @@ export type AppContext = {
   setNotification: Dispatch<SetStateAction<Notification>>
   modal: Modal
   setModal: Dispatch<SetStateAction<Modal>>
-  ctxTents: Tents
-  setCtxTents: Dispatch<SetStateAction<Tents>>
 }
 
 export const AppContext = createContext<AppContext>({} as AppContext)
@@ -29,7 +27,6 @@ export const AppContextProvider: FC<UIProps<{ children: ReactNode }>> = ({
 }) => {
   const [notification, setNotification] = useState({} as Notification)
   const [modal, setModal] = useState({} as Modal)
-  const [tents, setTents] = useState([] as Tents)
 
   return (
     <AppContext.Provider
@@ -38,8 +35,6 @@ export const AppContextProvider: FC<UIProps<{ children: ReactNode }>> = ({
         setNotification,
         modal,
         setModal,
-        ctxTents: tents,
-        setCtxTents: setTents,
       }}
     >
       {children}

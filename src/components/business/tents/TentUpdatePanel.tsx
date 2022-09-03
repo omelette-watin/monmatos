@@ -1,5 +1,6 @@
 import Button from "@/components/ui/Button"
 import { useAppContext } from "@/components/ui/hooks/useAppContext"
+import { useTentsContext } from "@/components/ui/hooks/useTentsContext"
 import Icon from "@/components/ui/Icon"
 import { Modal } from "@/components/ui/modal"
 import { trpc } from "@/utils/trpc"
@@ -15,10 +16,14 @@ import TentViewPanel from "./TentViewPanel"
 const TentUpdatePanel: FC<
   UIProps<{ tent: SingleTent; movement?: Group["movement"] }>
 > = ({ tent, movement = "SGDF" }) => {
-  const { setModal, setNotification, setCtxTents: setTents } = useAppContext()
+  const { setModal, setNotification } = useAppContext()
+  const { setCtxTents } = useTentsContext()
   const updateMutation = trpc.useMutation(["tents.update"], {
     onSuccess(data) {
-      setTents((prev) => [...prev.filter((tent) => tent.id !== data.id), data])
+      setCtxTents((prev) => [
+        ...prev.filter((tent) => tent.id !== data.id),
+        data,
+      ])
       setNotification({
         message: "Modifications sauvegardées",
         type: "success",

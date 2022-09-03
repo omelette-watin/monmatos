@@ -1,5 +1,6 @@
 import Button from "@/components/ui/Button"
 import { useAppContext } from "@/components/ui/hooks/useAppContext"
+import { useTentsContext } from "@/components/ui/hooks/useTentsContext"
 import Icon from "@/components/ui/Icon"
 import { Modal } from "@/components/ui/modal"
 import { trpc } from "@/utils/trpc"
@@ -11,10 +12,11 @@ import TentViewPanel from "./TentViewPanel"
 
 const TentDeletePanel: FC<UIProps<{ tent: SingleTent }>> = ({ tent }) => {
   const { id, identifyingNum } = tent
-  const { setModal, setNotification, setCtxTents: setTents } = useAppContext()
+  const { setModal, setNotification } = useAppContext()
+  const { setCtxTents } = useTentsContext()
   const deleteMutation = trpc.useMutation(["tents.delete"], {
     onSuccess() {
-      setTents((prev) => prev.filter((tent) => tent.id !== id))
+      setCtxTents((prev) => prev.filter((tent) => tent.id !== id))
       setModal({} as Modal)
       setNotification({
         message: `la tente ${identifyingNum} a bien été supprimée`,

@@ -1,5 +1,6 @@
 import Button from "@/components/ui/Button"
 import { useAppContext } from "@/components/ui/hooks/useAppContext"
+import { useTentsContext } from "@/components/ui/hooks/useTentsContext"
 import Icon from "@/components/ui/Icon"
 import { Modal } from "@/components/ui/modal"
 import { trpc } from "@/utils/trpc"
@@ -14,15 +15,11 @@ import TentInput from "./TentInput"
 const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
   movement = "SGDF",
 }) => {
-  const {
-    setModal,
-    setNotification,
-    setCtxTents: setTents,
-    ctxTents: tents,
-  } = useAppContext()
+  const { setModal, setNotification } = useAppContext()
+  const { ctxTents, setCtxTents } = useTentsContext()
   const updateMutation = trpc.useMutation(["tents.create"], {
     onSuccess(data) {
-      setTents((prev) => [...prev, data])
+      setCtxTents((prev) => [...prev, data])
       setNotification({
         message: "Votre tente a bien été ajoutée",
         type: "success",
@@ -47,7 +44,7 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
   const [integrated, setIntegrated] = useState(false)
   const [type, setType] = useState("CANADIENNE")
   const [comments, setComments] = useState("")
-  const forbidenIdentifyingNumbers = tents.map((tent) => tent.identifyingNum)
+  const forbidenIdentifyingNumbers = ctxTents.map((tent) => tent.identifyingNum)
   const closePanel = () => setModal({} as Modal)
   const handleAdd = (e: FormEvent) => {
     e.preventDefault()

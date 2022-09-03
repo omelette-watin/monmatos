@@ -1,7 +1,11 @@
+import TentAddPanel from "@/components/business/tents/TentAddPanel"
+import TentFilterPanel from "@/components/business/tents/TentFilterPanel"
 import TentsContainer from "@/components/business/tents/TentsContainer"
 import TentViewPanel from "@/components/business/tents/TentViewPanel"
+import { TentsContextProvider } from "@/components/business/TentsContext"
 import Button from "@/components/ui/Button"
 import { useAppContext } from "@/components/ui/hooks/useAppContext"
+import Icon from "@/components/ui/Icon"
 import AppLayout from "@/components/ui/layouts/AppLayout"
 import Loading from "@/components/ui/Loading"
 import { trpc } from "@/utils/trpc"
@@ -9,9 +13,6 @@ import { Tent } from "@prisma/client"
 import { useRouter } from "next/router"
 import { ReactElement, useEffect, useState } from "react"
 import { NextPageWithLayout } from "../_app"
-import TentAddPanel from "@/components/business/tents/TentAddPanel"
-import Icon from "@/components/ui/Icon"
-import TentFilterPanel from "@/components/business/tents/TentFilterPanel"
 
 export type Filters = {
   size: Tent["size"] | null
@@ -21,8 +22,8 @@ export type Filters = {
 
 const TentsPage: NextPageWithLayout = () => {
   const router = useRouter()
-  const { setTents, tents, setNotification, setModal } = useAppContext()
-  const { data, isLoading } = trpc.useQuery(["tents.getAll"])
+  const { setNotification, setModal } = useAppContext()
+  const { data: tents, isLoading } = trpc.useQuery(["tents.getAll"])
   const [filters, setFilters] = useState<Filters>({
     size: null,
     unit: null,
@@ -41,30 +42,26 @@ const TentsPage: NextPageWithLayout = () => {
     })
 
   useEffect(() => {
-    if (data) {
-      setTents(data)
+    if (tents && router.query.i) {
+      const targetTent = tents.filter((tent) => tent.id === router.query.i)[0]
+      router.replace("/app/tentes", undefined, { shallow: true })
 
-      if (router.query.i) {
-        const targetTent = data.filter((tent) => tent.id === router.query.i)[0]
-        router.replace("/app/tentes", undefined, { shallow: true })
-
-        if (targetTent) {
-          setModal({
-            visible: true,
-            component: <TentViewPanel tent={targetTent} />,
-          })
-
-          return
-        }
-
-        setNotification({
-          type: "error",
-          message: "Cette tente n'existe pas",
+      if (targetTent) {
+        setModal({
+          visible: true,
+          component: <TentViewPanel tent={targetTent} />,
         })
+
+        return
       }
+
+      setNotification({
+        type: "error",
+        message: "Cette tente n'existe pas",
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router, data])
+  }, [router, tents])
 
   return (
     <div className="space-y-6">
@@ -127,7 +124,7 @@ const TentsPage: NextPageWithLayout = () => {
         </div>
       )}
 
-      {!isLoading && (
+      {!isLoading && tents && (
         <TentsContainer tents={tents} filters={filters} sorting={sorting} />
       )}
     </div>
@@ -135,7 +132,9 @@ const TentsPage: NextPageWithLayout = () => {
 }
 
 TentsPage.getLayout = (page: ReactElement) => (
-  <AppLayout title="Mes Tentes">{page}</AppLayout>
+  <TentsContextProvider>
+    <AppLayout title="Mes Tentes">{page}</AppLayout>
+  </TentsContextProvider>
 )
 
 export default TentsPage
