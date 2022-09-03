@@ -31,19 +31,10 @@ const TentViewPanel: FC<
     updatedAt,
     createdAt,
   } = tent
-  const { setModal, setNotification } = useAppContext()
-  const downloadQRCode = async () => {
-    try {
-      await downloadImageFromCanvas(id, `tente ${identifyingNum} QR Code`)
-    } catch (error) {
-      setNotification({
-        visible: true,
-        message:
-          "Votre navigateur est trop ancien, veuillez utiliser un autre appareil",
-        type: "error",
-      })
-    }
-  }
+  const { setModal } = useAppContext()
+  const downloadQRCode = () =>
+    downloadImageFromCanvas(id, `tente ${identifyingNum} QR Code`)
+
   const goToDeletePanel = () =>
     setModal({
       visible: true,

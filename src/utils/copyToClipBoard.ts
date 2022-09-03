@@ -1,18 +1,9 @@
-import { Notification } from "@/components/business/Notification"
-import { Dispatch, SetStateAction } from "react"
+import { toast } from "react-hot-toast"
 
-export const copyToClipBoard = async (
-  label: string,
-  str: string,
-  callback: Dispatch<SetStateAction<Notification>>,
-) => {
+export const copyToClipBoard = async (label: string, str: string) => {
   try {
     await navigator.clipboard.writeText(str)
-    callback({
-      message: `${label} copié dans le presse-papier`,
-      type: "success",
-      visible: true,
-    })
+    toast.success(`${label} copié !`)
   } catch (error) {
     console.log(error)
     let textarea
@@ -38,18 +29,10 @@ export const copyToClipBoard = async (
 
       textarea.setSelectionRange(0, textarea.value.length)
       document.execCommand("copy")
-      callback({
-        visible: true,
-        message: `${label} copié dans le presse-papier`,
-        type: "success",
-      })
+      toast.success(`${label} copié !`)
     } catch (error) {
       console.error(error)
-      callback({
-        visible: true,
-        message: "Presse-papier non pris en charge",
-        type: "warning",
-      })
+      toast.error("Veuillez réessayer plus tard")
     } finally {
       if (textarea) document.body.removeChild(textarea)
     }
