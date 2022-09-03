@@ -84,16 +84,8 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
               Ajouter une tente
             </ButtonLink>
             <ButtonLink
-              href="/scan"
-              variant="black"
-              icon="MdOutlineQrCodeScanner"
-              size="sm"
-            >
-              Scanner ma tente
-            </ButtonLink>
-            <ButtonLink
               href="/app/tentes"
-              variant="white"
+              variant="black"
               icon="TiThList"
               size="sm"
             >

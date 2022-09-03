@@ -129,10 +129,8 @@ const LoginForm: FC<UIProps<{ callbackUrl: string; error: string | null }>> = ({
                   >
                     <div className="space-y-2 p-4 text-sm">
                       <p>
-                        - Si vous avez un QR Code vous pouvez le scanner{" "}
-                        <Link href="/scan">
-                          <a className="font-medium underline">ici</a>
-                        </Link>
+                        - Si vous avez un QR Code vous pouvez le scanner avec
+                        votre caméra
                       </p>
                       <p>- Demandez à ce que l'on vous invite dans le groupe</p>
                     </div>
