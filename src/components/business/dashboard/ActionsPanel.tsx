@@ -1,6 +1,5 @@
 import Button from "@/components/ui/Button"
 import ButtonLink from "@/components/ui/ButtonLink"
-import Card from "@/components/ui/Card"
 import { useAppContext } from "@/components/ui/hooks/useAppContext"
 import Icon from "@/components/ui/Icon"
 import Panel from "@/components/ui/Panel"
@@ -10,29 +9,13 @@ import { UIProps } from "@/utils/typedProps"
 import { Group, Tent } from "@prisma/client"
 import { Session } from "next-auth"
 import { QRCodeCanvas } from "qrcode.react"
-import { FC, useRef } from "react"
-import { useReactToPrint } from "react-to-print"
-import AllQRCodes from "./AllQRCodes"
+import { FC } from "react"
 
 const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
   session,
   tents,
 }) => {
   const { setNotification } = useAppContext()
-  const pdfRef = useRef<HTMLDivElement>(null)
-  const handlePrint = useReactToPrint({
-    content: () => pdfRef.current as HTMLDivElement,
-    documentTitle: `Tentes ${session.user?.name} QRCode.pdf`,
-    onPrintError(errorLocation, error) {
-      console.log({ error, errorLocation })
-      setNotification({
-        visible: true,
-        message:
-          "Votre navigateur est trop ancien, veuillez utiliser un autre appareil",
-        type: "error",
-      })
-    },
-  })
   const actions: Record<"partager" | "exporter", Record<number, () => void>> = {
     partager: {
       1: async () =>
@@ -58,7 +41,6 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
     },
     exporter: {
       1: downloadExcel(tents, session.user?.movement as Group["movement"]),
-      2: handlePrint,
     },
   }
 
@@ -68,16 +50,16 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
         <Icon name="CursorClickIcon" className="w-8" />
         <span>Actions</span>
       </h2>
-      <div className="grid grid-cols-1 gap-5 py-4 sm:grid-cols-2 lg:grid-cols-3">
-        <Card className="max-w-[350px]">
+      <div className="grid grid-cols-1 gap-10 py-4 lg:grid-cols-2">
+        <div className="mx-auto w-full max-w-[350px] space-y-6">
           <h3 className="ml-2 flex items-center space-x-2 self-start text-xl font-semibold">
             <Icon name="TbTent" />
             <span>Tentes</span>
           </h3>
-          <div className="flex flex-col items-center justify-center gap-6">
+          <div className="flex flex-col items-center justify-center gap-3">
             <ButtonLink
               href="/app/tentes?t=add"
-              variant="green"
+              variant="black"
               size="sm"
               icon="BsPlusLg"
             >
@@ -85,20 +67,28 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
             </ButtonLink>
             <ButtonLink
               href="/app/tentes"
-              variant="black"
+              variant="white"
               icon="TiThList"
               size="sm"
             >
               Parcourir les tentes
             </ButtonLink>
+            <Button
+              type="button"
+              icon="RiFileExcel2Fill"
+              size="sm"
+              onClick={actions["exporter"][1]}
+            >
+              Exporter en .xlsx
+            </Button>
           </div>
-        </Card>
-        <Card className="max-w-[350px]">
+        </div>
+        <div className="mx-auto w-full max-w-[350px] space-y-6">
           <h3 className="ml-2 flex items-center space-x-2 self-start text-xl font-semibold">
             <Icon name="FiShare2" />
             <span>Inviter dans le groupe</span>
           </h3>
-          <div className="flex flex-col items-center justify-center gap-6">
+          <div className="flex flex-col items-center justify-center gap-3">
             <Button
               type="button"
               icon="ImLink"
@@ -134,33 +124,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
               className="hidden"
             />
           </div>
-        </Card>
-        <Card className="max-w-[350px]">
-          <h3 className="ml-2 flex items-center space-x-2 self-start text-xl font-semibold">
-            <Icon name="FiShare" />
-            <span>Exporter</span>
-          </h3>
-          <div className="flex flex-col items-center justify-center gap-6">
-            <Button
-              type="button"
-              icon="RiFileExcel2Fill"
-              size="sm"
-              onClick={actions["exporter"][1]}
-            >
-              Exporter en .xlsx
-            </Button>
-            <Button
-              type="button"
-              variant="black"
-              icon="AiOutlinePrinter"
-              size="sm"
-              onClick={actions["exporter"][2]}
-            >
-              Imprimer les QR Codes
-            </Button>
-          </div>
-        </Card>
-        <AllQRCodes session={session} tents={tents} ref={pdfRef} />
+        </div>
       </div>
     </Panel>
   )
