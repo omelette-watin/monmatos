@@ -37,7 +37,7 @@ const TentsContainer: FC<
 
   return (
     <Panel className="text-center">
-      {!ctxTents.length && (
+      {ctxTents && !ctxTents.length && (
         <div className="flex w-full flex-col items-center justify-center gap-4 py-24">
           <div className="font-medium text-slate-400 sm:text-lg">
             Vous n'avez pas encore ajouté de tente ...
