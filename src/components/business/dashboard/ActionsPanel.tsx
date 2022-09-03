@@ -69,7 +69,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
         <span>Actions</span>
       </h2>
       <div className="grid grid-cols-1 gap-5 py-4 sm:grid-cols-2 lg:grid-cols-3">
-        <Card>
+        <Card className="max-w-[350px]">
           <h3 className="ml-2 flex items-center space-x-2 self-start text-xl font-semibold">
             <Icon name="TbTent" />
             <span>Tentes</span>
@@ -93,7 +93,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
             </ButtonLink>
           </div>
         </Card>
-        <Card>
+        <Card className="max-w-[350px]">
           <h3 className="ml-2 flex items-center space-x-2 self-start text-xl font-semibold">
             <Icon name="FiShare2" />
             <span>Inviter dans le groupe</span>
@@ -135,7 +135,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
             />
           </div>
         </Card>
-        <Card>
+        <Card className="max-w-[350px]">
           <h3 className="ml-2 flex items-center space-x-2 self-start text-xl font-semibold">
             <Icon name="FiShare" />
             <span>Exporter</span>
