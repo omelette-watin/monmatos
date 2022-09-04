@@ -1,9 +1,13 @@
 import { toast } from "react-hot-toast"
 
-export const copyToClipBoard = async (label: string, str: string) => {
+export const copyToClipBoard = async (
+  label: string,
+  str: string,
+  id: string,
+) => {
   try {
     await navigator.clipboard.writeText(str)
-    toast.success(`${label} copié !`)
+    toast.success(`${label} copié !`, { id })
   } catch (error) {
     console.log(error)
     let textarea
@@ -29,10 +33,10 @@ export const copyToClipBoard = async (label: string, str: string) => {
 
       textarea.setSelectionRange(0, textarea.value.length)
       document.execCommand("copy")
-      toast.success(`${label} copié !`)
+      toast.success(`${label} copié !`, { id })
     } catch (error) {
       console.error(error)
-      toast.error("Veuillez réessayer plus tard")
+      toast.error("Veuillez réessayer plus tard", { id: `${id}-error` })
     } finally {
       if (textarea) document.body.removeChild(textarea)
     }
