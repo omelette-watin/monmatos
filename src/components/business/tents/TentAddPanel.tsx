@@ -3,6 +3,7 @@ import { useTentsContext } from "@/components/business/hooks/useTentsContext"
 import { Modal } from "@/components/business/modal"
 import Button from "@/components/ui/Button"
 import Icon from "@/components/ui/Icon"
+import Textarea from "@/components/ui/Textarea"
 import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import { units } from "@/utils/unit"
@@ -117,7 +118,6 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
             <span>Choisissez un numéro de tente non attribué</span>
           </div>
         </div>
-
         <div>
           <p className="text-lg font-bold">Informations</p>
           <p>Cliquez sur les éléments afin de les modifier</p>
@@ -189,11 +189,10 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
             ]}
           />
         </div>
-        <textarea
+        <Textarea
+          label="Commentaires"
           value={comments}
           onChange={(e) => setComments(e.target.value)}
-          placeholder="Commentaire"
-          className="w-full p-2"
         />
         <div className="flex flex-wrap items-center justify-center gap-8">
           <Button
