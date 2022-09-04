@@ -3,6 +3,7 @@ import { useTentsContext } from "@/components/business/hooks/useTentsContext"
 import { Modal } from "@/components/business/modal"
 import Button from "@/components/ui/Button"
 import Icon from "@/components/ui/Icon"
+import Textarea from "@/components/ui/Textarea"
 import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import { units } from "@/utils/unit"
@@ -154,11 +155,10 @@ const TentUpdatePanel: FC<
             ]}
           />
         </div>
-        <textarea
+        <Textarea
           value={comments}
           onChange={(e) => setComments(e.target.value)}
-          placeholder="Commentaire"
-          className="w-full p-2"
+          label="Commentaires"
         />
         <div className="flex flex-wrap items-center justify-center gap-8">
           <Button
