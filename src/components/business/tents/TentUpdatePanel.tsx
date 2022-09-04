@@ -1,6 +1,5 @@
 import { useModalContext } from "@/components/business/hooks/useModalContext"
 import { useTentsContext } from "@/components/business/hooks/useTentsContext"
-import { Modal } from "@/components/business/modal"
 import Button from "@/components/ui/Button"
 import Icon from "@/components/ui/Icon"
 import Textarea from "@/components/ui/Textarea"
@@ -11,24 +10,17 @@ import { Group, State, Unit } from "@prisma/client"
 import Head from "next/head"
 import { FC, FormEvent, useState } from "react"
 import { toast } from "react-hot-toast"
-import { SingleTent } from "./TentCard"
+import type { Modal } from "../modal"
 import TentInput from "./TentInput"
+import type { Tent } from "./TentsContext"
 import TentViewPanel from "./TentViewPanel"
 
 const TentUpdatePanel: FC<
-  UIProps<{ tent: SingleTent; movement?: Group["movement"] }>
+  UIProps<{ tent: Tent; movement?: Group["movement"] }>
 > = ({ tent, movement = "SGDF" }) => {
   const { setModal } = useModalContext()
   const { setCtxTents } = useTentsContext()
-  const updateMutation = trpc.useMutation(["tents.update"], {
-    onSuccess(data) {
-      setCtxTents((prev) => [
-        ...prev.filter((tent) => tent.id !== data.id),
-        data,
-      ])
-      setModal({} as Modal)
-    },
-  })
+  const updateMutation = trpc.tents.update.useMutation()
   const [state, setState] = useState(tent.state)
   const [unit, setUnit] = useState(tent.unit)
   const [size, setSize] = useState(tent.size)
@@ -43,8 +35,8 @@ const TentUpdatePanel: FC<
     })
   const handleUpdate = (e: FormEvent) => {
     e.preventDefault()
-    toast.promise(
-      updateMutation.mutateAsync({
+    const updatePromise = updateMutation
+      .mutateAsync({
         id: tent.id,
         values: {
           identifyingNum: tent.identifyingNum,
@@ -56,13 +48,20 @@ const TentUpdatePanel: FC<
           type,
           comments,
         },
-      }),
-      {
-        success: "Modifications sauvegardées !",
-        error: "Veuillez réessayer plus tard",
-        loading: "Sauvegarde en cours ...",
-      },
-    )
+      })
+      .then((updatedTent) => {
+        setCtxTents((prev) => [
+          ...prev.filter((tent) => tent.id !== updatedTent.id),
+          updatedTent,
+        ])
+        setModal({} as Modal)
+      })
+
+    toast.promise(updatePromise, {
+      success: "Modifications sauvegardées !",
+      error: "Veuillez réessayer plus tard",
+      loading: "Sauvegarde en cours ...",
+    })
   }
 
   return (

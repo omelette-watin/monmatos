@@ -9,7 +9,7 @@ import { NextPageWithLayout } from "../_app"
 
 const GroupPage: NextPageWithLayout = () => {
   const { data } = useSession()
-  const { data: tents, isLoading } = trpc.useQuery(["tents.getAll"])
+  const { data: tents, isLoading } = trpc.tents.getAll.useQuery()
 
   return (
     <div className="space-y-10">

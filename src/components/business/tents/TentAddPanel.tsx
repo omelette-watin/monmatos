@@ -19,17 +19,7 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
 }) => {
   const { setModal } = useModalContext()
   const { ctxTents, setCtxTents } = useTentsContext()
-  const updateMutation = trpc.useMutation(["tents.create"], {
-    onSuccess(data) {
-      setCtxTents((prev) => [...prev, data])
-      setModal({} as Modal)
-    },
-    onError(error) {
-      console.log(error)
-      forbidenIdentifyingNumbers.push(identifyingNum as number)
-      setIdentifyingNum(null)
-    },
-  })
+  const createMutation = trpc.tents.create.useMutation()
   const [identifyingNum, setIdentifyingNum] = useState<number | null>(null)
   const [state, setState] = useState<State>("NEUF")
   const [unit, setUnit] = useState<Unit>("LOUVETEAUX")
@@ -44,8 +34,8 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
     e.preventDefault()
 
     if (identifyingNum) {
-      toast.promise(
-        updateMutation.mutateAsync({
+      const createPromise = createMutation
+        .mutateAsync({
           identifyingNum,
           state,
           size,
@@ -54,13 +44,17 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
           integrated,
           type,
           comments,
-        }),
-        {
-          success: "Tente ajoutée !",
-          error: "Veuillez réessayer plus tard",
-          loading: "Ajout en cours ...",
-        },
-      )
+        })
+        .then((tent) => {
+          setCtxTents((prev) => [...prev, tent])
+          setModal({} as Modal)
+        })
+
+      toast.promise(createPromise, {
+        success: "Tente ajoutée !",
+        error: "Veuillez réessayer plus tard",
+        loading: "Ajout en cours ...",
+      })
     }
   }
 

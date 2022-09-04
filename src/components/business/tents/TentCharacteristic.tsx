@@ -1,7 +1,8 @@
-import { Tent } from "@prisma/client"
 import classNames from "classnames"
+import { Tent } from "./TentsContext"
 
 export type valueOf<T> = T[keyof T]
+
 export type recordableKeyOf<T> = {
   [K in keyof T]: T[K] extends number | symbol | string ? K : never
 }[keyof T]

@@ -1,6 +1,5 @@
 import { useModalContext } from "@/components/business/hooks/useModalContext"
 import { useTentsContext } from "@/components/business/hooks/useTentsContext"
-import { Modal } from "@/components/business/modal"
 import Button from "@/components/ui/Button"
 import Icon from "@/components/ui/Icon"
 import { trpc } from "@/utils/trpc"
@@ -8,25 +7,27 @@ import { UIProps } from "@/utils/typedProps"
 import Head from "next/head"
 import { FC } from "react"
 import { toast } from "react-hot-toast"
-import { SingleTent } from "./TentCard"
+import { Modal } from "../modal"
+import { Tent } from "./TentsContext"
 import TentViewPanel from "./TentViewPanel"
 
-const TentDeletePanel: FC<UIProps<{ tent: SingleTent }>> = ({ tent }) => {
+const TentDeletePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
   const { id, identifyingNum } = tent
   const { setModal } = useModalContext()
   const { setCtxTents } = useTentsContext()
-  const deleteMutation = trpc.useMutation(["tents.delete"], {
-    onSuccess() {
+  const deleteMutation = trpc.tents.delete.useMutation()
+  const handleDeletion = () => {
+    const deletePromise = deleteMutation.mutateAsync(id).then(() => {
       setCtxTents((prev) => prev.filter((tent) => tent.id !== id))
       setModal({} as Modal)
-    },
-  })
-  const handleDeletion = () =>
-    toast.promise(deleteMutation.mutateAsync(id), {
+    })
+
+    toast.promise(deletePromise, {
       success: "Tente supprimée !",
       error: "Veuillez réessayer plus tard",
       loading: "Suppression en cours ...",
     })
+  }
   const goBackToViewPanel = () =>
     setModal({
       component: <TentViewPanel tent={tent} />,

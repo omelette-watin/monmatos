@@ -26,7 +26,7 @@ export type Filters = {
 const TentsPage: NextPageWithLayout = () => {
   const router = useRouter()
   const { setModal } = useModalContext()
-  const { data: tents, isLoading } = trpc.useQuery(["tents.getAll"])
+  const { data: tents, isLoading } = trpc.tents.getAll.useQuery()
   const [filters, setFilters] = useState<Filters>({
     size: null,
     unit: null,

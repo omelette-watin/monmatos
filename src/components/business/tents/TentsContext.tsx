@@ -1,5 +1,6 @@
-import { inferQueryOutput } from "@/utils/trpc"
+import { AppRouter } from "@/server/trpc/router"
 import { UIProps } from "@/utils/typedProps"
+import { inferProcedureOutput } from "@trpc/server"
 import {
   createContext,
   Dispatch,
@@ -9,7 +10,9 @@ import {
   useState,
 } from "react"
 
-export type Tents = inferQueryOutput<"tents.getAll">
+export type Tents = inferProcedureOutput<AppRouter["tents"]["getAll"]>
+export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never
+export type Tent = ArrayElement<Tents>
 
 export type TentsContext = {
   ctxTents: Tents

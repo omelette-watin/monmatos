@@ -8,10 +8,11 @@ import { Tent } from "@prisma/client"
 import { FC, useEffect } from "react"
 import TentAddPanel from "./TentAddPanel"
 import TentCard from "./TentCard"
+import { Tents } from "./TentsContext"
 
 const TentsContainer: FC<
   UIProps<{
-    tents: Tent[]
+    tents: Tents
     filters: Filters
     sorting: "asc" | "desc"
   }>

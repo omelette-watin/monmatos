@@ -2,7 +2,6 @@ import { useModalContext } from "@/components/business/hooks/useModalContext"
 import Card from "@/components/ui/Card"
 import Icon from "@/components/ui/Icon"
 import Tooltip from "@/components/ui/Tooltip"
-import { inferQueryOutput } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import { units } from "@/utils/unit"
 import { Group } from "@prisma/client"
@@ -10,15 +9,14 @@ import { FC } from "react"
 import { stateColors } from "../dashboard/StateChart"
 import TentCharacteristic from "./TentCharacteristic"
 import TentDeletePanel from "./TentDeletePanel"
+import { Tent } from "./TentsContext"
 import TentUpdatePanel from "./TentUpdatePanel"
 import TentViewPanel from "./TentViewPanel"
 
-export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never
-export type SingleTent = ArrayElement<inferQueryOutput<"tents.getAll">>
-
-const TentCard: FC<
-  UIProps<{ tent: SingleTent; movement?: Group["movement"] }>
-> = ({ tent, movement = "SGDF" }) => {
+const TentCard: FC<UIProps<{ tent: Tent; movement?: Group["movement"] }>> = ({
+  tent,
+  movement = "SGDF",
+}) => {
   const { identifyingNum, size, unit, state, type } = tent
   const { setModal } = useModalContext()
   const openViewPanel = () =>

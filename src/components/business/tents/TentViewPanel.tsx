@@ -9,13 +9,13 @@ import Head from "next/head"
 import { QRCodeCanvas } from "qrcode.react"
 import { FC } from "react"
 import { stateColors } from "../dashboard/StateChart"
-import { SingleTent } from "./TentCard"
 import TentCharacteristic from "./TentCharacteristic"
 import TentDeletePanel from "./TentDeletePanel"
+import { Tent } from "./TentsContext"
 import TentUpdatePanel from "./TentUpdatePanel"
 
 const TentViewPanel: FC<
-  UIProps<{ tent: SingleTent; movement?: Group["movement"] }>
+  UIProps<{ tent: Tent; movement?: Group["movement"] }>
 > = ({ tent, movement = "SGDF" }) => {
   const { data: session } = useSession()
   const {
