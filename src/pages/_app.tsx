@@ -1,4 +1,5 @@
 import Auth from "@/components/business/Auth"
+import AppToaster from "@/components/ui/AppToaster"
 import { withTRPC } from "@trpc/next"
 import { NextPage } from "next"
 import { SessionProvider } from "next-auth/react"
@@ -38,6 +39,7 @@ const App = ({
 
   return (
     <SessionProvider session={session}>
+      <AppToaster />
       {Component.protected ? (
         <Auth>
           <>{getLayout(<Component {...pageProps} />)}</>
