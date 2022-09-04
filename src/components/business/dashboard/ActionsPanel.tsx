@@ -20,9 +20,11 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
         copyToClipBoard(
           "Lien",
           `${process.env.NEXT_PUBLIC_URL}/connexion?i=${session.user?.id}&callbackUrl=/app`,
+          "clipboard-link",
         ),
       2: () => downloadImageFromCanvas("QR", `${session.user?.name} QR Code`),
-      3: () => copyToClipBoard("Identifiant", session.user?.id || ""),
+      3: () =>
+        copyToClipBoard("Identifiant", session.user?.id || "", "clipboard-id"),
     },
     exporter: {
       1: downloadExcel(tents, session.user?.movement as Group["movement"]),
