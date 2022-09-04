@@ -8,7 +8,12 @@ import { Field, Form, Formik } from "formik"
 import { signIn } from "next-auth/react"
 import Head from "next/head"
 import Link from "next/link"
-import { FC, useCallback, useState } from "react"
+import { FC, useCallback, useEffect, useState } from "react"
+import { toast } from "react-hot-toast"
+
+const errorMessages: Record<string, string> = {
+  CredentialsSignin: "Identifiant incorrect",
+}
 
 const LoginForm: FC<UIProps<{ callbackUrl: string; error: string | null }>> = ({
   callbackUrl,
@@ -22,14 +27,20 @@ const LoginForm: FC<UIProps<{ callbackUrl: string; error: string | null }>> = ({
     },
     [callbackUrl],
   )
-  const errorMessage =
-    error === "CredentialsSignin"
-      ? "Identifiant incorrect"
-      : "Veuillez réessayer plus tard"
   const showId = () => {
     setShowIdentifier(true)
     setTimeout(() => setShowIdentifier(false), 1000)
   }
+
+  useEffect(() => {
+    if (error) {
+      toast.error(errorMessages[error] || "Veuillez réessayer plus tard", {
+        id: "error-message",
+      })
+    }
+
+    return () => toast.dismiss("error-message")
+  })
 
   return (
     <>
@@ -82,17 +93,6 @@ const LoginForm: FC<UIProps<{ callbackUrl: string; error: string | null }>> = ({
                   >
                     <Icon name="ArrowRightIcon" />
                   </button>
-                </div>
-                <div
-                  className={classNames(
-                    "inline-flex w-full items-center gap-1 self-start rounded-md bg-red-100 p-2 text-sm font-medium text-red-900",
-                    {
-                      hidden: !error,
-                    },
-                  )}
-                >
-                  <Icon name="MdOutlineDangerous" className="text-lg" />
-                  <span>{errorMessage}</span>
                 </div>
                 <div className="relative flex w-[400px] max-w-[90vw] flex-col items-center bg-blue-50 font-medium text-blue-900">
                   <button
