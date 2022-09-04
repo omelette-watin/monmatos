@@ -1,4 +1,3 @@
-import { inferQueryOutput } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import {
   createContext,
@@ -9,8 +8,6 @@ import {
   useState,
 } from "react"
 import { Modal } from "."
-
-export type Tents = inferQueryOutput<"tents.getAll">
 
 export type ModalContext = {
   modal: Modal
