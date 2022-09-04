@@ -1,3 +1,4 @@
+import Auth from "@/components/business/Auth"
 import { withTRPC } from "@trpc/next"
 import { NextPage } from "next"
 import { SessionProvider } from "next-auth/react"
@@ -17,6 +18,7 @@ NProgress.configure({
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
+  protected?: boolean
 }
 
 type AppPropsWithLayout = AppProps & {
@@ -36,7 +38,13 @@ const App = ({
 
   return (
     <SessionProvider session={session}>
-      {getLayout(<Component {...pageProps} />)}
+      {Component.protected ? (
+        <Auth>
+          <>{getLayout(<Component {...pageProps} />)}</>
+        </Auth>
+      ) : (
+        <>{getLayout(<Component {...pageProps} />)}</>
+      )}
     </SessionProvider>
   )
 }

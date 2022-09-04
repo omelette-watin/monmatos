@@ -141,6 +141,8 @@ const TentsPage: NextPageWithLayout = () => {
   )
 }
 
+TentsPage.protected = true
+
 TentsPage.getLayout = (page: ReactElement) => (
   <ModalContextProvider>
     <TentsContextProvider>
