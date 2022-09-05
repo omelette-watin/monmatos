@@ -10,7 +10,7 @@ const PublicLayout = ({
   title?: string
 }) => {
   return (
-    <div className="min-h-screen w-[100vw]">
+    <div className="min-h-screen w-full">
       <Header />
       <Page title={title} className="py-4">
         {children}
