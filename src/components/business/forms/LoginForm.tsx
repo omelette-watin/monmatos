@@ -76,7 +76,7 @@ const LoginForm: FC<UIProps<{ callbackUrl: string; error: string | null }>> = ({
                 </h3>
 
                 <div className="flex w-full items-center">
-                  <div className="bg-card flex w-full items-center gap-4 rounded-l-lg border-2 p-2 shadow-inner focus-within:border-blue-600">
+                  <div className="flex w-full items-center gap-4 rounded-l-lg border-2 bg-slate-100 p-2 shadow-inner focus-within:border-blue-600">
                     <button type="button" onClick={showId}>
                       <Icon name="IoMdEye" className="text-xl" />
                     </button>

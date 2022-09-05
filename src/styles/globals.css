@@ -12,10 +12,6 @@
   .bg-main {
     @apply bg-[#F7F8FC];
   }
-
-  .bg-card {
-    @apply bg-[#E9F1FB];
-  }
 }
 
 .translate-full-x {
