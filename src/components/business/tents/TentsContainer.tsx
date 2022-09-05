@@ -5,7 +5,7 @@ import Panel from "@/components/ui/Panel"
 import { Filters } from "@/pages/app/tentes"
 import { UIProps } from "@/utils/typedProps"
 import { Tent } from "@prisma/client"
-import { FC, useEffect } from "react"
+import { FC, useEffect, useState } from "react"
 import TentAddPanel from "./TentAddPanel"
 import TentCard from "./TentCard"
 import { Tents } from "./TentsContext"
@@ -17,6 +17,7 @@ const TentsContainer: FC<
     sorting: "asc" | "desc"
   }>
 > = ({ tents, filters, sorting = "asc" }) => {
+  const [loadingContext, setLoadingContext] = useState(true)
   const { setModal } = useModalContext()
   const { ctxTents, setCtxTents } = useTentsContext()
   const getTentToBeDisplayed = (tents: Tent[]) =>
@@ -32,13 +33,16 @@ const TentsContainer: FC<
     setModal({ component: <TentAddPanel />, visible: true })
 
   useEffect(() => {
+    console.log("useEffect")
+
     setCtxTents(tents)
+    setLoadingContext(!loadingContext)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <Panel className="text-center">
-      {ctxTents && !ctxTents.length && (
+      {!loadingContext && !ctxTents.length && (
         <div className="flex w-full flex-col items-center justify-center gap-4 py-24">
           <div className="font-medium text-slate-400 sm:text-lg">
             Vous n'avez pas encore ajouté de tente ...
