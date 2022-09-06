@@ -35,8 +35,6 @@ const TentsContainer: FC<
     setModal({ component: <TentAddPanel />, visible: true })
 
   useEffect(() => {
-    console.log("useEffect")
-
     if (tents) {
       setCtxTents(tents)
       setLoadingContext(!loadingContext)
@@ -49,7 +47,7 @@ const TentsContainer: FC<
     <Panel className="text-center">
       {(loading || loadingContext) && !ctxTents.length && (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {new Array(15).map((_, index) => (
+          {new Array(15).fill(null).map((_, index) => (
             <TentCardSkeleton key={index} />
           ))}
         </div>
