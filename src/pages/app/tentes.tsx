@@ -9,7 +9,6 @@ import TentViewPanel from "@/components/business/tents/TentViewPanel"
 import Button from "@/components/ui/Button"
 import Icon from "@/components/ui/Icon"
 import AppLayout from "@/components/ui/layouts/AppLayout"
-import Loading from "@/components/ui/Loading"
 import { trpc } from "@/utils/trpc"
 import { Tent } from "@prisma/client"
 import { useRouter } from "next/router"
@@ -128,15 +127,13 @@ const TentsPage: NextPageWithLayout = () => {
           <span className="font-semibold">Filtrer</span>
         </button>
       </div>
-      {isLoading && (
-        <div className="m-auto w-fit py-32">
-          <Loading />
-        </div>
-      )}
 
-      {!isLoading && tents && (
-        <TentsContainer tents={tents} filters={filters} sorting={sorting} />
-      )}
+      <TentsContainer
+        tents={tents}
+        filters={filters}
+        sorting={sorting}
+        loading={isLoading}
+      />
     </div>
   )
 }

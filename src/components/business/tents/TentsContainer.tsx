@@ -8,15 +8,17 @@ import { Tent } from "@prisma/client"
 import { FC, useEffect, useState } from "react"
 import TentAddPanel from "./TentAddPanel"
 import TentCard from "./TentCard"
+import TentCardSkeleton from "./TentCardSkeleton"
 import { Tents } from "./TentsContext"
 
 const TentsContainer: FC<
   UIProps<{
-    tents: Tents
+    tents: Tents | undefined
     filters: Filters
+    loading: boolean
     sorting: "asc" | "desc"
   }>
-> = ({ tents, filters, sorting = "asc" }) => {
+> = ({ tents, filters, loading, sorting = "asc" }) => {
   const [loadingContext, setLoadingContext] = useState(true)
   const { setModal } = useModalContext()
   const { ctxTents, setCtxTents } = useTentsContext()
@@ -35,13 +37,23 @@ const TentsContainer: FC<
   useEffect(() => {
     console.log("useEffect")
 
-    setCtxTents(tents)
-    setLoadingContext(!loadingContext)
+    if (tents) {
+      setCtxTents(tents)
+      setLoadingContext(!loadingContext)
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [tents])
 
   return (
     <Panel className="text-center">
+      {(loading || loadingContext) && !ctxTents.length && (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {new Array(15).map((_, index) => (
+            <TentCardSkeleton key={index} />
+          ))}
+        </div>
+      )}
       {!loadingContext && !ctxTents.length && (
         <div className="flex w-full flex-col items-center justify-center gap-4 py-24">
           <div className="font-medium text-slate-400 sm:text-lg">
@@ -59,7 +71,7 @@ const TentsContainer: FC<
           </Button>
         </div>
       )}
-      {getTentToBeDisplayed(ctxTents).length > 0 ? (
+      {getTentToBeDisplayed(ctxTents).length > 0 && (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {getTentToBeDisplayed(ctxTents)
             .sort((a, b) =>
@@ -71,14 +83,13 @@ const TentsContainer: FC<
               <TentCard tent={tent} key={tent.id} />
             ))}
         </div>
-      ) : (
-        ctxTents.length > 0 && (
-          <div className="flex w-full flex-col items-center justify-center gap-4 py-24">
-            <div className="font-medium text-slate-400 sm:text-lg">
-              Aucune tente ne correspond à vos critères de recherche ...
-            </div>
+      )}
+      {ctxTents.length > 0 && getTentToBeDisplayed(ctxTents).length === 0 && (
+        <div className="flex w-full flex-col items-center justify-center gap-4 py-24">
+          <div className="font-medium text-slate-400 sm:text-lg">
+            Aucune tente ne correspond à vos critères de recherche ...
           </div>
-        )
+        </div>
       )}
     </Panel>
   )
