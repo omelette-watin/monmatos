@@ -77,7 +77,7 @@ const TentCard: FC<UIProps<{ tent: Tent; movement?: Group["movement"] }>> = ({
               className="group relative hover:text-blue-500"
             >
               <Icon name="HiPencil" />
-              <Tooltip>Modifier</Tooltip>
+              <Tooltip className="-left-8">Modifier</Tooltip>
             </button>
             <button
               type="button"
@@ -85,7 +85,7 @@ const TentCard: FC<UIProps<{ tent: Tent; movement?: Group["movement"] }>> = ({
               className="group relative hover:text-red-500"
             >
               <Icon name="HiTrash" />
-              <Tooltip>Supprimer</Tooltip>
+              <Tooltip className="-left-8">Supprimer</Tooltip>
             </button>
           </div>
         </div>
