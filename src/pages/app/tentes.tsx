@@ -4,17 +4,23 @@ import { ModalContextProvider } from "@/components/business/modal/ModalContext"
 import TentAddPanel from "@/components/business/tents/TentAddPanel"
 import TentFilterPanel from "@/components/business/tents/TentFilterPanel"
 import TentsContainer from "@/components/business/tents/TentsContainer"
-import { TentsContextProvider } from "@/components/business/tents/TentsContext"
 import TentViewPanel from "@/components/business/tents/TentViewPanel"
 import Button from "@/components/ui/Button"
 import Icon from "@/components/ui/Icon"
 import AppLayout from "@/components/ui/layouts/AppLayout"
+import { AppRouter } from "@/server/trpc/router"
 import { trpc } from "@/utils/trpc"
-import { Tent } from "@prisma/client"
+import { inferProcedureOutput } from "@trpc/server"
 import { useRouter } from "next/router"
 import { ReactElement, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import { NextPageWithLayout } from "../_app"
+
+export type Tents = inferProcedureOutput<AppRouter["tents"]["getAll"]>
+
+export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never
+
+export type Tent = ArrayElement<Tents>
 
 export type Filters = {
   size: Tent["size"] | null
@@ -34,7 +40,7 @@ const TentsPage: NextPageWithLayout = () => {
   const [sorting, setSorting] = useState<"asc" | "desc">("asc")
   const openAddTentPanel = () =>
     setModal({
-      component: <TentAddPanel />,
+      component: <TentAddPanel tents={tents || []} />,
       visible: true,
     })
   const openFilterModal = () =>
@@ -44,31 +50,34 @@ const TentsPage: NextPageWithLayout = () => {
     })
 
   useEffect(() => {
-    if (router.query.t === "add") {
-      setModal({
-        visible: true,
-        component: <TentAddPanel />,
-      })
-      router.replace("/app/tentes", undefined, { shallow: true })
-
-      return
-    }
-
-    if (tents && router.query.i) {
-      const targetTent = tents.filter((tent) => tent.id === router.query.i)[0]
-      router.replace("/app/tentes", undefined, { shallow: true })
-
-      if (targetTent) {
+    if (tents) {
+      if (router.query.t === "add") {
         setModal({
           visible: true,
-          component: <TentViewPanel tent={targetTent} />,
+          component: <TentAddPanel tents={tents} />,
         })
+        router.replace("/app/tentes", undefined, { shallow: true })
 
         return
       }
 
-      toast.error("Cette tente n'existe pas")
+      if (router.query.i) {
+        const targetTent = tents.filter((tent) => tent.id === router.query.i)[0]
+        router.replace("/app/tentes", undefined, { shallow: true })
+
+        if (targetTent) {
+          setModal({
+            visible: true,
+            component: <TentViewPanel tent={targetTent} />,
+          })
+
+          return
+        }
+
+        toast.error("Cette tente n'existe pas")
+      }
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, tents])
 
@@ -86,6 +95,7 @@ const TentsPage: NextPageWithLayout = () => {
           size="xs"
           icon="BsPlusLg"
           className="hidden max-w-fit sm:flex"
+          disabled={!tents}
         >
           Ajouter une tente
         </Button>
@@ -142,14 +152,12 @@ TentsPage.protected = true
 
 TentsPage.getLayout = (page: ReactElement) => (
   <ModalContextProvider>
-    <TentsContextProvider>
-      <AppLayout title="Mes Tentes">
-        <>
-          {page}
-          <Modal />
-        </>
-      </AppLayout>
-    </TentsContextProvider>
+    <AppLayout title="Mes Tentes">
+      <>
+        {page}
+        <Modal />
+      </>
+    </AppLayout>
   </ModalContextProvider>
 )
 

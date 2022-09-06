@@ -1,26 +1,30 @@
 import { useModalContext } from "@/components/business/hooks/useModalContext"
-import { useTentsContext } from "@/components/business/hooks/useTentsContext"
 import Button from "@/components/ui/Button"
 import Icon from "@/components/ui/Icon"
+import type { Tent } from "@/pages/app/tentes"
 import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import Head from "next/head"
 import { FC } from "react"
 import { toast } from "react-hot-toast"
 import { Modal } from "../modal"
-import { Tent } from "./TentsContext"
 import TentViewPanel from "./TentViewPanel"
 
 const TentDeletePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
   const { id, identifyingNum } = tent
   const { setModal } = useModalContext()
-  const { setCtxTents } = useTentsContext()
-  const deleteMutation = trpc.tents.delete.useMutation()
-  const handleDeletion = () => {
-    const deletePromise = deleteMutation.mutateAsync(id).then(() => {
-      setCtxTents((prev) => prev.filter((tent) => tent.id !== id))
+  const utils = trpc.useContext()
+  const deleteMutation = trpc.tents.delete.useMutation({
+    onSuccess() {
+      utils.tents.getAll.invalidate()
       setModal({} as Modal)
-    })
+    },
+    onError(error) {
+      console.log(error)
+    },
+  })
+  const handleDeletion = () => {
+    const deletePromise = deleteMutation.mutateAsync(id)
 
     toast.promise(deletePromise, {
       success: "Tente supprimée !",

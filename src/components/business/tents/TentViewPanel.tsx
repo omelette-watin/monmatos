@@ -1,5 +1,6 @@
 import { useModalContext } from "@/components/business/hooks/useModalContext"
 import Button from "@/components/ui/Button"
+import type { Tent } from "@/pages/app/tentes"
 import { downloadImageFromCanvas } from "@/utils/downloadFns"
 import { UIProps } from "@/utils/typedProps"
 import { units } from "@/utils/unit"
@@ -11,7 +12,6 @@ import { FC } from "react"
 import { stateColors } from "../dashboard/StateChart"
 import TentCharacteristic from "./TentCharacteristic"
 import TentDeletePanel from "./TentDeletePanel"
-import { Tent } from "./TentsContext"
 import TentUpdatePanel from "./TentUpdatePanel"
 
 const TentViewPanel: FC<

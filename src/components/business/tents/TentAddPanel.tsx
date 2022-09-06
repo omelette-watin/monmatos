@@ -1,9 +1,9 @@
 import { useModalContext } from "@/components/business/hooks/useModalContext"
-import { useTentsContext } from "@/components/business/hooks/useTentsContext"
 import { Modal } from "@/components/business/modal"
 import Button from "@/components/ui/Button"
 import Icon from "@/components/ui/Icon"
 import Textarea from "@/components/ui/Textarea"
+import { Tents } from "@/pages/app/tentes"
 import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import { units } from "@/utils/unit"
@@ -14,12 +14,20 @@ import { FC, FormEvent, useState } from "react"
 import { toast } from "react-hot-toast"
 import TentInput from "./TentInput"
 
-const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
-  movement = "SGDF",
-}) => {
+const TentAddPanel: FC<
+  UIProps<{ tents: Tents; movement?: Group["movement"] }>
+> = ({ tents, movement = "SGDF" }) => {
   const { setModal } = useModalContext()
-  const { ctxTents, setCtxTents } = useTentsContext()
-  const createMutation = trpc.tents.create.useMutation()
+  const utils = trpc.useContext()
+  const createMutation = trpc.tents.create.useMutation({
+    onSuccess() {
+      utils.tents.getAll.invalidate()
+      setModal({} as Modal)
+    },
+    onError(error) {
+      console.log(error)
+    },
+  })
   const [identifyingNum, setIdentifyingNum] = useState<number | null>(null)
   const [state, setState] = useState<State>("NEUF")
   const [unit, setUnit] = useState<Unit>("LOUVETEAUX")
@@ -28,27 +36,22 @@ const TentAddPanel: FC<UIProps<{ movement?: Group["movement"] }>> = ({
   const [integrated, setIntegrated] = useState(false)
   const [type, setType] = useState("CANADIENNE")
   const [comments, setComments] = useState("")
-  const forbidenIdentifyingNumbers = ctxTents.map((tent) => tent.identifyingNum)
+  const forbidenIdentifyingNumbers = tents.map((tent) => tent.identifyingNum)
   const closePanel = () => setModal({} as Modal)
   const handleAdd = (e: FormEvent) => {
     e.preventDefault()
 
     if (identifyingNum) {
-      const createPromise = createMutation
-        .mutateAsync({
-          identifyingNum,
-          state,
-          size,
-          unit,
-          complete,
-          integrated,
-          type,
-          comments,
-        })
-        .then((tent) => {
-          setCtxTents((prev) => [...prev, tent])
-          setModal({} as Modal)
-        })
+      const createPromise = createMutation.mutateAsync({
+        identifyingNum,
+        state,
+        size,
+        unit,
+        complete,
+        integrated,
+        type,
+        comments,
+      })
 
       toast.promise(createPromise, {
         success: "Tente ajoutée !",

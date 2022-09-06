@@ -1,8 +1,8 @@
 import { useModalContext } from "@/components/business/hooks/useModalContext"
-import { useTentsContext } from "@/components/business/hooks/useTentsContext"
 import Button from "@/components/ui/Button"
 import Icon from "@/components/ui/Icon"
 import Textarea from "@/components/ui/Textarea"
+import type { Tent } from "@/pages/app/tentes"
 import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import { units } from "@/utils/unit"
@@ -12,15 +12,22 @@ import { FC, FormEvent, useState } from "react"
 import { toast } from "react-hot-toast"
 import type { Modal } from "../modal"
 import TentInput from "./TentInput"
-import type { Tent } from "./TentsContext"
 import TentViewPanel from "./TentViewPanel"
 
 const TentUpdatePanel: FC<
   UIProps<{ tent: Tent; movement?: Group["movement"] }>
 > = ({ tent, movement = "SGDF" }) => {
   const { setModal } = useModalContext()
-  const { setCtxTents } = useTentsContext()
-  const updateMutation = trpc.tents.update.useMutation()
+  const utils = trpc.useContext()
+  const updateMutation = trpc.tents.update.useMutation({
+    onSuccess() {
+      utils.tents.getAll.invalidate()
+      setModal({} as Modal)
+    },
+    onError(error) {
+      console.log(error)
+    },
+  })
   const [state, setState] = useState(tent.state)
   const [unit, setUnit] = useState(tent.unit)
   const [size, setSize] = useState(tent.size)
@@ -35,27 +42,19 @@ const TentUpdatePanel: FC<
     })
   const handleUpdate = (e: FormEvent) => {
     e.preventDefault()
-    const updatePromise = updateMutation
-      .mutateAsync({
-        id: tent.id,
-        values: {
-          identifyingNum: tent.identifyingNum,
-          state,
-          size,
-          unit,
-          complete,
-          integrated,
-          type,
-          comments,
-        },
-      })
-      .then((updatedTent) => {
-        setCtxTents((prev) => [
-          ...prev.filter((tent) => tent.id !== updatedTent.id),
-          updatedTent,
-        ])
-        setModal({} as Modal)
-      })
+    const updatePromise = updateMutation.mutateAsync({
+      id: tent.id,
+      values: {
+        identifyingNum: tent.identifyingNum,
+        state,
+        size,
+        unit,
+        complete,
+        integrated,
+        type,
+        comments,
+      },
+    })
 
     toast.promise(updatePromise, {
       success: "Modifications sauvegardées !",

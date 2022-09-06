@@ -1,5 +1,5 @@
+import type { Tent } from "@/pages/app/tentes"
 import classNames from "classnames"
-import { Tent } from "./TentsContext"
 
 export type valueOf<T> = T[keyof T]
 
