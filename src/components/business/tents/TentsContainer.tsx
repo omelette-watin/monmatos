@@ -4,6 +4,7 @@ import Panel from "@/components/ui/Panel"
 import { Filters, Tents } from "@/pages/app/tentes"
 import { UIProps } from "@/utils/typedProps"
 import { Tent } from "@prisma/client"
+import { useSession } from "next-auth/react"
 import { FC } from "react"
 import TentAddPanel from "./TentAddPanel"
 import TentCard from "./TentCard"
@@ -18,6 +19,7 @@ const TentsContainer: FC<
   }>
 > = ({ tents, filters, loading, sorting = "asc" }) => {
   const { setModal } = useModalContext()
+  const { data: session } = useSession()
   const getTentToBeDisplayed = (tents: Tent[]) =>
     tents.filter((tent) => {
       let wanted = true
@@ -27,10 +29,18 @@ const TentsContainer: FC<
 
       return wanted
     })
-  const openAddTentPanel = () =>
-    setModal({ component: <TentAddPanel tents={tents || []} />, visible: true })
+  const openAddTentPanel = () => {
+    if (session) {
+      setModal({
+        component: (
+          <TentAddPanel tents={tents || []} movement={session.user.movement} />
+        ),
+        visible: true,
+      })
+    }
+  }
 
-  if (loading) {
+  if (loading || !session) {
     return (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {new Array(15).fill(null).map((_, index) => (
@@ -71,7 +81,11 @@ const TentsContainer: FC<
                 : b.identifyingNum - a.identifyingNum,
             )
             .map((tent) => (
-              <TentCard tent={tent} key={tent.id} />
+              <TentCard
+                tent={tent}
+                key={tent.id}
+                movement={session.user.movement}
+              />
             ))}
         </div>
       )}

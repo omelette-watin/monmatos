@@ -15,8 +15,8 @@ import TentDeletePanel from "./TentDeletePanel"
 import TentUpdatePanel from "./TentUpdatePanel"
 
 const TentViewPanel: FC<
-  UIProps<{ tent: Tent; movement?: Group["movement"] }>
-> = ({ tent, movement = "SGDF" }) => {
+  UIProps<{ tent: Tent; movement: Group["movement"] }>
+> = ({ tent, movement }) => {
   const { data: session } = useSession()
   const {
     id,

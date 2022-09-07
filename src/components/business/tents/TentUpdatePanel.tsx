@@ -16,8 +16,8 @@ import { getTentsErrorMessage } from "./tentsErrorMessage"
 import TentViewPanel from "./TentViewPanel"
 
 const TentUpdatePanel: FC<
-  UIProps<{ tent: Tent; movement?: Group["movement"] }>
-> = ({ tent, movement = "SGDF" }) => {
+  UIProps<{ tent: Tent; movement: Group["movement"] }>
+> = ({ tent, movement }) => {
   const { setModal } = useModalContext()
   const trpcCtx = trpc.useContext()
   const updateMutation = trpc.tents.update.useMutation({
@@ -37,7 +37,7 @@ const TentUpdatePanel: FC<
   const [comments, setComments] = useState(tent.comments || "")
   const goBackToViewPanel = () =>
     setModal({
-      component: <TentViewPanel tent={tent} />,
+      component: <TentViewPanel tent={tent} movement={movement} />,
       visible: true,
     })
   const handleUpdate = (e: FormEvent) => {

@@ -11,6 +11,7 @@ import AppLayout from "@/components/ui/layouts/AppLayout"
 import { AppRouter } from "@/server/trpc/router"
 import { trpc } from "@/utils/trpc"
 import { inferProcedureOutput } from "@trpc/server"
+import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { ReactElement, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
@@ -31,6 +32,7 @@ export type Filters = {
 const TentsPage: NextPageWithLayout = () => {
   const router = useRouter()
   const { setModal } = useModalContext()
+  const { data: session } = useSession()
   const { data: tents, isLoading } = trpc.tents.getAll.useQuery()
   const [filters, setFilters] = useState<Filters>({
     size: null,
@@ -38,11 +40,17 @@ const TentsPage: NextPageWithLayout = () => {
     state: null,
   })
   const [sorting, setSorting] = useState<"asc" | "desc">("asc")
-  const openAddTentPanel = () =>
-    setModal({
-      component: <TentAddPanel tents={tents || []} />,
-      visible: true,
-    })
+  const openAddTentPanel = () => {
+    if (session) {
+      setModal({
+        component: (
+          <TentAddPanel tents={tents || []} movement={session.user.movement} />
+        ),
+        visible: true,
+      })
+    }
+  }
+
   const openFilterModal = () =>
     setModal({
       component: <TentFilterPanel filters={filters} setFilters={setFilters} />,
@@ -51,10 +59,12 @@ const TentsPage: NextPageWithLayout = () => {
 
   useEffect(() => {
     if (tents) {
-      if (router.query.t === "add") {
+      if (router.query.t === "add" && session) {
         setModal({
           visible: true,
-          component: <TentAddPanel tents={tents} />,
+          component: (
+            <TentAddPanel tents={tents} movement={session.user.movement} />
+          ),
         })
         router.replace("/app/tentes", undefined, { shallow: true })
 
@@ -77,9 +87,8 @@ const TentsPage: NextPageWithLayout = () => {
         toast.error("Cette tente n'existe pas")
       }
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router, tents])
+  }, [router, tents, session])
 
   return (
     <div className="space-y-6">

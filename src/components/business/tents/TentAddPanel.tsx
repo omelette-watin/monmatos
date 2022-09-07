@@ -16,18 +16,24 @@ import TentInput from "./TentInput"
 import { getTentsErrorMessage } from "./tentsErrorMessage"
 
 const TentAddPanel: FC<
-  UIProps<{ tents: Tents; movement?: Group["movement"] }>
-> = ({ tents, movement = "SGDF" }) => {
+  UIProps<{ tents: Tents; movement: Group["movement"] }>
+> = ({ tents, movement }) => {
   const { setModal } = useModalContext()
   const trpcCtx = trpc.useContext()
   const createMutation = trpc.tents.create.useMutation({
     onSuccess() {
       setModal({} as Modal)
     },
+    onError() {
+      setBlacklist((prev) => [...prev, identifyingNum as number])
+    },
     onSettled() {
       trpcCtx.tents.getAll.invalidate()
     },
   })
+  const [blacklist, setBlacklist] = useState(
+    tents.map((tent) => tent.identifyingNum),
+  )
   const [identifyingNum, setIdentifyingNum] = useState<number | null>(null)
   const [state, setState] = useState<State>("NEUF")
   const [unit, setUnit] = useState<Unit>("LOUVETEAUX")
@@ -36,7 +42,6 @@ const TentAddPanel: FC<
   const [integrated, setIntegrated] = useState(false)
   const [type, setType] = useState("CANADIENNE")
   const [comments, setComments] = useState("")
-  const forbidenIdentifyingNumbers = tents.map((tent) => tent.identifyingNum)
   const closePanel = () => setModal({} as Modal)
   const handleAdd = (e: FormEvent) => {
     e.preventDefault()
@@ -76,11 +81,9 @@ const TentAddPanel: FC<
               "border-slate-800 text-slate-800": !identifyingNum,
 
               "border-emerald-500/90 text-emerald-500/90":
-                identifyingNum &&
-                !forbidenIdentifyingNumbers.includes(identifyingNum),
+                identifyingNum && !blacklist.includes(identifyingNum),
               "border-red-500/90 text-red-500/90":
-                identifyingNum &&
-                forbidenIdentifyingNumbers.includes(identifyingNum),
+                identifyingNum && blacklist.includes(identifyingNum),
             },
           )}
         >
@@ -101,12 +104,10 @@ const TentAddPanel: FC<
                 "bg-amber-100 text-amber-800": !identifyingNum,
                 "bg-green-100 text-green-800":
                   identifyingNum &&
-                  !forbidenIdentifyingNumbers.includes(
-                    identifyingNum as number,
-                  ),
+                  !blacklist.includes(identifyingNum as number),
                 "bg-red-100 text-red-800":
                   identifyingNum &&
-                  forbidenIdentifyingNumbers.includes(identifyingNum as number),
+                  blacklist.includes(identifyingNum as number),
               },
             )}
           >
@@ -205,7 +206,7 @@ const TentAddPanel: FC<
             type="submit"
             disabled={
               !identifyingNum ||
-              forbidenIdentifyingNumbers.includes(identifyingNum) ||
+              blacklist.includes(identifyingNum) ||
               createMutation.isLoading
             }
             size="sm"

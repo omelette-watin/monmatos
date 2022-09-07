@@ -6,6 +6,7 @@ import type { Tent } from "@/pages/app/tentes"
 import { UIProps } from "@/utils/typedProps"
 import { units } from "@/utils/unit"
 import { Group } from "@prisma/client"
+import { useSession } from "next-auth/react"
 import { FC } from "react"
 import { stateColors } from "../dashboard/StateChart"
 import TentCharacteristic from "./TentCharacteristic"
@@ -13,17 +14,24 @@ import TentDeletePanel from "./TentDeletePanel"
 import TentUpdatePanel from "./TentUpdatePanel"
 import TentViewPanel from "./TentViewPanel"
 
-const TentCard: FC<UIProps<{ tent: Tent; movement?: Group["movement"] }>> = ({
+const TentCard: FC<UIProps<{ tent: Tent; movement: Group["movement"] }>> = ({
   tent,
-  movement = "SGDF",
+  movement,
 }) => {
+  const { data: session } = useSession()
   const { identifyingNum, size, unit, state, type } = tent
   const { setModal } = useModalContext()
-  const openViewPanel = () =>
-    setModal({
-      component: <TentViewPanel tent={tent} />,
-      visible: true,
-    })
+  const openViewPanel = () => {
+    if (session) {
+      setModal({
+        component: (
+          <TentViewPanel tent={tent} movement={session.user.movement} />
+        ),
+        visible: true,
+      })
+    }
+  }
+
   const openDeletePanel = (e: { stopPropagation: () => void }) => {
     e.stopPropagation()
     setModal({
@@ -33,10 +41,15 @@ const TentCard: FC<UIProps<{ tent: Tent; movement?: Group["movement"] }>> = ({
   }
   const openUpdatePanel = (e: { stopPropagation: () => void }) => {
     e.stopPropagation()
-    setModal({
-      component: <TentUpdatePanel tent={tent} />,
-      visible: true,
-    })
+
+    if (session) {
+      setModal({
+        component: (
+          <TentUpdatePanel tent={tent} movement={session.user.movement} />
+        ),
+        visible: true,
+      })
+    }
   }
 
   return (
