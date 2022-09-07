@@ -43,7 +43,7 @@ const TentViewPanel: FC<
   const goToUpdatePanel = () =>
     setModal({
       visible: true,
-      component: <TentUpdatePanel tent={tent} />,
+      component: <TentUpdatePanel tent={tent} movement={movement} />,
     })
 
   return (
