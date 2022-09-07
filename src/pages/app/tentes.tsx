@@ -58,8 +58,8 @@ const TentsPage: NextPageWithLayout = () => {
     })
 
   useEffect(() => {
-    if (tents) {
-      if (router.query.t === "add" && session) {
+    if (tents && session) {
+      if (router.query.t === "add") {
         setModal({
           visible: true,
           component: (
@@ -78,7 +78,12 @@ const TentsPage: NextPageWithLayout = () => {
         if (targetTent) {
           setModal({
             visible: true,
-            component: <TentViewPanel tent={targetTent} />,
+            component: (
+              <TentViewPanel
+                tent={targetTent}
+                movement={session.user.movement}
+              />
+            ),
           })
 
           return
