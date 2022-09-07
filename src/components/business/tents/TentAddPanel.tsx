@@ -18,16 +18,19 @@ const TentAddPanel: FC<
   UIProps<{ tents: Tents; movement?: Group["movement"] }>
 > = ({ tents, movement = "SGDF" }) => {
   const { setModal } = useModalContext()
-  const utils = trpc.useContext()
+  const trpcCtx = trpc.useContext()
   const createMutation = trpc.tents.create.useMutation({
     onSuccess() {
-      utils.tents.getAll.invalidate()
+      trpcCtx.tents.getAll.invalidate()
+      setSubmitting(false)
       setModal({} as Modal)
     },
     onError(error) {
+      setSubmitting(false)
       console.log(error)
     },
   })
+  const [submitting, setSubmitting] = useState(false)
   const [identifyingNum, setIdentifyingNum] = useState<number | null>(null)
   const [state, setState] = useState<State>("NEUF")
   const [unit, setUnit] = useState<Unit>("LOUVETEAUX")
@@ -42,6 +45,7 @@ const TentAddPanel: FC<
     e.preventDefault()
 
     if (identifyingNum) {
+      setSubmitting(true)
       const createPromise = createMutation.mutateAsync({
         identifyingNum,
         state,
@@ -52,7 +56,6 @@ const TentAddPanel: FC<
         type,
         comments,
       })
-
       toast.promise(createPromise, {
         success: "Tente ajoutée !",
         error: "Veuillez réessayer plus tard",
@@ -206,13 +209,14 @@ const TentAddPanel: FC<
             type="submit"
             disabled={
               !identifyingNum ||
-              forbidenIdentifyingNumbers.includes(identifyingNum)
+              forbidenIdentifyingNumbers.includes(identifyingNum) ||
+              submitting
             }
             size="sm"
             icon="RiSave2Fill"
             className="max-w-fit"
           >
-            Ajouter
+            {submitting ? "Ajout ..." : "Ajouter"}
           </Button>
         </div>
       </form>

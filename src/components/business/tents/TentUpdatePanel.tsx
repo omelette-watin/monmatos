@@ -18,16 +18,19 @@ const TentUpdatePanel: FC<
   UIProps<{ tent: Tent; movement?: Group["movement"] }>
 > = ({ tent, movement = "SGDF" }) => {
   const { setModal } = useModalContext()
-  const utils = trpc.useContext()
+  const trpcCtx = trpc.useContext()
   const updateMutation = trpc.tents.update.useMutation({
     onSuccess() {
-      utils.tents.getAll.invalidate()
+      trpcCtx.tents.getAll.invalidate()
+      setSubmitting(false)
       setModal({} as Modal)
     },
     onError(error) {
+      setSubmitting(false)
       console.log(error)
     },
   })
+  const [submitting, setSubmitting] = useState(false)
   const [state, setState] = useState(tent.state)
   const [unit, setUnit] = useState(tent.unit)
   const [size, setSize] = useState(tent.size)
@@ -42,6 +45,7 @@ const TentUpdatePanel: FC<
     })
   const handleUpdate = (e: FormEvent) => {
     e.preventDefault()
+    setSubmitting(true)
     const updatePromise = updateMutation.mutateAsync({
       id: tent.id,
       values: {
@@ -174,8 +178,9 @@ const TentUpdatePanel: FC<
             size="sm"
             icon="RiSave2Fill"
             className="max-w-fit"
+            disabled={submitting}
           >
-            Sauvegarder
+            {submitting ? "Modification ..." : "Modifier"}
           </Button>
         </div>
       </form>

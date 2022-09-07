@@ -5,7 +5,7 @@ import type { Tent } from "@/pages/app/tentes"
 import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import Head from "next/head"
-import { FC } from "react"
+import { FC, useState } from "react"
 import { toast } from "react-hot-toast"
 import { Modal } from "../modal"
 import TentViewPanel from "./TentViewPanel"
@@ -13,19 +13,22 @@ import TentViewPanel from "./TentViewPanel"
 const TentDeletePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
   const { id, identifyingNum } = tent
   const { setModal } = useModalContext()
-  const utils = trpc.useContext()
+  const [submitting, setSubmitting] = useState(false)
+  const trpcCtx = trpc.useContext()
   const deleteMutation = trpc.tents.delete.useMutation({
     onSuccess() {
-      utils.tents.getAll.invalidate()
+      trpcCtx.tents.getAll.invalidate()
+      setSubmitting(false)
       setModal({} as Modal)
     },
     onError(error) {
+      setSubmitting(false)
       console.log(error)
     },
   })
   const handleDeletion = () => {
+    setSubmitting(true)
     const deletePromise = deleteMutation.mutateAsync(id)
-
     toast.promise(deletePromise, {
       success: "Tente supprimée !",
       error: "Veuillez réessayer plus tard",
@@ -73,8 +76,9 @@ const TentDeletePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
             variant="red"
             icon="HiTrash"
             className="max-w-fit"
+            disabled={submitting}
           >
-            Supprimer
+            {submitting ? "Supression ..." : "Supprimer"}
           </Button>
         </div>
       </div>
