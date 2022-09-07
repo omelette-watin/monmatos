@@ -13,6 +13,7 @@ import Head from "next/head"
 import { FC, FormEvent, useState } from "react"
 import { toast } from "react-hot-toast"
 import TentInput from "./TentInput"
+import { getTentsErrorMessage } from "./tentsErrorMessage"
 
 const TentAddPanel: FC<
   UIProps<{ tents: Tents; movement?: Group["movement"] }>
@@ -24,11 +25,9 @@ const TentAddPanel: FC<
       setModal({} as Modal)
     },
     onSettled() {
-      setSubmitting(false)
       trpcCtx.tents.getAll.invalidate()
     },
   })
-  const [submitting, setSubmitting] = useState(false)
   const [identifyingNum, setIdentifyingNum] = useState<number | null>(null)
   const [state, setState] = useState<State>("NEUF")
   const [unit, setUnit] = useState<Unit>("LOUVETEAUX")
@@ -43,7 +42,6 @@ const TentAddPanel: FC<
     e.preventDefault()
 
     if (identifyingNum) {
-      setSubmitting(true)
       const createPromise = createMutation.mutateAsync({
         identifyingNum,
         state,
@@ -56,8 +54,7 @@ const TentAddPanel: FC<
       })
       toast.promise(createPromise, {
         success: "Tente ajoutée !",
-        error: (err) =>
-          errorMessages[err.data.code] || "Veuillez réessayer plus tard",
+        error: getTentsErrorMessage,
         loading: "Ajout en cours ...",
       })
     }
@@ -209,22 +206,18 @@ const TentAddPanel: FC<
             disabled={
               !identifyingNum ||
               forbidenIdentifyingNumbers.includes(identifyingNum) ||
-              submitting
+              createMutation.isLoading
             }
             size="sm"
             icon="RiSave2Fill"
             className="max-w-fit"
           >
-            {submitting ? "Ajout ..." : "Ajouter"}
+            {createMutation.isLoading ? "Ajout ..." : "Ajouter"}
           </Button>
         </div>
       </form>
     </>
   )
-}
-
-const errorMessages: Record<string, string> = {
-  CONFLICT: "Ce numéro de tente est déjà attribué",
 }
 
 export default TentAddPanel

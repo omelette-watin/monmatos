@@ -12,6 +12,7 @@ import { FC, FormEvent, useState } from "react"
 import { toast } from "react-hot-toast"
 import type { Modal } from "../modal"
 import TentInput from "./TentInput"
+import { getTentsErrorMessage } from "./tentsErrorMessage"
 import TentViewPanel from "./TentViewPanel"
 
 const TentUpdatePanel: FC<
@@ -21,16 +22,12 @@ const TentUpdatePanel: FC<
   const trpcCtx = trpc.useContext()
   const updateMutation = trpc.tents.update.useMutation({
     onSuccess() {
-      trpcCtx.tents.getAll.invalidate()
-      setSubmitting(false)
       setModal({} as Modal)
     },
-    onError(error) {
-      setSubmitting(false)
-      console.log(error)
+    onSettled() {
+      trpcCtx.tents.getAll.invalidate()
     },
   })
-  const [submitting, setSubmitting] = useState(false)
   const [state, setState] = useState(tent.state)
   const [unit, setUnit] = useState(tent.unit)
   const [size, setSize] = useState(tent.size)
@@ -45,7 +42,6 @@ const TentUpdatePanel: FC<
     })
   const handleUpdate = (e: FormEvent) => {
     e.preventDefault()
-    setSubmitting(true)
     const updatePromise = updateMutation.mutateAsync({
       id: tent.id,
       values: {
@@ -62,7 +58,7 @@ const TentUpdatePanel: FC<
 
     toast.promise(updatePromise, {
       success: "Modifications sauvegardées !",
-      error: "Veuillez réessayer plus tard",
+      error: getTentsErrorMessage,
       loading: "Sauvegarde en cours ...",
     })
   }
@@ -178,9 +174,9 @@ const TentUpdatePanel: FC<
             size="sm"
             icon="RiSave2Fill"
             className="max-w-fit"
-            disabled={submitting}
+            disabled={updateMutation.isLoading}
           >
-            {submitting ? "Modification ..." : "Modifier"}
+            {updateMutation.isLoading ? "Modification ..." : "Modifier"}
           </Button>
         </div>
       </form>

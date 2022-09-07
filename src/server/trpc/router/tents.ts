@@ -1,6 +1,5 @@
 import { createTentSchema, updateTentSchema } from "@/common/validation/tents"
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime"
-import * as trpc from "@trpc/server"
 import { TRPCError } from "@trpc/server"
 import { z } from "zod"
 import { authedProcedure, t } from "../trpc"
@@ -49,6 +48,7 @@ export const tentsRouter = t.router({
         if (error instanceof PrismaClientKnownRequestError) {
           if (error.code === "P2002") {
             throw new TRPCError({
+              message: "CONFLICT",
               code: "CONFLICT",
             })
           }
@@ -64,31 +64,57 @@ export const tentsRouter = t.router({
     .mutation(async ({ ctx, input }) => {
       const { prisma, session } = ctx
 
-      const updatedTent = await prisma.tent.update({
-        where: {
-          id: input.id,
-        },
-        data: {
-          ...input.values,
-          groupId: session.user.id,
-        },
-      })
+      try {
+        const updatedTent = await prisma.tent.update({
+          where: {
+            id: input.id,
+          },
+          data: {
+            ...input.values,
+            groupId: session.user.id,
+          },
+        })
 
-      if (!updatedTent) {
-        throw new trpc.TRPCError({ code: "NOT_FOUND" })
+        return updatedTent
+      } catch (error) {
+        if (error instanceof PrismaClientKnownRequestError) {
+          if (error.code === "P2025") {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "DELETED",
+            })
+          }
+        }
+
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+        })
       }
-
-      return updatedTent
     }),
   delete: authedProcedure.input(z.string()).mutation(async ({ ctx, input }) => {
     const { prisma } = ctx
 
-    const deletedTent = await prisma.tent.delete({
-      where: {
-        id: input,
-      },
-    })
+    try {
+      const deletedTent = await prisma.tent.delete({
+        where: {
+          id: input,
+        },
+      })
 
-    return deletedTent
+      return deletedTent
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === "P2025") {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "DELETED",
+          })
+        }
+      }
+
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+      })
+    }
   }),
 })
