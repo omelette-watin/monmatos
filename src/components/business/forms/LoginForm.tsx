@@ -13,6 +13,7 @@ import { toast } from "react-hot-toast"
 
 const errorMessages: Record<string, string> = {
   CredentialsSignin: "Identifiant incorrect",
+  SessionRequired: "Veuillez vous reconnecter",
 }
 
 const LoginForm: FC<UIProps<{ callbackUrl: string; error: string | null }>> = ({
