@@ -1,5 +1,7 @@
 import { createTentSchema, updateTentSchema } from "@/common/validation/tents"
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime"
 import * as trpc from "@trpc/server"
+import { TRPCError } from "@trpc/server"
 import { z } from "zod"
 import { authedProcedure, t } from "../trpc"
 
@@ -34,14 +36,28 @@ export const tentsRouter = t.router({
     .mutation(async ({ ctx, input }) => {
       const { prisma, session } = ctx
 
-      const createdTent = await prisma.tent.create({
-        data: {
-          ...input,
-          groupId: session.user.id,
-        },
-      })
+      try {
+        const createdTent = await prisma.tent.create({
+          data: {
+            ...input,
+            groupId: session.user.id,
+          },
+        })
 
-      return createdTent
+        return createdTent
+      } catch (error) {
+        if (error instanceof PrismaClientKnownRequestError) {
+          if (error.code === "P2002") {
+            throw new TRPCError({
+              code: "CONFLICT",
+            })
+          }
+        }
+
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+        })
+      }
     }),
   update: authedProcedure
     .input(updateTentSchema)

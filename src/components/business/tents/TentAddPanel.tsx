@@ -21,13 +21,11 @@ const TentAddPanel: FC<
   const trpcCtx = trpc.useContext()
   const createMutation = trpc.tents.create.useMutation({
     onSuccess() {
-      trpcCtx.tents.getAll.invalidate()
-      setSubmitting(false)
       setModal({} as Modal)
     },
-    onError(error) {
+    onSettled() {
       setSubmitting(false)
-      console.log(error)
+      trpcCtx.tents.getAll.invalidate()
     },
   })
   const [submitting, setSubmitting] = useState(false)
@@ -58,7 +56,8 @@ const TentAddPanel: FC<
       })
       toast.promise(createPromise, {
         success: "Tente ajoutée !",
-        error: "Veuillez réessayer plus tard",
+        error: (err) =>
+          errorMessages[err.data.code] || "Veuillez réessayer plus tard",
         loading: "Ajout en cours ...",
       })
     }
@@ -222,6 +221,10 @@ const TentAddPanel: FC<
       </form>
     </>
   )
+}
+
+const errorMessages: Record<string, string> = {
+  CONFLICT: "Ce numéro de tente est déjà attribué",
 }
 
 export default TentAddPanel
