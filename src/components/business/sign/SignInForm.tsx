@@ -7,18 +7,17 @@ import { signIn } from "next-auth/react"
 import Head from "next/head"
 import { FC, useCallback, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
-import FormWrapper from "../sign/FormWrapper"
-import SignWrapper from "../sign/SignWrapper"
+import FormWrapper from "./FormWrapper"
+import SignWrapper from "./SignWrapper"
 
 const errorMessages: Record<string, string> = {
   CredentialsSignin: "Identifiant incorrect",
   SessionRequired: "Veuillez vous reconnecter",
 }
 
-const LoginForm: FC<UIProps<{ callbackUrl: string; error: string | null }>> = ({
-  callbackUrl,
-  error,
-}) => {
+const SignInForm: FC<
+  UIProps<{ callbackUrl: string; error: string | null }>
+> = ({ callbackUrl, error }) => {
   const [showIdentifier, setShowIdentifier] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const handleSubmit = useCallback(
@@ -103,4 +102,4 @@ const LoginForm: FC<UIProps<{ callbackUrl: string; error: string | null }>> = ({
   )
 }
 
-export default LoginForm
+export default SignInForm

@@ -1,5 +1,5 @@
 import { ILogin } from "@/common/validation/auth"
-import LoginForm from "@/components/business/forms/LoginForm"
+import SignInForm from "@/components/business/sign/SignInForm"
 import Loading from "@/components/ui/Loading"
 import Logo from "@/components/ui/Logo"
 import Page from "@/components/ui/Page"
@@ -40,7 +40,7 @@ const SignInPage = ({ error, callbackUrl, groupId }: SignInPageProps) => {
   }, [session, groupId, router, callbackUrl, handleSubmit])
 
   if (!groupId) {
-    return <LoginForm callbackUrl={callbackUrl} error={error} />
+    return <SignInForm callbackUrl={callbackUrl} error={error} />
   }
 
   return (
