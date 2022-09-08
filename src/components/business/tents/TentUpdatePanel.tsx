@@ -118,7 +118,7 @@ const TentUpdatePanel: FC<
             value={state}
             setValue={(value) => setState(value as State)}
             options={Object.entries(State).map(([key, value]) => [
-              key as Unit,
+              key as State,
               value,
             ])}
           />
