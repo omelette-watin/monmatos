@@ -1,4 +1,5 @@
-import { ILogin } from "@/common/validation/auth"
+import { ILogin, loginSchema } from "@/common/validation/auth"
+import { zodFormikAdapter } from "@/common/validation/zodFormikAdapter"
 import Accordion from "@/components/ui/Accordion"
 import Icon from "@/components/ui/Icon"
 import { UIProps } from "@/utils/typedProps"
@@ -52,49 +53,58 @@ const SignInForm: FC<
               identifier: "",
             }}
             onSubmit={handleSubmit}
+            validationSchema={zodFormikAdapter(loginSchema)}
           >
-            <Form className="flex w-[400px] max-w-[90vw] flex-col items-center gap-2">
-              <h3 className="self-start font-medium">Identifiant de groupe</h3>
+            {({ values }) => (
+              <Form className="flex w-[400px] max-w-[90vw] flex-col items-center gap-2">
+                <h3 className="self-start font-medium">
+                  Identifiant de groupe
+                </h3>
 
-              <div className="flex w-full items-center">
-                <div className="flex w-full items-center gap-4 rounded-l-lg border-2 bg-slate-100 p-2 shadow-inner focus-within:border-blue-600">
-                  <button type="button" onMouseDown={showId} onMouseUp={hideId}>
-                    <Icon name="IoMdEye" className="text-xl" />
+                <div className="flex w-full items-center">
+                  <div className="flex w-full items-center gap-4 rounded-l-lg border-2 bg-slate-100 p-2 shadow-inner focus-within:border-blue-600">
+                    <button
+                      type="button"
+                      onMouseDown={showId}
+                      onMouseUp={hideId}
+                    >
+                      <Icon name="IoMdEye" className="text-xl" />
+                    </button>
+                    <Field
+                      type={showIdentifier ? "text" : "password"}
+                      name="identifier"
+                      placeholder="Identifiant"
+                      className="w-full bg-transparent text-sm outline-none"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={submitting || !values.identifier}
+                    className="flex h-full items-center justify-center rounded-r-lg bg-emerald-500 px-3 text-white opacity-100 shadow-sm transition-[filter] disabled:opacity-50"
+                  >
+                    {submitting ? (
+                      <div className="flex items-center justify-center px-[2px]">
+                        <div
+                          className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-white border-r-transparent"
+                          role="status"
+                        />
+                      </div>
+                    ) : (
+                      <Icon name="ArrowRightIcon" />
+                    )}
                   </button>
-                  <Field
-                    type={showIdentifier ? "text" : "password"}
-                    name="identifier"
-                    placeholder="Identifiant"
-                    className="w-full bg-transparent text-sm outline-none"
-                  />
                 </div>
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="flex h-full items-center justify-center rounded-r-lg bg-emerald-500 px-3 text-white shadow-sm transition-[filter] hover:brightness-110 focus:brightness-110"
-                >
-                  {submitting ? (
-                    <div className="flex items-center justify-center px-[2px]">
-                      <div
-                        className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-white border-r-transparent"
-                        role="status"
-                      />
-                    </div>
-                  ) : (
-                    <Icon name="ArrowRightIcon" />
-                  )}
-                </button>
-              </div>
-              <Accordion label="Je n'ai pas mon identifiant">
-                <div className="space-y-2 p-4 text-sm">
-                  <p>
-                    - Si vous avez un QR Code vous pouvez le scanner avec votre
-                    caméra
-                  </p>
-                  <p>- Demandez à ce que l'on vous invite dans le groupe</p>
-                </div>
-              </Accordion>
-            </Form>
+                <Accordion label="Je n'ai pas mon identifiant">
+                  <div className="space-y-2 p-4 text-sm">
+                    <p>
+                      - Si vous avez un QR Code vous pouvez le scanner avec
+                      votre caméra
+                    </p>
+                    <p>- Demandez à ce que l'on vous invite dans le groupe</p>
+                  </div>
+                </Accordion>
+              </Form>
+            )}
           </Formik>
         </FormWrapper>
       </SignWrapper>
