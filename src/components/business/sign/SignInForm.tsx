@@ -39,7 +39,7 @@ const SignInForm: FC<
     }
 
     return () => toast.dismiss("error-message")
-  })
+  }, [error])
 
   return (
     <>
