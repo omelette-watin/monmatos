@@ -49,7 +49,7 @@ const SignInForm: FC<
         <FormWrapper title="Me connecter">
           <Formik
             initialValues={{
-              identifier: "ca5e5d0c-3bee-4269-9b9b-4e2372ffdc82",
+              identifier: "",
             }}
             onSubmit={handleSubmit}
           >
