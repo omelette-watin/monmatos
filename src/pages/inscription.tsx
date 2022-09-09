@@ -1,7 +1,8 @@
+import SignUpForm from "@/components/business/sign/SignUpForm"
 import { NextPageWithLayout } from "./_app"
 
 const InscriptionPage: NextPageWithLayout = () => {
-  return <div>Inscription Page</div>
+  return <SignUpForm />
 }
 
 export default InscriptionPage
