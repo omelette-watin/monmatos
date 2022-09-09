@@ -55,7 +55,7 @@ const SignInForm: FC<
             onSubmit={handleSubmit}
             validationSchema={zodFormikAdapter(loginSchema)}
           >
-            {({ values }) => (
+            {({ isValid }) => (
               <Form className="flex w-[400px] max-w-[90vw] flex-col items-center gap-2">
                 <h3 className="self-start font-medium">
                   Identifiant de groupe
@@ -79,7 +79,7 @@ const SignInForm: FC<
                   </div>
                   <button
                     type="submit"
-                    disabled={submitting || !values.identifier}
+                    disabled={submitting || !isValid}
                     className="flex h-full items-center justify-center rounded-r-lg bg-emerald-500 px-3 text-white opacity-100 shadow-sm transition-[filter] disabled:opacity-50"
                   >
                     {submitting ? (
