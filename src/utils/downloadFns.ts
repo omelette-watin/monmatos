@@ -1,6 +1,6 @@
 import { Group, Tent } from "@prisma/client"
-import { units } from "./unit"
 import * as xlsx from "xlsx"
+import { units } from "./records"
 
 export const downloadImageFromCanvas = (id: string, filename: string) => {
   const canvas = document.getElementById(id) as HTMLCanvasElement

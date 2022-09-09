@@ -30,3 +30,9 @@ export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
     GROUPE: "GROUPE",
   },
 }
+
+export const movements: Record<Group["movement"], string> = {
+  SGDF: "Scouts et Guides de France",
+  SUF: "Scouts unitaire de France",
+  AGSE: "Association des Guides et Scouts d'Europe",
+}

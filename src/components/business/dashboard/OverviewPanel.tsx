@@ -1,13 +1,13 @@
+import Card from "@/components/ui/Card"
 import Icon from "@/components/ui/Icon"
 import Panel from "@/components/ui/Panel"
+import { units } from "@/utils/records"
 import { UIProps } from "@/utils/typedProps"
 import { Group, Tent } from "@prisma/client"
 import { Session } from "next-auth"
 import { FC } from "react"
-import StateChart from "./StateChart"
 import RepartitionChart from "./RepartionChart"
-import Card from "@/components/ui/Card"
-import { units } from "@/utils/unit"
+import StateChart from "./StateChart"
 
 const OverviewPanel: FC<UIProps<{ tents: Tent[]; session: Session }>> = ({
   tents,

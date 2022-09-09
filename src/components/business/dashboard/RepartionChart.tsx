@@ -1,7 +1,7 @@
 import Card from "@/components/ui/Card"
 import Icon from "@/components/ui/Icon"
+import { units } from "@/utils/records"
 import { UIProps } from "@/utils/typedProps"
-import { units } from "@/utils/unit"
 import { Group, Tent, Unit } from "@prisma/client"
 import classNames from "classnames"
 import { Session } from "next-auth"
