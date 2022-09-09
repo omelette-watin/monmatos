@@ -23,7 +23,7 @@ const FormWrapper: FC<
         <div className="self-start lg:hidden">
           <Logo />
         </div>
-        <h1 className="text-center text-4xl font-black sm:text-5xl lg:text-emerald-500">
+        <h1 className="text-center text-4xl font-black sm:text-5xl ">
           {title}
         </h1>
         {children}
