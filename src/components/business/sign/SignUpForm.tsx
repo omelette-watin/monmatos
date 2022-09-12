@@ -120,9 +120,9 @@ const SignUpForm = () => {
                 <p className="self-start font-medium">
                   Votre identifiant de groupe
                 </p>
-                <div className="flex w-full items-center gap-4 rounded-lg border-2 bg-slate-100 p-2">
+                <div className="flex w-full items-center gap-4 rounded-lg border-2 bg-slate-100 p-2 text-sm">
                   <Icon name="MdPassword" />
-                  <p>{groupId}</p>
+                  <p className="truncate">{groupId}</p>
                 </div>
                 <Accordion
                   label="Que dois-je faire avec ?"
