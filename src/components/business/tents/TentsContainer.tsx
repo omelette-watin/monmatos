@@ -45,21 +45,23 @@ const TentsContainer: FC<
 
   if (!tents || !tents.length) {
     return (
-      <div className="flex w-full flex-col items-center justify-center gap-4 py-24">
-        <div className="font-medium text-slate-400 sm:text-lg">
-          Vous n'avez pas encore ajouté de tente ...
+      <Panel className="text-center">
+        <div className="flex w-full flex-col items-center justify-center gap-4 py-24">
+          <div className="font-medium text-slate-400 sm:text-lg">
+            Vous n'avez pas encore ajouté de tente ...
+          </div>
+          <Button
+            onClick={openAddTentPanel}
+            type="button"
+            variant="green"
+            size="sm"
+            className="max-w-fit"
+            icon="BsPlusLg"
+          >
+            J'en ajoute une !
+          </Button>
         </div>
-        <Button
-          onClick={openAddTentPanel}
-          type="button"
-          variant="green"
-          size="sm"
-          className="max-w-fit"
-          icon="BsPlusLg"
-        >
-          J'en ajoute une !
-        </Button>
-      </div>
+      </Panel>
     )
   }
 
