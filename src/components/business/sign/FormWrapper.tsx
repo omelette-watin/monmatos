@@ -1,6 +1,7 @@
 import ButtonLink from "@/components/ui/ButtonLink"
 import Logo from "@/components/ui/Logo"
 import type { UIProps } from "@/utils/typedProps"
+import classNames from "classnames"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import type { FC, ReactNode } from "react"
@@ -8,7 +9,7 @@ import type { FC, ReactNode } from "react"
 const FormWrapper: FC<
   UIProps<{
     children: ReactNode
-    title: ReactNode
+    title: string
   }>
 > = ({ children, title }) => {
   const { asPath } = useRouter()
@@ -23,7 +24,16 @@ const FormWrapper: FC<
         <div className="self-start lg:hidden">
           <Logo />
         </div>
-        <h1 className="text-center text-4xl font-black sm:text-5xl">{title}</h1>
+        <h1 className="text-center text-4xl font-black sm:text-5xl">
+          {title.split(" ").map((word, index) => (
+            <span
+              key={word}
+              className={classNames({ "text-emerald-500": index === 2 })}
+            >
+              {word}{" "}
+            </span>
+          ))}
+        </h1>
         {children}
       </div>
       <div className="flex flex-col items-center gap-10 text-center text-sm">
