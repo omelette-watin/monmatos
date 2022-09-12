@@ -73,7 +73,7 @@ const SignInForm: FC<
                     <Field
                       type={showIdentifier ? "text" : "password"}
                       name="identifier"
-                      placeholder="Identifiant"
+                      placeholder="ex: ae64a5-def8-4705-8d04-088fa"
                       className="w-full bg-transparent text-sm outline-none"
                     />
                   </div>
