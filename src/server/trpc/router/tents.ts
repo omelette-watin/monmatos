@@ -45,18 +45,7 @@ export const tentsRouter = t.router({
 
         return createdTent
       } catch (error) {
-        if (error instanceof PrismaClientKnownRequestError) {
-          if (error.code === "P2002") {
-            throw new TRPCError({
-              message: "CONFLICT",
-              code: "CONFLICT",
-            })
-          }
-        }
-
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-        })
+        handleError(error)
       }
     }),
   update: authedProcedure
@@ -77,18 +66,7 @@ export const tentsRouter = t.router({
 
         return updatedTent
       } catch (error) {
-        if (error instanceof PrismaClientKnownRequestError) {
-          if (error.code === "P2025") {
-            throw new TRPCError({
-              code: "NOT_FOUND",
-              message: "DELETED",
-            })
-          }
-        }
-
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-        })
+        handleError(error)
       }
     }),
   delete: authedProcedure.input(z.string()).mutation(async ({ ctx, input }) => {
@@ -103,18 +81,36 @@ export const tentsRouter = t.router({
 
       return deletedTent
     } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError) {
-        if (error.code === "P2025") {
-          throw new TRPCError({
-            code: "NOT_FOUND",
-            message: "DELETED",
-          })
-        }
-      }
-
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-      })
+      handleError(error)
     }
   }),
 })
+
+const handleError = (error: unknown) => {
+  if (error instanceof PrismaClientKnownRequestError) {
+    if (error.code === "P2002") {
+      throw new TRPCError({
+        message: error.code,
+        code: "CONFLICT",
+      })
+    }
+
+    if (error.code === "P2025") {
+      throw new TRPCError({
+        message: error.code,
+        code: "PRECONDITION_FAILED",
+      })
+    }
+
+    if (error.code === "P2003") {
+      throw new TRPCError({
+        message: error.code,
+        code: "PRECONDITION_FAILED",
+      })
+    }
+  }
+
+  throw new TRPCError({
+    code: "INTERNAL_SERVER_ERROR",
+  })
+}

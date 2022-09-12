@@ -1,7 +1,12 @@
-export const tentsErrorMessage: Record<string, string> = {
-  CONFLICT: "Ce numéro de tente est déjà attribué",
-  DELETED: "Cette tente n'existe plus",
-  NOTFOUND: "Cette tente n'existe pas",
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime"
+
+export const tentsErrorMessage: Record<
+  PrismaClientKnownRequestError["code"],
+  string
+> = {
+  P2002: "Ce numéro de tente est déjà attribué",
+  P2025: "Cette tente n'existe plus",
+  P2003: "Votre groupe n'est plus sur MonMatos",
 }
 
 export const getTentsErrorMessage = ({ message }: { message: string }) =>
