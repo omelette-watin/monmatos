@@ -56,7 +56,7 @@ const SignUpForm = () => {
                 onSubmit={handleSubmit}
                 validationSchema={zodFormikAdapter(registerSchema)}
               >
-                {({ isValid }) => (
+                {({ isValid, values }) => (
                   <Form className="flex w-[400px] max-w-[90vw] flex-col items-center gap-2">
                     <label htmlFor="name" className="self-start font-medium">
                       Nom de mon groupe
@@ -103,7 +103,7 @@ const SignUpForm = () => {
                       icon="ArrowRightIcon"
                       iconPosition="right"
                       type="submit"
-                      disabled={submitting || !isValid}
+                      disabled={submitting || !isValid || !values.name}
                       className="mt-8 max-w-fit"
                     >
                       Valider
@@ -114,7 +114,7 @@ const SignUpForm = () => {
             )}
             {groupId && (
               <div className="flex w-[400px] max-w-[90vw] flex-col items-center gap-2">
-                <h2 className="mb-4 text-lg font-semibold text-emerald-500">
+                <h2 className="mb-4 rounded-lg bg-green-100 px-3 py-1 text-lg font-semibold text-green-800">
                   Votre groupe a bien été enregistré !
                 </h2>
                 <p className="self-start font-medium">
@@ -122,14 +122,15 @@ const SignUpForm = () => {
                 </p>
                 <div className="flex w-full items-center gap-4 rounded-lg border-2 bg-slate-100 p-2">
                   <Icon name="MdPassword" />
-                  <p>{groupId || "zeazeakkekll-zelazek-eazekakeozae-zeaea"}</p>
+                  <p>{groupId}</p>
                 </div>
-                <Accordion label="Que dois-je faire avec ?">
+                <Accordion
+                  label="Que dois-je faire avec ?"
+                  maxHeight="max-h-24"
+                >
                   <div className="p-4 text-sm">
-                    Copiez-le et partagez-le avec les chefs de votre groupe !
-                    <br />
-                    L'identifiant est l'une des 3 manières de ce connecter à son
-                    groupe.
+                    Copiez-le et partagez-le avec les chefs de votre groupe afin
+                    qu'ils puissent se connecter !
                   </div>
                 </Accordion>
                 <div className="mt-6 flex flex-wrap items-center gap-2">
@@ -137,6 +138,7 @@ const SignUpForm = () => {
                     variant="white"
                     size="sm"
                     className="max-w-fit"
+                    icon="TbCopy"
                     onClick={() =>
                       copyToClipBoard(
                         "Identifiant",
