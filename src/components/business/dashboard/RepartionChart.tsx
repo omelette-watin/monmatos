@@ -2,10 +2,10 @@ import Card from "@/components/ui/Card"
 import Icon from "@/components/ui/Icon"
 import { units } from "@/utils/records"
 import { UIProps } from "@/utils/typedProps"
-import { Group, Tent, Unit } from "@prisma/client"
+import { Tent, Unit } from "@prisma/client"
 import classNames from "classnames"
-import { Session } from "next-auth"
 import { FC } from "react"
+import { useGroup } from "../hooks/useGroup"
 
 const colors: Record<Unit, string> = {
   FARFADETS: "bg-green-500",
@@ -43,12 +43,11 @@ const Bar: FC<UIProps<{ unit: Unit; count: number; total: number }>> = ({
   )
 }
 
-const RepartitionChart: FC<
-  UIProps<{ tents: Tent[]; session: Session; className?: string }>
-> = ({ tents, session }) => {
-  const movementUnits = units[
-    session.user?.movement as Group["movement"]
-  ] as Record<Unit, string>
+const RepartitionChart: FC<UIProps<{ tents: Tent[]; className?: string }>> = ({
+  tents,
+}) => {
+  const { movement } = useGroup()
+  const movementUnits = units[movement] as Record<Unit, string>
   const countOf = (unit: keyof typeof movementUnits) => {
     return tents.filter((tents) => tents.unit === unit).length
   }

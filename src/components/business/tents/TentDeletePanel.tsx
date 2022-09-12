@@ -4,7 +4,6 @@ import Icon from "@/components/ui/Icon"
 import type { Tent } from "@/pages/app/tentes"
 import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
-import { useSession } from "next-auth/react"
 import Head from "next/head"
 import { FC } from "react"
 import { toast } from "react-hot-toast"
@@ -13,7 +12,6 @@ import { getTentsErrorMessage } from "./tentsErrorMessage"
 import TentViewPanel from "./TentViewPanel"
 
 const TentDeletePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
-  const { data: session } = useSession()
   const { id, identifyingNum } = tent
   const { setModal } = useModalContext()
   const trpcCtx = trpc.useContext()
@@ -33,16 +31,11 @@ const TentDeletePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
       loading: "Suppression en cours ...",
     })
   }
-  const goBackToViewPanel = () => {
-    if (session) {
-      setModal({
-        component: (
-          <TentViewPanel tent={tent} movement={session.user.movement} />
-        ),
-        visible: true,
-      })
-    }
-  }
+  const goBackToViewPanel = () =>
+    setModal({
+      component: <TentViewPanel tent={tent} />,
+      visible: true,
+    })
 
   return (
     <>

@@ -4,20 +4,17 @@ import type { Tent } from "@/pages/app/tentes"
 import { downloadImageFromCanvas } from "@/utils/downloadFns"
 import { units } from "@/utils/records"
 import { UIProps } from "@/utils/typedProps"
-import { Group } from "@prisma/client"
-import { useSession } from "next-auth/react"
 import Head from "next/head"
 import { QRCodeCanvas } from "qrcode.react"
 import { FC } from "react"
 import { stateColors } from "../dashboard/StateChart"
+import { useGroup } from "../hooks/useGroup"
 import TentCharacteristic from "./TentCharacteristic"
 import TentDeletePanel from "./TentDeletePanel"
 import TentUpdatePanel from "./TentUpdatePanel"
 
-const TentViewPanel: FC<
-  UIProps<{ tent: Tent; movement: Group["movement"] }>
-> = ({ tent, movement }) => {
-  const { data: session } = useSession()
+const TentViewPanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
+  const { movement, id: groupId } = useGroup()
   const {
     id,
     identifyingNum,
@@ -43,7 +40,7 @@ const TentViewPanel: FC<
   const goToUpdatePanel = () =>
     setModal({
       visible: true,
-      component: <TentUpdatePanel tent={tent} movement={movement} />,
+      component: <TentUpdatePanel tent={tent} />,
     })
 
   return (
@@ -133,7 +130,7 @@ const TentViewPanel: FC<
           <QRCodeCanvas
             id={id}
             size={250}
-            value={`${process.env.NEXT_PUBLIC_URL}/connexion?i=${session?.user?.id}&callbackUrl=/app/tentes?i=${id}`}
+            value={`${process.env.NEXT_PUBLIC_URL}/connexion?i=${groupId}&callbackUrl=/app/tentes?i=${id}`}
             includeMargin={true}
             className="hidden"
           />

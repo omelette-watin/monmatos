@@ -7,17 +7,17 @@ import { Tents } from "@/pages/app/tentes"
 import { units } from "@/utils/records"
 import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
-import { Group, State, Unit } from "@prisma/client"
+import { State, Unit } from "@prisma/client"
 import classNames from "classnames"
 import Head from "next/head"
 import { FC, FormEvent, useState } from "react"
 import { toast } from "react-hot-toast"
+import { useGroup } from "../hooks/useGroup"
 import TentInput from "./TentInput"
 import { getTentsErrorMessage } from "./tentsErrorMessage"
 
-const TentAddPanel: FC<
-  UIProps<{ tents: Tents; movement: Group["movement"] }>
-> = ({ tents, movement }) => {
+const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
+  const { movement } = useGroup()
   const { setModal } = useModalContext()
   const trpcCtx = trpc.useContext()
   const createMutation = trpc.tents.create.useMutation({

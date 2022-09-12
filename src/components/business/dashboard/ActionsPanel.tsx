@@ -5,29 +5,26 @@ import Panel from "@/components/ui/Panel"
 import { copyToClipBoard } from "@/utils/copyToClipBoard"
 import { downloadExcel, downloadImageFromCanvas } from "@/utils/downloadFns"
 import { UIProps } from "@/utils/typedProps"
-import { Group, Tent } from "@prisma/client"
-import { Session } from "next-auth"
+import { Tent } from "@prisma/client"
 import { QRCodeCanvas } from "qrcode.react"
 import { FC } from "react"
+import { useGroup } from "../hooks/useGroup"
 
-const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
-  session,
-  tents,
-}) => {
+const ActionsPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
+  const { id, name, movement } = useGroup()
   const actions: Record<"partager" | "exporter", Record<number, () => void>> = {
     partager: {
       1: () =>
         copyToClipBoard(
           "Lien",
-          `${process.env.NEXT_PUBLIC_URL}/connexion?i=${session.user?.id}&callbackUrl=/app`,
+          `${process.env.NEXT_PUBLIC_URL}/connexion?i=${id}&callbackUrl=/app`,
           "clipboard-link",
         ),
-      2: () => downloadImageFromCanvas("QR", `${session.user?.name} QR Code`),
-      3: () =>
-        copyToClipBoard("Identifiant", session.user?.id || "", "clipboard-id"),
+      2: () => downloadImageFromCanvas("QR", `${name} QR Code`),
+      3: () => copyToClipBoard("Identifiant", id || "", "clipboard-id"),
     },
     exporter: {
-      1: downloadExcel(tents, session.user?.movement as Group["movement"]),
+      1: downloadExcel(tents, movement),
     },
   }
 
@@ -106,7 +103,7 @@ const ActionsPanel: FC<UIProps<{ session: Session; tents: Tent[] }>> = ({
             <QRCodeCanvas
               id="QR"
               size={250}
-              value={`${process.env.NEXT_PUBLIC_URL}/connexion?i=${session.user?.id}&callbackUrl=/app`}
+              value={`${process.env.NEXT_PUBLIC_URL}/connexion?i=${id}&callbackUrl=/app`}
               includeMargin={true}
               className="hidden"
             />

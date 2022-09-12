@@ -6,18 +6,18 @@ import type { Tent } from "@/pages/app/tentes"
 import { units } from "@/utils/records"
 import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
-import { Group, State, Unit } from "@prisma/client"
+import { State, Unit } from "@prisma/client"
 import Head from "next/head"
 import { FC, FormEvent, useState } from "react"
 import { toast } from "react-hot-toast"
+import { useGroup } from "../hooks/useGroup"
 import type { Modal } from "../modal"
 import TentInput from "./TentInput"
 import { getTentsErrorMessage } from "./tentsErrorMessage"
 import TentViewPanel from "./TentViewPanel"
 
-const TentUpdatePanel: FC<
-  UIProps<{ tent: Tent; movement: Group["movement"] }>
-> = ({ tent, movement }) => {
+const TentUpdatePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
+  const { movement } = useGroup()
   const { setModal } = useModalContext()
   const trpcCtx = trpc.useContext()
   const updateMutation = trpc.tents.update.useMutation({
@@ -37,7 +37,7 @@ const TentUpdatePanel: FC<
   const [comments, setComments] = useState(tent.comments || "")
   const goBackToViewPanel = () =>
     setModal({
-      component: <TentViewPanel tent={tent} movement={movement} />,
+      component: <TentViewPanel tent={tent} />,
       visible: true,
     })
   const handleUpdate = (e: FormEvent) => {

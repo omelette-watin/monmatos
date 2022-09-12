@@ -3,18 +3,15 @@ import Icon from "@/components/ui/Icon"
 import Panel from "@/components/ui/Panel"
 import { units } from "@/utils/records"
 import { UIProps } from "@/utils/typedProps"
-import { Group, Tent } from "@prisma/client"
-import { Session } from "next-auth"
+import { Tent } from "@prisma/client"
 import { FC } from "react"
+import { useGroup } from "../hooks/useGroup"
 import RepartitionChart from "./RepartionChart"
 import StateChart from "./StateChart"
 
-const OverviewPanel: FC<UIProps<{ tents: Tent[]; session: Session }>> = ({
-  tents,
-  session,
-}) => {
-  const numberOfUnits =
-    Object.keys(units[session.user?.movement as Group["movement"]]).length - 1
+const OverviewPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
+  const { movement } = useGroup()
+  const numberOfUnits = Object.keys(units[movement]).length - 1
 
   return (
     <Panel id="overview">
@@ -58,7 +55,7 @@ const OverviewPanel: FC<UIProps<{ tents: Tent[]; session: Session }>> = ({
               </div>
             </div>
           </Card>
-          <RepartitionChart tents={tents} session={session} />
+          <RepartitionChart tents={tents} />
         </div>
         <StateChart tents={tents} />
       </div>

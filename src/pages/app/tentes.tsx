@@ -11,7 +11,6 @@ import AppLayout from "@/components/ui/layouts/AppLayout"
 import { AppRouter } from "@/server/trpc/router"
 import { trpc } from "@/utils/trpc"
 import { inferProcedureOutput } from "@trpc/server"
-import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { ReactElement, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
@@ -32,7 +31,6 @@ export type Filters = {
 const TentsPage: NextPageWithLayout = () => {
   const router = useRouter()
   const { setModal } = useModalContext()
-  const { data: session } = useSession()
   const { data: tents, isLoading } = trpc.tents.getAll.useQuery()
   const [filters, setFilters] = useState<Filters>({
     size: null,
@@ -40,16 +38,11 @@ const TentsPage: NextPageWithLayout = () => {
     state: null,
   })
   const [sorting, setSorting] = useState<"asc" | "desc">("asc")
-  const openAddTentPanel = () => {
-    if (session) {
-      setModal({
-        component: (
-          <TentAddPanel tents={tents || []} movement={session.user.movement} />
-        ),
-        visible: true,
-      })
-    }
-  }
+  const openAddTentPanel = () =>
+    setModal({
+      component: <TentAddPanel tents={tents || []} />,
+      visible: true,
+    })
 
   const openFilterModal = () =>
     setModal({
@@ -58,13 +51,11 @@ const TentsPage: NextPageWithLayout = () => {
     })
 
   useEffect(() => {
-    if (tents && session) {
+    if (tents) {
       if (router.query.t === "add") {
         setModal({
           visible: true,
-          component: (
-            <TentAddPanel tents={tents} movement={session.user.movement} />
-          ),
+          component: <TentAddPanel tents={tents} />,
         })
         router.replace("/app/tentes", undefined, { shallow: true })
 
@@ -78,12 +69,7 @@ const TentsPage: NextPageWithLayout = () => {
         if (targetTent) {
           setModal({
             visible: true,
-            component: (
-              <TentViewPanel
-                tent={targetTent}
-                movement={session.user.movement}
-              />
-            ),
+            component: <TentViewPanel tent={targetTent} />,
           })
 
           return
@@ -93,7 +79,7 @@ const TentsPage: NextPageWithLayout = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router, tents, session])
+  }, [router, tents])
 
   return (
     <div className="space-y-6">
