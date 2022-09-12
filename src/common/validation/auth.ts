@@ -1,11 +1,11 @@
 import { z } from "zod"
 
 export const loginSchema = z.object({
-  identifier: z.string(),
+  identifier: z.string().trim(),
 })
 
 export const registerSchema = z.object({
-  name: z.string().min(2),
+  name: z.string().trim(),
   movement: z.enum(["AGSE", "SUF", "SGDF"]),
 })
 
