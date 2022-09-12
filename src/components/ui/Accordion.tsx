@@ -19,7 +19,7 @@ const Accordion: FC<
       <button
         type="button"
         onClick={() => setShowHint((prev) => !prev)}
-        className="z-10 flex w-full cursor-pointer items-center gap-1 self-start rounded-lg bg-blue-100 p-2 text-lg shadow-md transition-all duration-500"
+        className="z-20 flex w-full cursor-pointer items-center gap-1 self-start rounded-lg bg-blue-100 p-2 text-lg shadow-md transition-all duration-500"
       >
         <Icon name={icon || "RiQuestionLine"} />
         <div className="text-sm">{label}</div>
@@ -33,7 +33,7 @@ const Accordion: FC<
       </button>
       <div
         className={classNames(
-          "absolute bottom-1 h-fit w-[98%] translate-y-full overflow-hidden rounded-b-lg bg-blue-50 shadow-md transition-[max-height] duration-500",
+          "absolute bottom-1 z-10 h-fit w-[98%] translate-y-full overflow-hidden rounded-b-lg bg-blue-50 shadow-md transition-[max-height] duration-500",
           {
             "max-h-0": !showHint,
             [maxHeight]: showHint,
