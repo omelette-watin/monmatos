@@ -2,7 +2,7 @@ import classNames from "classnames"
 import { signOut } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import Button from "./Button"
 import ButtonLink from "./ButtonLink"
 import HeaderLink from "./HeaderLink"
@@ -37,7 +37,7 @@ const MobileSidebar = () => {
       >
         <div className="flex h-full w-full flex-col items-start">
           <div className="flex w-full items-center justify-between p-4 shadow-md">
-            <Link href="/app">
+            <Link href="/">
               <a>
                 <Logo size="sm" />
               </a>

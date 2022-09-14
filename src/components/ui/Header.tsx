@@ -37,14 +37,14 @@ const Header = () => {
         <div className="flex items-center justify-between font-medium">
           <div className="flex items-center">
             <div className="hidden lg:block">
-              <Link href="/app">
+              <Link href="/">
                 <a>
                   <Logo />
                 </a>
               </Link>
             </div>
             <div className="lg:hidden">
-              <Link href="/app">
+              <Link href="/">
                 <a>
                   <Logo size="sm" />
                 </a>
