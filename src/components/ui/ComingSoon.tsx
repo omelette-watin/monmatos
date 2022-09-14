@@ -4,18 +4,20 @@ import { FC } from "react"
 
 const ComingSoon: FC<UIProps<{ name: string }>> = ({ name }) => {
   return (
-    <div className="flex w-full flex-col items-center gap-6 py-10 text-center ">
-      <div className="text-2xl font-bold sm:text-3xl">Bientôt ici :</div>
-      <div className="text-3xl font-bold sm:text-5xl">
-        La page <span className="font-extrabold text-amber-500">{name}</span>{" "}
-        ...
-      </div>
-      <p className="text-base font-semibold text-gray-400 sm:text-lg">
+    <div className="flex w-full flex-col items-center justify-center pt-20 text-center sm:pt-24 lg:pt-32">
+      <h1 className="text-center text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+        Bientôt ici la page "
+        <span className="bg-gradient-to-tl from-emerald-500 to-emerald-600 bg-clip-text text-transparent">
+          {name}
+        </span>
+        " . . .
+      </h1>
+      <p className="mx-auto mt-6 max-w-3xl text-center text-lg text-slate-600">
         Merci de votre patience !
       </p>
 
       <Link href="/">
-        <a className="underline">Revenir à l'accueil</a>
+        <a className="mt-10 underline">Revenir à l'accueil</a>
       </Link>
     </div>
   )
