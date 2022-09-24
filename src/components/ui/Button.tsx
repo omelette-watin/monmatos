@@ -4,7 +4,7 @@ import { FC } from "react"
 import Icon, { IconName } from "./Icon"
 
 export const buttonVariants = {
-  green: "text-white bg-emerald-600 border-emerald-600",
+  green: "text-white bg-emerald-500 border-emerald-500",
   black: "text-white bg-slate-900 border-slate-900",
   blue: "text-white bg-blue-600 border-blue-600",
   white: "text-black bg-main border-black",
