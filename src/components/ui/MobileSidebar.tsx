@@ -114,7 +114,7 @@ const MobileSidebar = () => {
                   <Button
                     type="button"
                     size="xs"
-                    variant="black"
+                    variant="red"
                     className="-ml-1 max-w-fit"
                     onClick={() => signOut({ callbackUrl: "/connexion" })}
                     icon="LogoutIcon"
