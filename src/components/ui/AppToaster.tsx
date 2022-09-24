@@ -3,7 +3,7 @@ import toast, { ToastBar, Toaster } from "react-hot-toast"
 const AppToaster = () => {
   return (
     <Toaster
-      position="bottom-center"
+      position="bottom-left"
       toastOptions={{
         success: {
           duration: 2000,
