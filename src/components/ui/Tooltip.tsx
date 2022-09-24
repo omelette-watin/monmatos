@@ -10,7 +10,7 @@ const Tooltip: FC<UIProps<{ children: ReactNode; className?: string }>> = ({
   return (
     <div
       className={classNames(
-        "bg-main absolute -bottom-8 hidden rounded-md px-2 py-1 text-xs text-black shadow-md group-hover:block",
+        "absolute -bottom-8 hidden rounded-md bg-slate-900 px-2 py-1 text-xs text-white shadow-md group-hover:block",
         className,
       )}
       {...otherProps}
