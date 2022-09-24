@@ -50,7 +50,7 @@ const Header = () => {
                 </a>
               </Link>
             </div>
-            <div className="ml-10 hidden items-center gap-6 sm:flex">
+            <nav className="ml-10 hidden items-center gap-6 sm:flex">
               {isPublic ? (
                 <>
                   <HeaderLink label="Guide" href="/guide" />
@@ -69,7 +69,7 @@ const Header = () => {
                   />
                 </>
               )}
-            </div>
+            </nav>
           </div>
           <div className="hidden items-center divide-x-2 lg:flex">
             {isPublic ? (

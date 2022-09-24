@@ -48,7 +48,7 @@ const MobileSidebar = () => {
             </button>
           </div>
 
-          <div className="flex flex-col items-start space-y-3 p-6">
+          <nav className="flex flex-col items-start space-y-3 p-6">
             {isPublic ? (
               <>
                 <HeaderLink label="Guide" href="/guide" />
@@ -67,7 +67,7 @@ const MobileSidebar = () => {
                 />
               </>
             )}
-          </div>
+          </nav>
           <div className="flex h-full w-full flex-col items-start justify-between gap-20 p-6">
             {isPublic ? (
               <>
