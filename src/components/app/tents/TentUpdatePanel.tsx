@@ -57,7 +57,7 @@ const TentUpdatePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
     })
 
     toast.promise(updatePromise, {
-      success: "Modifications sauvegardées !",
+      success: "Modifications sauvegardées",
       error: getTentsErrorMessage,
       loading: "Sauvegarde en cours ...",
     })

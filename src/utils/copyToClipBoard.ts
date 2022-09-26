@@ -7,7 +7,7 @@ export const copyToClipBoard = async (
 ) => {
   try {
     await navigator.clipboard.writeText(str)
-    toast.success(`${label} copié !`, { id })
+    toast.success(`${label} copié`, { id })
   } catch (error) {
     console.log(error)
     let textarea
@@ -33,7 +33,7 @@ export const copyToClipBoard = async (
 
       textarea.setSelectionRange(0, textarea.value.length)
       document.execCommand("copy")
-      toast.success(`${label} copié !`, { id })
+      toast.success(`${label} copié`, { id })
     } catch (error) {
       console.error(error)
       toast.error("Veuillez réessayer plus tard", { id: `${id}-error` })
