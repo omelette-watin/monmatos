@@ -5,7 +5,7 @@ import { UIProps } from "@/utils/typedProps"
 import { Tent, Unit } from "@prisma/client"
 import classNames from "classnames"
 import { FC } from "react"
-import { useGroup } from "../hooks/useGroup"
+import { useGroup } from "../../hooks/useGroup"
 
 const colors: Record<Unit, string> = {
   FARFADETS: "bg-green-500",

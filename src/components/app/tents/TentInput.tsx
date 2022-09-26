@@ -1,7 +1,7 @@
+import { stateColors } from "@/components/app/dashboard/StateChart"
 import { State } from "@prisma/client"
 import classNames from "classnames"
 import { Dispatch, SetStateAction } from "react"
-import { stateColors } from "../dashboard/StateChart"
 
 interface TentInputProps {
   label: string

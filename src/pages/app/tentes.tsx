@@ -1,13 +1,13 @@
-import { useModalContext } from "@/components/business/hooks/useModalContext"
-import Modal from "@/components/business/modal"
-import { ModalContextProvider } from "@/components/business/modal/ModalContext"
-import TentAddPanel from "@/components/business/tents/TentAddPanel"
-import TentFilterPanel from "@/components/business/tents/TentFilterPanel"
-import TentsContainer from "@/components/business/tents/TentsContainer"
-import TentViewPanel from "@/components/business/tents/TentViewPanel"
+import AppLayout from "@/components/app/Layout"
+import Modal from "@/components/app/modal"
+import { ModalContextProvider } from "@/components/app/modal/ModalContext"
+import TentAddPanel from "@/components/app/tents/TentAddPanel"
+import TentFilterPanel from "@/components/app/tents/TentFilterPanel"
+import TentsContainer from "@/components/app/tents/TentsContainer"
+import TentViewPanel from "@/components/app/tents/TentViewPanel"
+import { useModalContext } from "@/components/hooks/useModalContext"
 import Button from "@/components/ui/Button"
 import Icon from "@/components/ui/Icon"
-import AppLayout from "@/components/ui/layouts/AppLayout"
 import { AppRouter } from "@/server/trpc/router"
 import { trpc } from "@/utils/trpc"
 import { inferProcedureOutput } from "@trpc/server"
@@ -147,8 +147,6 @@ const TentsPage: NextPageWithLayout = () => {
     </div>
   )
 }
-
-TentsPage.protected = true
 
 TentsPage.getLayout = (page: ReactElement) => (
   <ModalContextProvider>

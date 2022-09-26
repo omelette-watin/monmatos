@@ -5,7 +5,7 @@ const LoadingPage = () => {
   return (
     <>
       <Head>
-        <title>Chargement | MonMatos</title>
+        <title>Chargement - MonMatos</title>
       </Head>
       <div className="flex h-screen w-screen items-center justify-center">
         <Loading />

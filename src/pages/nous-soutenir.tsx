@@ -1,5 +1,5 @@
 import ComingSoon from "@/components/ui/ComingSoon"
-import PublicLayout from "@/components/ui/layouts/PublicLayout"
+import PublicLayout from "@/components/www/Layout"
 import { ReactElement } from "react"
 import { NextPageWithLayout } from "./_app"
 

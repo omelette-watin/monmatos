@@ -1,7 +1,7 @@
-import ActionsPanel from "@/components/business/dashboard/ActionsPanel"
-import OverviewPanel from "@/components/business/dashboard/OverviewPanel"
-import { useGroup } from "@/components/business/hooks/useGroup"
-import AppLayout from "@/components/ui/layouts/AppLayout"
+import ActionsPanel from "@/components/app/dashboard/ActionsPanel"
+import OverviewPanel from "@/components/app/dashboard/OverviewPanel"
+import AppLayout from "@/components/app/Layout"
+import { useGroup } from "@/components/hooks/useGroup"
 import Loading from "@/components/ui/Loading"
 import { trpc } from "@/utils/trpc"
 import { ReactElement } from "react"
@@ -31,8 +31,6 @@ const GroupPage: NextPageWithLayout = () => {
     </div>
   )
 }
-
-GroupPage.protected = true
 
 GroupPage.getLayout = (page: ReactElement) => (
   <AppLayout title="Mon Groupe">{page}</AppLayout>
