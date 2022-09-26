@@ -114,7 +114,7 @@ const TentsPage: NextPageWithLayout = () => {
           onClick={() =>
             setSorting((prev) => (prev === "asc" ? "desc" : "asc"))
           }
-          className="flex items-center space-x-1 text-slate-500 transition-colors hover:text-black"
+          className="flex items-center space-x-1 text-slate-500 transition-colors hover:text-slate-900"
         >
           {sorting === "desc" ? (
             <>
@@ -131,7 +131,7 @@ const TentsPage: NextPageWithLayout = () => {
         <button
           type="button"
           onClick={openFilterModal}
-          className="flex items-center space-x-2 text-slate-500 transition-colors hover:text-black"
+          className="flex items-center space-x-2 text-slate-500 transition-colors hover:text-slate-900"
         >
           <Icon name="AdjustmentsIcon" />
           <span className="font-semibold">Filtrer</span>

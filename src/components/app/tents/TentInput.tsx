@@ -35,7 +35,11 @@ const TentInput = ({ label, value, setValue, options }: TentInputProps) => {
           onChange={(e) => setValue(e.target.value)}
         >
           {options.map((option) => (
-            <option value={option[0]} key={option[0]} className="text-black">
+            <option
+              value={option[0]}
+              key={option[0]}
+              className="text-slate-900"
+            >
               {option[1]}
             </option>
           ))}

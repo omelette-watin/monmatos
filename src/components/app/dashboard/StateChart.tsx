@@ -18,7 +18,7 @@ const Bar: FC<UIProps<{ state: State; count: number; total: number }>> = ({
   total,
 }) => {
   return (
-    <div className="flex basis-1/4 flex-col-reverse items-center font-bold text-black sm:w-16">
+    <div className="flex basis-1/4 flex-col-reverse items-center font-bold text-slate-900 sm:w-16">
       <div className="flex h-8 w-full items-center justify-center">
         <span className="text-lg">{count}</span>
       </div>
@@ -46,7 +46,7 @@ const StateChart: FC<UIProps<{ tents: Tent[]; className?: string }>> = ({
     <Card className="max-w-full">
       <h3 className="flex items-center space-x-2 self-start text-xl font-semibold text-red-500">
         <Icon name="FaHeartbeat" />
-        <span className="text-black">
+        <span className="text-slate-900">
           État des <span className="text-emerald-600">tentes</span>
         </span>
       </h3>
@@ -116,11 +116,11 @@ const StateChart: FC<UIProps<{ tents: Tent[]; className?: string }>> = ({
             )}
           >
             <div>
-              {average.toFixed(1)} <span className="text-black">/ 3</span>
+              {average.toFixed(1)} <span className="text-slate-900">/ 3</span>
             </div>
-            <div className="text-2xl text-black">ou</div>
+            <div className="text-2xl text-slate-900">ou</div>
             <div>
-              {note.toFixed(1)} <span className="text-black">/ 20</span>
+              {note.toFixed(1)} <span className="text-slate-900">/ 20</span>
             </div>
           </div>
         </div>

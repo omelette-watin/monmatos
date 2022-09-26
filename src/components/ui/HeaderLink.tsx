@@ -27,7 +27,7 @@ const HeaderLink: FC<
           "flex items-center gap-2 transition-colors hover:text-emerald-600",
           className,
           {
-            "text-black": !isActive,
+            "text-slate-900": !isActive,
             "text-emerald-600": isActive,
           },
         )}

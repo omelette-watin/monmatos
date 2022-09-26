@@ -7,7 +7,7 @@ export const buttonVariants = {
   green: "text-white bg-emerald-500 border-emerald-500",
   black: "text-white bg-slate-900 border-slate-900",
   blue: "text-white bg-blue-600 border-blue-600",
-  white: "text-black bg-main border-black",
+  white: "text-slate-900 bg-main border-black",
   red: "text-white bg-red-500 border-red-500",
 }
 export const buttonSizes = {

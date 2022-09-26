@@ -31,7 +31,7 @@ const Bar: FC<UIProps<{ unit: Unit; count: number; total: number }>> = ({
   total,
 }) => {
   return (
-    <div className="flex w-full flex-col-reverse items-center font-bold text-black md:w-16">
+    <div className="flex w-full flex-col-reverse items-center font-bold text-slate-900 md:w-16">
       <div className="flex h-8 w-full items-center justify-center">
         <span className="text-lg">{count}</span>
       </div>
@@ -56,7 +56,7 @@ const RepartitionChart: FC<UIProps<{ tents: Tent[]; className?: string }>> = ({
     <Card className="max-w-full">
       <h3 className="flex items-center space-x-2 self-start text-xl font-semibold">
         <Icon name="FaUserAlt" />
-        <span className="text-black">
+        <span className="text-slate-900">
           Répartition des <span className="text-emerald-600">tentes</span>
         </span>
       </h3>
