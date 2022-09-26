@@ -56,7 +56,7 @@ const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
           <div className="mx-auto sm:w-full sm:max-w-lg">
             <Logo className="mb-6 pl-4" />
             <Form className="mx-auto flex flex-col gap-10 rounded-md bg-white p-5 text-slate-900 shadow-lg sm:p-10">
-              <h1 className="text-xl font-semibold">
+              <h1 className="text-2xl font-bold">
                 Connectez-vous à votre{" "}
                 <span className="text-emerald-500">Groupe</span>
               </h1>
