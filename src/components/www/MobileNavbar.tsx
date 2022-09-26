@@ -47,7 +47,10 @@ const MobileNavbar = () => {
           <nav className="flex flex-col items-start space-y-3 p-6">
             <HeaderLink label="Guide" href="/guide" />
             <HeaderLink label="FAQ" href="/foire-aux-questions" />
-            <HeaderLink label="Inscrire mon groupe" href="/inscription" />
+            <HeaderLink
+              label="Inscrire mon groupe"
+              href={`${process.env.NEXT_PUBLIC_APP_URL}/inscription`}
+            />
           </nav>
           <div className="flex h-full w-full flex-col items-start justify-between gap-20 p-6">
             <div className="flex flex-col items-start space-y-3">
@@ -58,7 +61,7 @@ const MobileNavbar = () => {
 
               <div className="flex w-full flex-col items-center space-y-3">
                 <ButtonLink
-                  href="/connexion"
+                  href={`${process.env.NEXT_PUBLIC_APP_URL}/connexion`}
                   size="xs"
                   variant="black"
                   className="-ml-1 max-w-fit"
@@ -67,7 +70,7 @@ const MobileNavbar = () => {
                 </ButtonLink>
                 <p className="text-base text-slate-500">ou</p>
                 <ButtonLink
-                  href="/inscription"
+                  href={`${process.env.NEXT_PUBLIC_APP_URL}/inscription`}
                   size="xs"
                   variant="blue"
                   className="-ml-1 max-w-fit"
