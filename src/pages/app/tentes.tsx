@@ -118,7 +118,7 @@ const TentsPage: NextPageWithLayout = () => {
         >
           {sorting === "desc" ? (
             <>
-              <Icon name="FaSortNumericDown" className="text-lg" />
+              <Icon name="FaSortNumericUpAlt" className="text-lg" />
               <span className="font-semibold">Ordre croissant</span>
             </>
           ) : (
