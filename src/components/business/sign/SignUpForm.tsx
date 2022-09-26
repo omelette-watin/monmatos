@@ -36,7 +36,7 @@ const SignUpForm = () => {
     [createMutation],
   )
   const handleLogin = async () => {
-    await signIn("credentials", { identifier: groupId, callbackUrl: "/app" })
+    await signIn("credentials", { identifier: groupId, callbackUrl: "/" })
   }
 
   return (
