@@ -19,8 +19,6 @@ const GroupPage: NextPageWithLayout = () => {
       toast.success("Bienvenue !", { id: "welcome-toast" })
       router.replace("/", undefined, { shallow: true })
     }
-
-    return () => toast.dismiss("welcome-toast")
   }, [router])
 
   return (

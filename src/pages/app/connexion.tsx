@@ -1,5 +1,5 @@
 import LinkLogin from "@/components/app/LinkLogin"
-import SignInForm from "@/components/business/sign/SignInForm"
+import SignInForm from "@/components/app/SignInForm"
 import { GetServerSideProps } from "next"
 
 interface SignInPageProps {
@@ -19,7 +19,7 @@ const SignInPage = ({ error, callbackUrl, groupId }: SignInPageProps) => {
 export default SignInPage
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { i = null, callbackUrl = "/app", error = null } = query
+  const { i = null, callbackUrl = "/", error = null } = query
 
   return {
     props: {

@@ -15,7 +15,7 @@ export const buttonSizes = {
   xs: "px-4 py-2 text-sm font-medium",
   sm: "px-5 py-2 text-base font-medium",
   md: "px-6 py-2 text-lg font-semibold",
-  lg: "px-7 py-2 text-xl font-semibold",
+  lg: "px-7 py-3 text-lg font-semibold",
 }
 
 export const iconMargins = {
@@ -66,7 +66,7 @@ const Button: FC<
     <button
       {...otherProps}
       className={cn(
-        "flex w-full items-center justify-center rounded-xl border shadow-lg transition hover:scale-[0.98] hover:shadow-sm disabled:opacity-50 disabled:shadow-lg disabled:hover:scale-100",
+        "flex w-full items-center justify-center rounded-xl border shadow-lg transition hover:scale-[0.98] hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-80 disabled:shadow-lg disabled:hover:scale-100",
         buttonVariants[variant],
         buttonSizes[size],
         className,

@@ -27,7 +27,7 @@ const LinkLogin = ({ groupId, callbackUrl }: LinkLoginProps) => {
         return
       }
 
-      router.push("/?connected=1")
+      router.push(`${callbackUrl}?connected=1`)
     },
     [callbackUrl, router],
   )
