@@ -21,16 +21,6 @@ export default function middleware(req: NextRequest) {
   // rewrites for app pages
 
   if (currentHost == "app") {
-    if (
-      url.pathname === "/connexion" &&
-      (req.cookies.get("next-auth.session-token") ||
-        req.cookies.get("__Secure-next-auth.session-token"))
-    ) {
-      url.pathname = "/"
-
-      return NextResponse.redirect(url)
-    }
-
     url.pathname = `/app${url.pathname}`
 
     return NextResponse.rewrite(url)

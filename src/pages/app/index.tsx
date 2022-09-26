@@ -4,12 +4,24 @@ import AppLayout from "@/components/app/Layout"
 import { useGroup } from "@/components/hooks/useGroup"
 import Loading from "@/components/ui/Loading"
 import { trpc } from "@/utils/trpc"
-import { ReactElement } from "react"
+import { useRouter } from "next/router"
+import { ReactElement, useEffect } from "react"
+import { toast } from "react-hot-toast"
 import { NextPageWithLayout } from "../_app"
 
 const GroupPage: NextPageWithLayout = () => {
+  const router = useRouter()
   const { name } = useGroup()
   const { data: tents, isLoading } = trpc.tents.getAll.useQuery()
+
+  useEffect(() => {
+    if (router.query.connected) {
+      toast.success("Bienvenue !", { id: "welcome-toast" })
+      router.replace("/", undefined, { shallow: true })
+    }
+
+    return () => toast.dismiss("welcome-toast")
+  }, [router])
 
   return (
     <div className="space-y-10">

@@ -30,7 +30,7 @@ const TentCharacteristic = <T extends recordableKeyOf<Tent>>({
         variantClassName,
       )}
     >
-      <span className="w-[50%] truncate rounded-md rounded-r-none bg-black px-1 py-2 text-slate-50">
+      <span className="w-[50%] truncate rounded-md rounded-r-none bg-slate-900 px-1 py-2 text-slate-50">
         {label}
       </span>
       <div className="w-full truncate px-1 py-1 ">{value}</div>

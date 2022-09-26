@@ -57,14 +57,14 @@ const TentsPage: NextPageWithLayout = () => {
           visible: true,
           component: <TentAddPanel tents={tents} />,
         })
-        router.replace("/app/tentes", undefined, { shallow: true })
+        router.replace("/tentes", undefined, { shallow: true })
 
         return
       }
 
       if (router.query.i) {
         const targetTent = tents.filter((tent) => tent.id === router.query.i)[0]
-        router.replace("/app/tentes", undefined, { shallow: true })
+        router.replace("/tentes", undefined, { shallow: true })
 
         if (targetTent) {
           setModal({
@@ -102,7 +102,7 @@ const TentsPage: NextPageWithLayout = () => {
         <button
           type="button"
           onClick={openAddTentPanel}
-          className="flex h-7 w-7 items-center  justify-center rounded-full border bg-black text-white shadow-lg transition hover:scale-[0.98] hover:shadow-sm disabled:opacity-50 disabled:shadow-lg disabled:hover:scale-100 sm:hidden"
+          className="flex h-7 w-7 items-center  justify-center rounded-full border bg-slate-900 text-white shadow-lg transition hover:scale-[0.98] hover:shadow-sm disabled:opacity-50 disabled:shadow-lg disabled:hover:scale-100 sm:hidden"
         >
           <Icon name="BsPlusLg" className="text-sm" />
         </button>
@@ -114,11 +114,11 @@ const TentsPage: NextPageWithLayout = () => {
           onClick={() =>
             setSorting((prev) => (prev === "asc" ? "desc" : "asc"))
           }
-          className="flex items-center space-x-1 text-slate-500 transition-colors hover:text-black"
+          className="flex items-center space-x-1 text-slate-500 transition-colors hover:text-slate-900"
         >
           {sorting === "desc" ? (
             <>
-              <Icon name="FaSortNumericDown" className="text-lg" />
+              <Icon name="FaSortNumericUpAlt" className="text-lg" />
               <span className="font-semibold">Ordre croissant</span>
             </>
           ) : (
@@ -131,7 +131,7 @@ const TentsPage: NextPageWithLayout = () => {
         <button
           type="button"
           onClick={openFilterModal}
-          className="flex items-center space-x-2 text-slate-500 transition-colors hover:text-black"
+          className="flex items-center space-x-2 text-slate-500 transition-colors hover:text-slate-900"
         >
           <Icon name="AdjustmentsIcon" />
           <span className="font-semibold">Filtrer</span>

@@ -26,7 +26,7 @@ const TentDeletePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
   const handleDeletion = () => {
     const deletePromise = deleteMutation.mutateAsync(id)
     toast.promise(deletePromise, {
-      success: "Tente supprimée !",
+      success: "Tente supprimée",
       error: getTentsErrorMessage,
       loading: "Suppression en cours ...",
     })

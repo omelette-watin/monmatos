@@ -25,7 +25,7 @@ const TentInput = ({ label, value, setValue, options }: TentInputProps) => {
         },
       )}
     >
-      <span className="w-[50%] truncate rounded-md rounded-r-none bg-black px-1 py-2 text-slate-50">
+      <span className="w-[50%] truncate rounded-md rounded-r-none bg-slate-900 px-1 py-2 text-slate-50">
         {label}
       </span>
       <div className="w-full cursor-pointer pr-1">
@@ -35,7 +35,11 @@ const TentInput = ({ label, value, setValue, options }: TentInputProps) => {
           onChange={(e) => setValue(e.target.value)}
         >
           {options.map((option) => (
-            <option value={option[0]} key={option[0]} className="text-black">
+            <option
+              value={option[0]}
+              key={option[0]}
+              className="text-slate-900"
+            >
               {option[1]}
             </option>
           ))}

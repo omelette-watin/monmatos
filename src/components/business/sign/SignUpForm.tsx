@@ -29,14 +29,14 @@ const SignUpForm = () => {
       toast.promise(createMutation.mutateAsync(values), {
         loading: "Création du groupe ...",
         error: "Veuillez réessayer plus tard",
-        success: "Groupe créé !",
+        success: "Groupe créé",
       })
       setSubmitting(false)
     },
     [createMutation],
   )
   const handleLogin = async () => {
-    await signIn("credentials", { identifier: groupId, callbackUrl: "/app" })
+    await signIn("credentials", { identifier: groupId, callbackUrl: "/" })
   }
 
   return (

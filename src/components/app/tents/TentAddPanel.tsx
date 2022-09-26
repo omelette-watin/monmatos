@@ -58,7 +58,7 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
         comments,
       })
       toast.promise(createPromise, {
-        success: "Tente ajoutée !",
+        success: "Tente ajoutée",
         error: getTentsErrorMessage,
         loading: "Ajout en cours ...",
       })

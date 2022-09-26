@@ -14,6 +14,7 @@ import SignWrapper from "./SignWrapper"
 const errorMessages: Record<string, string> = {
   CredentialsSignin: "Identifiant incorrect",
   SessionRequired: "Veuillez vous reconnecter",
+  GroupNotFound: "Nous n'avons pas trouvé ce groupe",
 }
 
 const SignInForm: FC<
