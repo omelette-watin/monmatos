@@ -86,7 +86,7 @@ const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
                     )}
                     <Tooltip className="-left-16 whitespace-nowrap">
                       {`${
-                        showIdentifier ? "Afficher" : "Cacher"
+                        showIdentifier ? "Cacher" : "Afficher"
                       } l'identifiant`}
                     </Tooltip>
                   </div>
