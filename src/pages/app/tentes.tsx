@@ -57,14 +57,14 @@ const TentsPage: NextPageWithLayout = () => {
           visible: true,
           component: <TentAddPanel tents={tents} />,
         })
-        router.replace("/app/tentes", undefined, { shallow: true })
+        router.replace("/tentes", undefined, { shallow: true })
 
         return
       }
 
       if (router.query.i) {
         const targetTent = tents.filter((tent) => tent.id === router.query.i)[0]
-        router.replace("/app/tentes", undefined, { shallow: true })
+        router.replace("/tentes", undefined, { shallow: true })
 
         if (targetTent) {
           setModal({
