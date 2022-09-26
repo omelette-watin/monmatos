@@ -27,7 +27,7 @@ const CustomToastBar = ({ t, icon, message }: CustomToastBarProps) => {
       {message}
       {t.type !== "loading" ? (
         <>
-          <Icon name="XIcon" className="w-4" />
+          <Icon name="XIcon" className="w-[14px] sm:w-4" />
           <div
             className="absolute inset-0 z-10 cursor-pointer"
             onClick={() => toast.dismiss(t.id)}
