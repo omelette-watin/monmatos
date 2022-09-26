@@ -52,7 +52,7 @@ const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
         validationSchema={zodFormikAdapter(loginSchema)}
         onSubmit={handleSubmit}
       >
-        {({ isValid, isSubmitting }) => (
+        {({ isValid, isSubmitting, dirty }) => (
           <div className="mx-auto sm:w-full sm:max-w-lg">
             <Logo className="mb-6 pl-4" />
             <Form className="mx-auto flex flex-col gap-10 rounded-md bg-white p-5 text-slate-900 shadow-lg sm:p-10">
@@ -119,7 +119,7 @@ const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
               <Button
                 size="lg"
                 variant="black"
-                disabled={isSubmitting || !isValid}
+                disabled={isSubmitting || !isValid || !dirty}
                 className="mx-auto text-base font-medium normal-case"
                 type="submit"
               >
@@ -134,6 +134,11 @@ const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
                 </Link>
               </p>
             </Form>
+            <Link href={`${process.env.NEXT_PUBLIC_URL}`}>
+              <a className="mx-auto mt-10 block w-fit text-sm underline">
+                Revenir à l'accueil
+              </a>
+            </Link>
           </div>
         )}
       </Formik>
