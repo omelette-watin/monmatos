@@ -59,7 +59,7 @@ const Navbar = () => {
           />
           <ButtonLink
             href={`${process.env.NEXT_PUBLIC_APP_URL}/connexion`}
-            size="xxs"
+            size="sm"
             className="max-w-fit"
             variant="black"
           >

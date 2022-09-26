@@ -58,7 +58,7 @@ const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
             <Form className="mx-auto flex flex-col gap-10 rounded-md bg-white p-5 text-slate-900 shadow-lg sm:p-10">
               <h1 className="text-2xl font-bold">
                 Connectez-vous à votre{" "}
-                <span className="text-emerald-500">Groupe</span>
+                <span className="text-emerald-600">Groupe</span>
               </h1>
               <label htmlFor="identifier" className="-mb-8 font-medium">
                 Identifiant de groupe
@@ -95,7 +95,7 @@ const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
               <Disclosure>
                 {({ open }) => (
                   <div>
-                    <Disclosure.Button className="-mt-5 flex w-full justify-between rounded-lg bg-blue-100 px-4 py-2 text-left text-sm font-medium text-blue-900  focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
+                    <Disclosure.Button className="-mt-5 flex w-full justify-between rounded-lg bg-blue-50 px-4 py-2 text-left text-sm font-medium text-blue-900 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
                       <span>Je n'ai pas mon identifiant</span>
                       <ChevronUpIcon
                         className={classNames(
