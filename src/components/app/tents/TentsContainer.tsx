@@ -1,4 +1,4 @@
-import { useModalContext } from "@/components/business/hooks/useModalContext"
+import { useModalContext } from "@/components/hooks/useModalContext"
 import Button from "@/components/ui/Button"
 import Panel from "@/components/ui/Panel"
 import { Filters, Tents } from "@/pages/app/tentes"

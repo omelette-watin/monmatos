@@ -1,7 +1,7 @@
 import classNames from "classnames"
 import { ReactNode } from "react"
+import { useModalContext } from "../../hooks/useModalContext"
 import Icon from "../../ui/Icon"
-import { useModalContext } from "../hooks/useModalContext"
 
 export type Modal = {
   component: ReactNode

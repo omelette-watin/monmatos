@@ -1,5 +1,5 @@
-import { useModalContext } from "@/components/business/hooks/useModalContext"
-import { Modal } from "@/components/business/modal"
+import { Modal } from "@/components/app/modal"
+import { useModalContext } from "@/components/hooks/useModalContext"
 import Button from "@/components/ui/Button"
 import { Filters } from "@/pages/app/tentes"
 import { units } from "@/utils/records"

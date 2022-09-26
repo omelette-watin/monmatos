@@ -1,5 +1,5 @@
-import Hero from "@/components/business/home/Hero"
-import PublicLayout from "@/components/ui/layouts/PublicLayout"
+import Hero from "@/components/www/Hero"
+import PublicLayout from "@/components/www/Layout"
 import { ReactElement } from "react"
 import { NextPageWithLayout } from "./_app"
 

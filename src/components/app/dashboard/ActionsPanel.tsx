@@ -8,7 +8,7 @@ import { UIProps } from "@/utils/typedProps"
 import { Tent } from "@prisma/client"
 import { QRCodeCanvas } from "qrcode.react"
 import { FC } from "react"
-import { useGroup } from "../hooks/useGroup"
+import { useGroup } from "../../hooks/useGroup"
 
 const ActionsPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
   const { id, name, movement } = useGroup()
@@ -17,7 +17,7 @@ const ActionsPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
       1: () =>
         copyToClipBoard(
           "Lien",
-          `${process.env.NEXT_PUBLIC_URL}/connexion?i=${id}&callbackUrl=/app`,
+          `${process.env.NEXT_PUBLIC_URL}/connexion?i=${id}&callbackUrl=/`,
           "clipboard-link",
         ),
       2: () => downloadImageFromCanvas("QR", `${name} QR Code`),
@@ -42,7 +42,7 @@ const ActionsPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
           </h3>
           <div className="flex flex-col items-center justify-center gap-3">
             <ButtonLink
-              href="/app/tentes?t=add"
+              href="/tentes?t=add"
               variant="black"
               size="sm"
               icon="BsPlusLg"
@@ -50,7 +50,7 @@ const ActionsPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
               Ajouter une tente
             </ButtonLink>
             <ButtonLink
-              href="/app/tentes"
+              href="/tentes"
               variant="white"
               icon="TiThList"
               size="sm"
@@ -103,7 +103,7 @@ const ActionsPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
             <QRCodeCanvas
               id="QR"
               size={250}
-              value={`${process.env.NEXT_PUBLIC_URL}/connexion?i=${id}&callbackUrl=/app`}
+              value={`${process.env.NEXT_PUBLIC_URL}/connexion?i=${id}&callbackUrl=/`}
               includeMargin={true}
               className="hidden"
             />

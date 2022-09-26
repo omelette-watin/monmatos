@@ -5,7 +5,7 @@ import { units } from "@/utils/records"
 import { UIProps } from "@/utils/typedProps"
 import { Tent } from "@prisma/client"
 import { FC } from "react"
-import { useGroup } from "../hooks/useGroup"
+import { useGroup } from "../../hooks/useGroup"
 import RepartitionChart from "./RepartionChart"
 import StateChart from "./StateChart"
 

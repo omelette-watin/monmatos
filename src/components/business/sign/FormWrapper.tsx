@@ -2,7 +2,6 @@ import ButtonLink from "@/components/ui/ButtonLink"
 import Logo from "@/components/ui/Logo"
 import type { UIProps } from "@/utils/typedProps"
 import classNames from "classnames"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import type { FC, ReactNode } from "react"
 
@@ -45,7 +44,7 @@ const FormWrapper: FC<
           }`}</p>
 
           <ButtonLink
-            href={isConnexionPage ? "/inscription" : "connexion"}
+            href={isConnexionPage ? "/inscription" : "/connexion"}
             variant="black"
             size="xs"
             className="max-w-fit"
@@ -55,9 +54,9 @@ const FormWrapper: FC<
           </ButtonLink>
         </div>
 
-        <Link href="/">
-          <a className="underline">Revenir à l'accueil</a>
-        </Link>
+        <a href={process.env.NEXT_PUBLIC_URL} className="underline">
+          Revenir à l'accueil
+        </a>
       </div>
     </div>
   )

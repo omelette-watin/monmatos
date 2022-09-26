@@ -16,7 +16,11 @@ const Hero = () => {
         Conçu par et pour des scouts.
       </p>
       <div className="mt-6 flex justify-center space-x-6 text-sm sm:mt-10">
-        <ButtonLink href="/inscription" size="sm" variant="black">
+        <ButtonLink
+          href={`${process.env.NEXT_PUBLIC_APP_URL}/inscription`}
+          size="sm"
+          variant="black"
+        >
           Inscrire mon groupe
         </ButtonLink>
       </div>
