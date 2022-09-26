@@ -102,7 +102,7 @@ const TentsPage: NextPageWithLayout = () => {
         <button
           type="button"
           onClick={openAddTentPanel}
-          className="flex h-7 w-7 items-center  justify-center rounded-full border bg-black text-white shadow-lg transition hover:scale-[0.98] hover:shadow-sm disabled:opacity-50 disabled:shadow-lg disabled:hover:scale-100 sm:hidden"
+          className="flex h-7 w-7 items-center  justify-center rounded-full border bg-slate-900 text-white shadow-lg transition hover:scale-[0.98] hover:shadow-sm disabled:opacity-50 disabled:shadow-lg disabled:hover:scale-100 sm:hidden"
         >
           <Icon name="BsPlusLg" className="text-sm" />
         </button>
