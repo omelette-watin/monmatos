@@ -44,7 +44,10 @@ const Navbar = () => {
           <nav className="ml-10 hidden items-center gap-6 sm:flex">
             <HeaderLink label="Guide" href="/guide" />
             <HeaderLink label="FAQ" href="/foire-aux-questions" />
-            <HeaderLink label="Inscrire mon groupe" href="/inscription" />
+            <HeaderLink
+              label="Inscrire mon groupe"
+              href={`${process.env.NEXT_PUBLIC_APP_URL}/inscription`}
+            />
           </nav>
         </div>
         <div className="hidden items-center divide-x-2 lg:flex">
