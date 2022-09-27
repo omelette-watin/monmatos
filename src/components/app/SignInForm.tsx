@@ -124,10 +124,10 @@ const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
                 {isSubmitting ? <LoadingDots /> : "Continuer"}
               </Button>
               <p className="text-sm">
-                Pas encore de compte ?{" "}
+                Votre groupe n'est pas encore enregistré ?{" "}
                 <Link href="/inscription">
                   <a className="w-fit pl-1 font-medium text-blue-500 focus:bg-blue-300/20 focus:outline-none">
-                    Inscrivez-vous
+                    Inscrivez-le
                   </a>
                 </Link>
               </p>
