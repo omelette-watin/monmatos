@@ -43,7 +43,7 @@ const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
   return (
     <div className="bg-main flex min-h-screen flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
       <Head>
-        <title>Connexion - MonMatos</title>
+        <title>Me connecter - MonMatos</title>
       </Head>
       <Formik
         initialValues={{ identifier: "" }}
