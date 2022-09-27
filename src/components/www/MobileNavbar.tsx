@@ -3,12 +3,14 @@ import HeaderLink from "@/components/ui/HeaderLink"
 import Icon from "@/components/ui/Icon"
 import Logo from "@/components/ui/Logo"
 import classNames from "classnames"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
 const MobileNavbar = () => {
   const router = useRouter()
+  const { status } = useSession()
   const [visible, setVisible] = useState(false)
   const showMenu = () => setVisible(true)
   const hideMenu = () => setVisible(false)
@@ -45,41 +47,32 @@ const MobileNavbar = () => {
           </div>
 
           <nav className="flex flex-col items-start space-y-3 p-6">
-            <HeaderLink label="Guide" href="/guide" />
-            <HeaderLink label="FAQ" href="/foire-aux-questions" />
             <HeaderLink
               label="Inscrire mon groupe"
-              href={`${process.env.NEXT_PUBLIC_APP_URL}/inscription`}
+              href="/inscription"
+              icon="BsPenFill"
+            />
+            <HeaderLink
+              label="FAQ"
+              href="/foire-aux-questions"
+              icon="RiQuestionnaireFill"
+            />
+            <HeaderLink label="Guides" href="/guides" icon="FaGraduationCap" />
+            <HeaderLink label="Nous contacter" href="/contact" icon="HiMail" />
+            <HeaderLink
+              label="Nous soutenir"
+              href="/nous-soutenir"
+              icon="HiHeart"
             />
           </nav>
-          <div className="flex h-full w-full flex-col items-start justify-between gap-20 p-6">
-            <div className="flex flex-col items-start space-y-3">
-              <div className="flex flex-col items-start gap-3">
-                <HeaderLink label="Nous contacter" href="/contact" />
-                <HeaderLink label="Nous soutenir" href="/nous-soutenir" />
-              </div>
-
-              <div className="flex w-full flex-col items-center space-y-3">
-                <ButtonLink
-                  href={`${process.env.NEXT_PUBLIC_APP_URL}/connexion`}
-                  size="xs"
-                  variant="black"
-                  className="-ml-1 max-w-fit"
-                >
-                  Me connecter
-                </ButtonLink>
-                <p className="text-base text-slate-500">ou</p>
-                <ButtonLink
-                  href={`${process.env.NEXT_PUBLIC_APP_URL}/inscription`}
-                  size="xs"
-                  variant="blue"
-                  className="-ml-1 max-w-fit"
-                >
-                  Inscrire mon groupe
-                </ButtonLink>
-              </div>
-            </div>
-          </div>
+          <ButtonLink
+            href={status === "authenticated" ? "/groupe" : "/tentes"}
+            size="sm"
+            variant="black"
+            className="mx-auto mt-auto mb-10 max-w-fit"
+          >
+            {status === "authenticated" ? "Mon groupe" : "Me connecter"}
+          </ButtonLink>
         </div>
       </div>
       <div

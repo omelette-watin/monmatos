@@ -1,7 +1,7 @@
 import { Modal } from "@/components/app/modal"
 import { useModalContext } from "@/components/hooks/useModalContext"
 import Button from "@/components/ui/Button"
-import { Filters } from "@/pages/app/tentes"
+import { Filters } from "@/pages/tentes"
 import { units } from "@/utils/records"
 import { UIProps } from "@/utils/typedProps"
 import { State, Unit } from "@prisma/client"

@@ -17,7 +17,7 @@ const ActionsPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
       1: () =>
         copyToClipBoard(
           "Lien",
-          `${process.env.NEXT_PUBLIC_APP_URL}/connexion?i=${id}&callbackUrl=/`,
+          `${process.env.NEXT_PUBLIC_URL}/connexion?i=${id}&callbackUrl=/`,
           "clipboard-link",
         ),
       2: () => downloadImageFromCanvas("QR", `${name} QR Code`),
@@ -103,7 +103,7 @@ const ActionsPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
             <QRCodeCanvas
               id="QR"
               size={250}
-              value={`${process.env.NEXT_PUBLIC_APP_URL}/connexion?i=${id}&callbackUrl=/`}
+              value={`${process.env.NEXT_PUBLIC_URL}/connexion?i=${id}&callbackUrl=/`}
               includeMargin={true}
               className="hidden"
             />

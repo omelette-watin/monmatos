@@ -1,4 +1,3 @@
-import Button from "@/components/ui/Button"
 import HeaderLink from "@/components/ui/HeaderLink"
 import Icon from "@/components/ui/Icon"
 import Logo from "@/components/ui/Logo"
@@ -34,7 +33,7 @@ const MobileNavbar = () => {
       >
         <div className="flex h-full w-full flex-col items-start">
           <div className="flex w-full items-center justify-between p-4 shadow-md">
-            <Link href="/">
+            <Link href="/groupe">
               <a>
                 <Logo size="sm" />
               </a>
@@ -46,48 +45,40 @@ const MobileNavbar = () => {
           </div>
 
           <nav className="flex flex-col items-start space-y-3 p-6">
-            <HeaderLink label="Mon groupe" href="/" />
-            <HeaderLink label="Mes tentes" href="tentes" />
-            <HeaderLink
-              label="Guide"
-              href={`${process.env.NEXT_PUBLIC_URL}/guide`}
-              target="_blank"
-            />
+            <HeaderLink label="Mon groupe" href="/groupe" icon="FaChurch" />
+            <HeaderLink label="Mes tentes" href="tentes" icon="FaCampground" />
             <HeaderLink
               label="FAQ"
-              href={`${process.env.NEXT_PUBLIC_URL}/foire-aux-questions`}
+              href="/foire-aux-questions"
               target="_blank"
+              icon="RiQuestionnaireFill"
             />
+            <HeaderLink
+              label="Guides"
+              href="/guides"
+              target="_blank"
+              icon="FaGraduationCap"
+            />
+            <HeaderLink
+              label="Nous contacter"
+              href="/contact"
+              target="_blank"
+              icon="HiMail"
+            />
+            <HeaderLink
+              label="Nous soutenir"
+              href="/nous-soutenir"
+              target="_blank"
+              icon="HiHeart"
+            />
+            <button
+              className="flex items-center gap-2 text-red-600 transition-colors"
+              onClick={() => signOut({ callbackUrl: "/connexion" })}
+            >
+              <Icon name="HiLogout" className="w-5" />
+              Déconnexion
+            </button>
           </nav>
-          <div className="flex h-full w-full flex-col items-start justify-between gap-20 p-6">
-            <div className="flex flex-col items-start space-y-3">
-              <HeaderLink
-                label="Nous contacter"
-                href={`${process.env.NEXT_PUBLIC_URL}/contact`}
-                className="px-4"
-                target="_blank"
-              />
-              <HeaderLink
-                label="Nous soutenir"
-                href={`${process.env.NEXT_PUBLIC_URL}/nous-soutenir`}
-                className="px-4"
-                target="_blank"
-              />
-            </div>
-            <div className="flex w-full flex-col items-center gap-3">
-              <Button
-                type="button"
-                size="xs"
-                variant="red"
-                className="-ml-1 max-w-fit"
-                onClick={() => signOut({ callbackUrl: "/connexion" })}
-                icon="LogoutIcon"
-                iconPosition="right"
-              >
-                Déconnexion
-              </Button>
-            </div>
-          </div>
         </div>
       </div>
       <div

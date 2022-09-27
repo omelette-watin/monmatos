@@ -2,6 +2,7 @@ import ButtonLink from "@/components/ui/ButtonLink"
 import Logo from "@/components/ui/Logo"
 import type { UIProps } from "@/utils/typedProps"
 import classNames from "classnames"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import type { FC, ReactNode } from "react"
 
@@ -54,9 +55,9 @@ const FormWrapper: FC<
           </ButtonLink>
         </div>
 
-        <a href={process.env.NEXT_PUBLIC_URL} className="underline">
-          Revenir à l'accueil
-        </a>
+        <Link href="/">
+          <a className="underline">Revenir à l'accueil</a>
+        </Link>
       </div>
     </div>
   )

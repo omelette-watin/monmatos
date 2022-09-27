@@ -3,12 +3,12 @@ import PublicLayout from "@/components/www/Layout"
 import { ReactElement } from "react"
 import { NextPageWithLayout } from "./_app"
 
-const GuidePage: NextPageWithLayout = () => {
-  return <ComingSoon name="Guide" />
+const GuidesPage: NextPageWithLayout = () => {
+  return <ComingSoon name="Guides" />
 }
 
-GuidePage.getLayout = (page: ReactElement) => (
+GuidesPage.getLayout = (page: ReactElement) => (
   <PublicLayout>{page}</PublicLayout>
 )
 
-export default GuidePage
+export default GuidesPage

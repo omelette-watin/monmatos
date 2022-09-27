@@ -30,30 +30,26 @@ const Navbar = () => {
       <div className="mx-auto flex items-center justify-between p-4 font-medium lg:container">
         <div className="flex items-center">
           <div className="hidden lg:block">
-            <Link href="/">
+            <Link href="/groupe">
               <a>
                 <Logo />
               </a>
             </Link>
           </div>
           <div className="lg:hidden">
-            <Link href="/">
+            <Link href="/groupe">
               <a>
                 <Logo size="sm" />
               </a>
             </Link>
           </div>
           <nav className="ml-10 hidden items-center gap-6 sm:flex">
-            <HeaderLink label="Mon groupe" href="/" />
+            <HeaderLink label="Mon groupe" href="/groupe" />
             <HeaderLink label="Mes tentes" href="/tentes" />
-            <HeaderLink
-              label="Guide"
-              href={`${process.env.NEXT_PUBLIC_URL}/guide`}
-              target="_blank"
-            />
+            <HeaderLink label="Guides" href="/guides" target="_blank" />
             <HeaderLink
               label="FAQ"
-              href={`${process.env.NEXT_PUBLIC_URL}/foire-aux-questions`}
+              href="/foire-aux-questions"
               target="_blank"
             />
           </nav>
@@ -61,13 +57,13 @@ const Navbar = () => {
         <div className="hidden items-center divide-x-2 lg:flex">
           <HeaderLink
             label="Nous contacter"
-            href={`${process.env.NEXT_PUBLIC_URL}/contact`}
+            href="/contact"
             className="px-4"
             target="_blank"
           />
           <HeaderLink
             label="Nous soutenir"
-            href={`${process.env.NEXT_PUBLIC_URL}/nous-soutenir`}
+            href="/nous-soutenir"
             className="px-4"
             target="_blank"
           />

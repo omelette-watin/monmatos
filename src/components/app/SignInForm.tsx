@@ -10,7 +10,6 @@ import { Field, Form, Formik } from "formik"
 import { signIn } from "next-auth/react"
 import Head from "next/head"
 import Link from "next/link"
-import { useRouter } from "next/router"
 import { useCallback, useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import LoadingDots from "../ui/LoadingDots"
@@ -21,7 +20,6 @@ interface SignInFormProps {
 }
 
 const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
-  const router = useRouter()
   const [showIdentifier, setShowIdentifier] = useState(false)
   const showId = () => setShowIdentifier(true)
   const hideId = () => setShowIdentifier(false)
@@ -29,7 +27,7 @@ const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
     async (values: ILogin) => {
       await signIn("credentials", { ...values, callbackUrl })
     },
-    [callbackUrl, router],
+    [callbackUrl],
   )
 
   useEffect(() => {
@@ -134,7 +132,7 @@ const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
                 </Link>
               </p>
             </Form>
-            <Link href={`${process.env.NEXT_PUBLIC_URL}`}>
+            <Link href="/">
               <a className="mx-auto mt-10 block w-fit text-sm underline">
                 Revenir à l'accueil
               </a>

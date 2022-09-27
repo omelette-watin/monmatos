@@ -1,5 +1,7 @@
 import { WithChildren } from "@/types/common"
+import { useSession } from "next-auth/react"
 import Head from "next/head"
+import LoadingPage from "../ui/LoadingPage"
 import Navbar from "./Navbar"
 
 interface LayoutProps extends WithChildren {
@@ -7,9 +9,12 @@ interface LayoutProps extends WithChildren {
 }
 
 const PublicLayout = ({ children, title }: LayoutProps) => {
+  const { status } = useSession()
   const pageTitle = `${title ? `${title} - ` : ""} MonMatos`
   const description = "Gérez votre matériel en un clin d'oeil"
   const logo = "/favicon.ico"
+
+  if (status === "loading") return <LoadingPage />
 
   return (
     <>

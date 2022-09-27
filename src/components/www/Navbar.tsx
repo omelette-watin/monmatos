@@ -2,12 +2,14 @@ import ButtonLink from "@/components/ui/ButtonLink"
 import HeaderLink from "@/components/ui/HeaderLink"
 import Logo from "@/components/ui/Logo"
 import classNames from "classnames"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import MobileNavbar from "./MobileNavbar"
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
+  const { status } = useSession()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 0)
@@ -42,12 +44,9 @@ const Navbar = () => {
             </Link>
           </div>
           <nav className="ml-10 hidden items-center gap-6 sm:flex">
-            <HeaderLink label="Guide" href="/guide" />
+            <HeaderLink label="Guides" href="/guides" />
             <HeaderLink label="FAQ" href="/foire-aux-questions" />
-            <HeaderLink
-              label="Inscrire mon groupe"
-              href={`${process.env.NEXT_PUBLIC_APP_URL}/inscription`}
-            />
+            <HeaderLink label="Inscrire mon groupe" href="/inscription" />
           </nav>
         </div>
         <div className="hidden items-center divide-x-2 lg:flex">
@@ -58,12 +57,12 @@ const Navbar = () => {
             className="px-4"
           />
           <ButtonLink
-            href={`${process.env.NEXT_PUBLIC_APP_URL}/connexion`}
+            href={status === "authenticated" ? "/groupe" : "/connexion"}
             size="sm"
             className="max-w-fit"
             variant="black"
           >
-            Me connecter
+            {status === "authenticated" ? "Mon groupe" : "Me connecter"}
           </ButtonLink>
         </div>
         <MobileNavbar />

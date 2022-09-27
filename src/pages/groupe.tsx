@@ -7,7 +7,7 @@ import { trpc } from "@/utils/trpc"
 import { useRouter } from "next/router"
 import { ReactElement, useEffect } from "react"
 import { toast } from "react-hot-toast"
-import { NextPageWithLayout } from "../_app"
+import { NextPageWithLayout } from "./_app"
 
 const GroupPage: NextPageWithLayout = () => {
   const router = useRouter()

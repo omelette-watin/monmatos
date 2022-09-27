@@ -19,7 +19,7 @@ const SignInPage = ({ error, callbackUrl, groupId }: SignInPageProps) => {
 export default SignInPage
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { i = null, callbackUrl = "/", error = null } = query
+  const { i = null, callbackUrl = "/groupe", error = null } = query
 
   return {
     props: {

@@ -1,7 +1,7 @@
 import { useModalContext } from "@/components/hooks/useModalContext"
 import Button from "@/components/ui/Button"
 import Panel from "@/components/ui/Panel"
-import { Filters, Tents } from "@/pages/app/tentes"
+import { Filters, Tents } from "@/pages/tentes"
 import { UIProps } from "@/utils/typedProps"
 import { Tent } from "@prisma/client"
 import { FC } from "react"

@@ -2,7 +2,7 @@ import { stateColors } from "@/components/app/dashboard/StateChart"
 import { useGroup } from "@/components/hooks/useGroup"
 import { useModalContext } from "@/components/hooks/useModalContext"
 import Button from "@/components/ui/Button"
-import type { Tent } from "@/pages/app/tentes"
+import type { Tent } from "@/pages/tentes"
 import { downloadImageFromCanvas } from "@/utils/downloadFns"
 import { units } from "@/utils/records"
 import { UIProps } from "@/utils/typedProps"
@@ -130,7 +130,7 @@ const TentViewPanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
           <QRCodeCanvas
             id={id}
             size={250}
-            value={`${process.env.NEXT_PUBLIC_APP_URL}/connexion?i=${groupId}&callbackUrl=/app/tentes?i=${id}`}
+            value={`${process.env.NEXT_PUBLIC_URL}/connexion?i=${groupId}&callbackUrl=/app/tentes?i=${id}`}
             includeMargin={true}
             className="hidden"
           />

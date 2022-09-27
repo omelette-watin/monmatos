@@ -1,6 +1,9 @@
 import ButtonLink from "@/components/ui/ButtonLink"
+import { useSession } from "next-auth/react"
 
 const Hero = () => {
+  const { status } = useSession()
+
   return (
     <div className="flex w-full flex-col items-center justify-center pt-20 text-center sm:pt-24 lg:pt-32">
       <h1 className="text-center text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
@@ -17,11 +20,13 @@ const Hero = () => {
       </p>
       <div className="mt-6 flex justify-center space-x-6 text-sm sm:mt-10">
         <ButtonLink
-          href={`${process.env.NEXT_PUBLIC_APP_URL}/inscription`}
-          size="sm"
+          href={status === "authenticated" ? "/groupe" : "/inscription"}
+          size="md"
           variant="black"
         >
-          Inscrire mon groupe
+          {status === "authenticated"
+            ? "Dashboard de mon groupe"
+            : "Inscrire mon groupe"}
         </ButtonLink>
       </div>
     </div>

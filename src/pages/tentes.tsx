@@ -14,7 +14,7 @@ import { inferProcedureOutput } from "@trpc/server"
 import { useRouter } from "next/router"
 import { ReactElement, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
-import { NextPageWithLayout } from "../_app"
+import { NextPageWithLayout } from "./_app"
 
 export type Tents = inferProcedureOutput<AppRouter["tents"]["getAll"]>
 
