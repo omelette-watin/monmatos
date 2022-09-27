@@ -130,7 +130,7 @@ const TentViewPanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
           <QRCodeCanvas
             id={id}
             size={250}
-            value={`${process.env.NEXT_PUBLIC_URL}/connexion?i=${groupId}&callbackUrl=/app/tentes?i=${id}`}
+            value={`${process.env.NEXT_PUBLIC_URL}/connexion?i=${groupId}&callbackUrl=/tentes?i=${id}`}
             includeMargin={true}
             className="hidden"
           />
