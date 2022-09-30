@@ -25,7 +25,10 @@ const PublicLayout = ({ children, title }: LayoutProps) => {
         <link rel="apple-touch-icon" sizes="180x180" href={logo} />
 
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
 
         <meta itemProp="name" content={pageTitle} />
         <meta itemProp="description" content={description} />

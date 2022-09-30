@@ -14,6 +14,7 @@ import Icon from "../ui/Icon"
 import LoadingDots from "../ui/LoadingDots"
 
 const SignUpForm = () => {
+  const logo = "/favicon.ico"
   const registerMutation = trpc.group.create.useMutation()
   const handleSubmit = useCallback(
     async (values: IRegister) => {
@@ -37,6 +38,15 @@ const SignUpForm = () => {
     <div className="bg-main flex min-h-screen flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
       <Head>
         <title>Inscrire mon groupe - MonMatos</title>
+        <link rel="icon" href={logo} />
+        <link rel="shortcut icon" type="image/x-icon" href={logo} />
+        <link rel="apple-touch-icon" sizes="180x180" href={logo} />
+
+        <meta charSet="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
       </Head>
       <Formik
         initialValues={{ name: "", movement: "SGDF" }}
@@ -54,7 +64,7 @@ const SignUpForm = () => {
                 Nom du Groupe
               </label>
               <div className="flex w-full items-center">
-                <div className="flex w-full items-center gap-4 rounded-lg border-2 border-slate-300 p-3 focus-within:border-blue-600">
+                <div className="flex w-full items-center gap-4 rounded-lg border border-gray-200 p-3 focus-within:border-2 focus-within:border-blue-500">
                   <Field
                     name="name"
                     id="name"
@@ -68,7 +78,7 @@ const SignUpForm = () => {
                 Mouvement scout
               </label>
               <div className="flex w-full items-center">
-                <div className="flex w-full items-center gap-4 rounded-lg border-2 border-slate-300 p-3  focus-within:border-blue-600">
+                <div className="flex w-full items-center gap-4 rounded-lg border border-gray-200 p-3 focus-within:border-2  focus-within:border-blue-500">
                   <Icon name="GiJerusalemCross" className="w-6" />
                   <Field
                     id="movement"

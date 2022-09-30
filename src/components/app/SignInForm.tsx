@@ -20,6 +20,7 @@ interface SignInFormProps {
 }
 
 const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
+  const logo = "/favicon.ico"
   const [showIdentifier, setShowIdentifier] = useState(false)
   const showId = () => setShowIdentifier(true)
   const hideId = () => setShowIdentifier(false)
@@ -44,6 +45,15 @@ const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
     <div className="bg-main flex min-h-screen flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
       <Head>
         <title>Me connecter - MonMatos</title>
+        <link rel="icon" href={logo} />
+        <link rel="shortcut icon" type="image/x-icon" href={logo} />
+        <link rel="apple-touch-icon" sizes="180x180" href={logo} />
+
+        <meta charSet="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
       </Head>
       <Formik
         initialValues={{ identifier: "" }}
@@ -62,7 +72,7 @@ const SignInForm = ({ callbackUrl, error }: SignInFormProps) => {
                 Identifiant de groupe
               </label>
               <div className="flex w-full items-center">
-                <div className="flex w-full items-center gap-4 rounded-lg border-2 border-slate-300 p-3 focus-within:border-blue-600">
+                <div className="flex w-full items-center gap-4 rounded-lg border  border-gray-200 p-3 focus-within:border-2 focus-within:border-blue-500">
                   <Field
                     name="identifier"
                     id="identifer"
