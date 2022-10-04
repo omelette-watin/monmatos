@@ -87,7 +87,7 @@ const ContactPage: NextPageWithLayout = () => {
                 id="email"
                 type="email"
                 placeholder="ex: saint.vincent@exemple.com"
-                className="w-full bg-transparent text-sm outline-none md:scroll-mt-[300px]"
+                className="w-full bg-transparent text-sm outline-none"
               />
             </div>
             {errors.email && (
