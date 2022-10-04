@@ -8,7 +8,7 @@ export const mailRouter = t.router({
 
     const infos = await mailer({
       to: "pnwa@icloud.com",
-      subject,
+      subject: `<${email}> ${subject}`,
       text: message,
       from: email,
     })
