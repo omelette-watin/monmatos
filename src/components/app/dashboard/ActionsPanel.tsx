@@ -37,7 +37,7 @@ const ActionsPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
       <div className="grid grid-cols-1 gap-10 py-4 lg:grid-cols-2">
         <div className="mx-auto w-full max-w-[350px] space-y-6">
           <h3 className="ml-2 flex items-center space-x-2 self-start text-xl font-semibold">
-            <Icon name="TbTent" />
+            <Icon name="FaCampground" />
             <span>Tentes</span>
           </h3>
           <div className="flex flex-col items-center justify-center gap-3">
