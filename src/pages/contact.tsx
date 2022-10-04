@@ -8,12 +8,13 @@ import PublicLayout from "@/components/www/Layout"
 import { trpc } from "@/utils/trpc"
 import classNames from "classnames"
 import { Field, FieldProps, Form, Formik } from "formik"
-import { ReactElement, useCallback } from "react"
+import { ReactElement, useCallback, useRef } from "react"
 import { toast } from "react-hot-toast"
 import { NextPageWithLayout } from "./_app"
 
 const ContactPage: NextPageWithLayout = () => {
   const contactMutation = trpc.mail.contact.useMutation()
+  const emailInputRef = useRef<HTMLInputElement | null>(null)
   const handleSubmit = useCallback(
     async (values: IMail) => {
       toast.promise(contactMutation.mutateAsync(values), {
@@ -39,8 +40,14 @@ const ContactPage: NextPageWithLayout = () => {
           Vous souhaitez nous rejoindre ou nous aider ?
         </p>
         <div className="flex flex-col items-center gap-2 text-gray-500">
-          <Button icon="BiMessageDetail" className="max-w-fit" size="sm">
-            <a href="#email">Écrivez-nous un message</a>
+          <Button
+            icon="BiMessageDetail"
+            className="max-w-fit"
+            size="sm"
+            type="button"
+            onClick={() => emailInputRef?.current?.focus()}
+          >
+            Écrivez-nous un message
           </Button>
           <span>ou</span>
           <ButtonLink
@@ -83,6 +90,7 @@ const ContactPage: NextPageWithLayout = () => {
               )}
             >
               <Field
+                innerRef={emailInputRef}
                 name="email"
                 id="email"
                 type="email"
