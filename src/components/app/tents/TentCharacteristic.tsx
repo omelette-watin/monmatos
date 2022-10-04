@@ -21,7 +21,7 @@ const TentCharacteristic = <T extends recordableKeyOf<Tent>>({
 }: TentCharacteristicProps<T>) => {
   const variantClassName = variants
     ? `${variants[value]} text-slate-100`
-    : "bg-slate-200"
+    : "bg-gray-200"
 
   return (
     <div

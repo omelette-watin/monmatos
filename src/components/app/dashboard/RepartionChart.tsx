@@ -22,7 +22,7 @@ const colors: Record<Unit, string> = {
   PIONNIERS: "bg-red-600",
   ROUTIERS: "bg-red-600",
   EQUIPIERS: "bg-red-600",
-  GROUPE: "bg-gray-500",
+  GROUPE: "bg-gray-200",
 }
 
 const Bar: FC<UIProps<{ unit: Unit; count: number; total: number }>> = ({

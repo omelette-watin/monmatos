@@ -20,7 +20,7 @@ const TentInput = ({ label, value, setValue, options }: TentInputProps) => {
               .map(([, value]) => value)
               .includes(value as State)
               ? `${stateColors[value as State]} text-white`
-              : "bg-slate-200"
+              : "bg-gray-200"
           }`]: true,
         },
       )}
