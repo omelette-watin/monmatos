@@ -8,12 +8,18 @@ import PublicLayout from "@/components/www/Layout"
 import { trpc } from "@/utils/trpc"
 import classNames from "classnames"
 import { Field, FieldProps, Form, Formik } from "formik"
-import { ReactElement, useCallback, useRef } from "react"
+import Link from "next/link"
+import { ReactElement, useCallback, useRef, useState } from "react"
 import { toast } from "react-hot-toast"
 import { NextPageWithLayout } from "./_app"
 
 const ContactPage: NextPageWithLayout = () => {
-  const contactMutation = trpc.mail.contact.useMutation()
+  const [sent, setSent] = useState(true)
+  const contactMutation = trpc.mail.contact.useMutation({
+    onSuccess() {
+      setSent(true)
+    },
+  })
   const emailInputRef = useRef<HTMLInputElement | null>(null)
   const handleSubmit = useCallback(
     async (values: IMail) => {
@@ -45,7 +51,10 @@ const ContactPage: NextPageWithLayout = () => {
             className="max-w-fit"
             size="sm"
             type="button"
-            onClick={() => emailInputRef?.current?.focus()}
+            onClick={() => {
+              setSent(false)
+              emailInputRef?.current?.focus()
+            }}
           >
             Écrivez-nous un message
           </Button>
@@ -62,6 +71,58 @@ const ContactPage: NextPageWithLayout = () => {
           </ButtonLink>
         </div>
       </div>
+      <div
+        className={classNames(
+          "mx-auto w-full max-w-xl flex-col items-center justify-center gap-4 rounded-md bg-white p-5 text-slate-900 shadow-lg sm:p-10",
+          {
+            flex: sent,
+            hidden: !sent,
+          },
+        )}
+      >
+        <svg
+          id="successAnimation"
+          className="animated"
+          xmlns="http://www.w3.org/2000/svg"
+          width="70"
+          height="70"
+          viewBox="0 0 70 70"
+        >
+          <path
+            id="successAnimationResult"
+            fill="#D8D8D8"
+            d="M35,60 C21.1928813,60 10,48.8071187 10,35 C10,21.1928813 21.1928813,10 35,10 C48.8071187,10 60,21.1928813 60,35 C60,48.8071187 48.8071187,60 35,60 Z M23.6332378,33.2260427 L22.3667622,34.7739573 L34.1433655,44.40936 L47.776114,27.6305926 L46.223886,26.3694074 L33.8566345,41.59064 L23.6332378,33.2260427 Z"
+          />
+          <circle
+            id="successAnimationCircle"
+            cx="35"
+            cy="35"
+            r="24"
+            stroke="#979797"
+            strokeWidth="2"
+            strokeLinecap="round"
+            fill="transparent"
+          />
+          <polyline
+            id="successAnimationCheck"
+            stroke="#979797"
+            strokeWidth="2"
+            points="23 34 34 43 47 27"
+            fill="transparent"
+          />
+        </svg>
+        <div className="space-y-2 text-center">
+          <h4 className="text-xl font-semibold">Merci pour votre message !</h4>
+          <p className="text-slate-600">
+            Nous vous répondrons dès que possible.
+          </p>
+        </div>
+        <Link href="/">
+          <a className="mx-auto mt-10 block w-fit text-sm underline">
+            Revenir à l'accueil
+          </a>
+        </Link>
+      </div>
       <Formik
         onSubmit={handleSubmit}
         initialValues={{
@@ -74,7 +135,15 @@ const ContactPage: NextPageWithLayout = () => {
         validateOnBlur={false}
       >
         {({ isSubmitting, values, errors }) => (
-          <Form className="mx-auto flex w-full max-w-xl flex-col gap-8 rounded-md bg-white p-5 text-slate-900 shadow-lg sm:p-10">
+          <Form
+            className={classNames(
+              "mx-auto flex w-full max-w-xl flex-col gap-8 rounded-md bg-white p-5 text-slate-900 shadow-lg sm:p-10",
+              {
+                flex: !sent,
+                hidden: sent,
+              },
+            )}
+          >
             <h1 className="text-2xl font-bold">
               Donnez-nous votre <span className="text-emerald-500"> avis</span>
             </h1>
