@@ -128,10 +128,10 @@ const ContactPage: NextPageWithLayout = () => {
               />
             </svg>
             <div className="space-y-2 text-center">
-              <h4 className="text-xl font-semibold">
+              <h4 className="animate-[fadeIn_600ms_ease_1000ms_both] text-xl font-semibold">
                 Merci pour votre message !
               </h4>
-              <p className="text-slate-600">
+              <p className="animate-[fadeIn_600ms_ease_1600ms_both] text-slate-600">
                 Nous vous répondrons dès que possible.
               </p>
             </div>
@@ -179,7 +179,7 @@ const ContactPage: NextPageWithLayout = () => {
               </p>
             )}
             <label htmlFor="subject" className="-mb-6 font-medium">
-              Sujet du message
+              Sujet du message (facultatif)
             </label>
             <div
               className={classNames(
@@ -197,20 +197,14 @@ const ContactPage: NextPageWithLayout = () => {
                 className="w-full bg-transparent text-sm outline-none"
               />
             </div>
-            <p
-              className={classNames("-mt-6 pl-1 text-xs", {
-                "text-gray-400": !errors.subject,
-                "font-medium text-red-500": errors.subject,
-              })}
-            >
+            <p className="-mt-6 pl-1 text-xs text-gray-400">
               Maximum 50 caractères ({values.subject.length} / 50)
-              {errors.subject && (
-                <>
-                  <br />
-                  {errors.subject}
-                </>
-              )}
             </p>
+            {errors.subject && (
+              <p className="-mt-7 pl-1 text-xs font-medium text-red-500">
+                {errors.subject}
+              </p>
+            )}
             <Field name="message">
               {({ field }: FieldProps) => (
                 <Textarea
@@ -221,20 +215,14 @@ const ContactPage: NextPageWithLayout = () => {
                 />
               )}
             </Field>
-            <p
-              className={classNames("-mt-6 pl-1 text-xs", {
-                "text-gray-400": !errors.message,
-                "font-medium text-red-500": errors.message,
-              })}
-            >
+            <p className="-mt-6 pl-1 text-xs text-gray-400">
               Maximum 1000 caractères ({values.message.length} / 1000)
-              {errors.message && (
-                <>
-                  <br />
-                  {errors.message}
-                </>
-              )}
             </p>
+            {errors.message && (
+              <p className="-mt-7 pl-1 text-xs font-medium text-red-500">
+                {errors.message}
+              </p>
+            )}
 
             <Button
               size="lg"
