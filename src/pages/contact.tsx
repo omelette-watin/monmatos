@@ -179,7 +179,7 @@ const ContactPage: NextPageWithLayout = () => {
               </p>
             )}
             <label htmlFor="subject" className="-mb-6 font-medium">
-              Sujet du message (facultatif)
+              Sujet du message
             </label>
             <div
               className={classNames(
