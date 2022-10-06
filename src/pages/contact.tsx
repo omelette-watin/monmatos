@@ -9,12 +9,12 @@ import { trpc } from "@/utils/trpc"
 import classNames from "classnames"
 import { Field, FieldProps, Form, Formik } from "formik"
 import Link from "next/link"
-import { ReactElement, useCallback, useRef, useState } from "react"
+import { ReactElement, useCallback, useEffect, useRef, useState } from "react"
 import { toast } from "react-hot-toast"
 import { NextPageWithLayout } from "./_app"
 
 const ContactPage: NextPageWithLayout = () => {
-  const [sent, setSent] = useState(true)
+  const [sent, setSent] = useState(false)
   const contactMutation = trpc.mail.contact.useMutation({
     onSuccess() {
       setSent(true)
@@ -23,7 +23,7 @@ const ContactPage: NextPageWithLayout = () => {
   const emailInputRef = useRef<HTMLInputElement | null>(null)
   const handleSubmit = useCallback(
     async (values: IMail) => {
-      toast.promise(contactMutation.mutateAsync(values), {
+      await toast.promise(contactMutation.mutateAsync(values), {
         error: "Veuillez réessayer plus tard",
         success: "Message envoyé",
         loading: "Envoi en cours",
@@ -31,6 +31,10 @@ const ContactPage: NextPageWithLayout = () => {
     },
     [contactMutation],
   )
+
+  useEffect(() => {
+    return () => setSent(false)
+  }, [])
 
   return (
     <div className="flex flex-col gap-8 py-8 md:flex-row">
@@ -40,9 +44,8 @@ const ContactPage: NextPageWithLayout = () => {
           <span className="text-emerald-500">quelque chose </span> ?
         </h1>
         <p className="pb-5 text-slate-600">
+          Vous avez une suggestion d'amélioration ? <br />
           Vous avez une question sur le fonctionnement de MonMatos ? <br />
-          Vous avez une suggestion d'amélioration ?
-          <br />
           Vous souhaitez nous rejoindre ou nous aider ?
         </p>
         <div className="flex flex-col items-center gap-2 text-gray-500">
