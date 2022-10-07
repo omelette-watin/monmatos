@@ -1,24 +1,19 @@
+import { State, Unit } from "@prisma/client"
 import { z } from "zod"
 
-const unit = z.enum([
-  "FARFADETS",
-  "JEANNETTES",
-  "LOUVETTES",
-  "LOUVETEAUX",
-  "ECLAIREUSES",
-  "GUIDES",
-  "ECLAIREURS",
-  "SCOUTS",
-  "ROUTIERS",
-  "GUIDESAINNES",
-  "EQUIPIERS",
-  "EQUIPIERES",
-  "PIONNIERS",
-  "CARAVELLES",
-  "GROUPE",
-])
+const unitsEnum = Object.entries(Unit).map(([, value]) => value) as [
+  string,
+  ...string[],
+]
 
-const state = z.enum(["INUTILISABLE", "MAUVAIS", "BON", "NEUF"])
+const stateEnum = Object.entries(State).map(([, value]) => value) as [
+  string,
+  ...string[],
+]
+
+const unit = z.enum(unitsEnum)
+
+const state = z.enum(stateEnum)
 
 export const createTentSchema = z.object({
   identifyingNum: z.number(),
