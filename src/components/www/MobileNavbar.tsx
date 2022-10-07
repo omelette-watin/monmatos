@@ -57,7 +57,11 @@ const MobileNavbar = () => {
               href="/foire-aux-questions"
               icon="RiQuestionnaireFill"
             />
-            <HeaderLink label="Guides" href="/guides" icon="FaGraduationCap" />
+            <HeaderLink
+              label="Tutoriels"
+              href="/tutoriels"
+              icon="FaGraduationCap"
+            />
             <HeaderLink label="Nous contacter" href="/contact" icon="HiMail" />
             <HeaderLink
               label="Nous soutenir"

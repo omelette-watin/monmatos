@@ -54,8 +54,8 @@ const MobileNavbar = () => {
               icon="RiQuestionnaireFill"
             />
             <HeaderLink
-              label="Guides"
-              href="/guides"
+              label="Tutoriels"
+              href="/tutoriels"
               target="_blank"
               icon="FaGraduationCap"
             />

@@ -4,7 +4,7 @@ import { ReactElement } from "react"
 import { NextPageWithLayout } from "./_app"
 
 const GuidesPage: NextPageWithLayout = () => {
-  return <ComingSoon name="Guides" />
+  return <ComingSoon name="Tutoriels" />
 }
 
 GuidesPage.getLayout = (page: ReactElement) => (

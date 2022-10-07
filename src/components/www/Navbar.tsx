@@ -44,7 +44,7 @@ const Navbar = () => {
             </Link>
           </div>
           <nav className="ml-10 hidden items-center gap-6 sm:flex">
-            <HeaderLink label="Guides" href="/guides" />
+            <HeaderLink label="Tutoriels" href="/tutoriels" />
             <HeaderLink label="FAQ" href="/foire-aux-questions" />
             <HeaderLink label="Inscrire mon groupe" href="/inscription" />
           </nav>
