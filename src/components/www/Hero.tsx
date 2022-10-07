@@ -28,6 +28,13 @@ const Hero = () => {
             ? "Dashboard de mon groupe"
             : "Inscrire mon groupe"}
         </ButtonLink>
+        <ButtonLink
+          href="https://monmatos.org/connexion?i=69c014bd-d264-4ff9-a734-ac9dddabb212&callbackUrl=/groupe"
+          target="_blank"
+          size="md"
+        >
+          Voir la démo
+        </ButtonLink>
       </div>
     </div>
   )
