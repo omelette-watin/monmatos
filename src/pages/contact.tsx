@@ -127,11 +127,11 @@ const ContactPage: NextPageWithLayout = () => {
                 fill="transparent"
               />
             </svg>
-            <div className="space-y-2 text-center">
-              <h4 className="animate-[fadeIn_600ms_ease_1000ms_both] text-xl font-semibold">
+            <div className="animate-[fadeIn_600ms_ease_1000ms_both] space-y-2 text-center">
+              <h4 className="text-xl font-semibold">
                 Merci pour votre message !
               </h4>
-              <p className="animate-[fadeIn_600ms_ease_1600ms_both] text-slate-600">
+              <p className="text-slate-600">
                 Nous vous répondrons dès que possible.
               </p>
             </div>
