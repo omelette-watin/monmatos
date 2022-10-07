@@ -57,7 +57,7 @@ const ContactPage: NextPageWithLayout = () => {
             </h1>
             <p className="pb-5 text-slate-600">
               Vous avez une suggestion d'amélioration ? <br />
-              Vous avez une question sur le fonctionnement de MonMatos ? <br />
+              Vous avez une question sur MonMatos ? <br />
               Vous souhaitez nous rejoindre ou nous aider ?
             </p>
             <div className="flex flex-col items-center gap-2 text-gray-500">
