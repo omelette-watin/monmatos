@@ -2,13 +2,13 @@ import { State, Unit } from "@prisma/client"
 import { z } from "zod"
 
 const unitsEnum = Object.entries(Unit).map(([, value]) => value) as [
-  string,
-  ...string[],
+  Unit,
+  ...Unit[],
 ]
 
 const stateEnum = Object.entries(State).map(([, value]) => value) as [
-  string,
-  ...string[],
+  State,
+  ...State[],
 ]
 
 const unit = z.enum(unitsEnum)

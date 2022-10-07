@@ -3,7 +3,7 @@ import { z } from "zod"
 
 const movementsInitials = Object.entries(Movement).map(
   ([, value]) => value,
-) as [string, ...string[]]
+) as [Movement, ...Movement[]]
 
 export const loginSchema = z.object({
   identifier: z.string().trim(),
