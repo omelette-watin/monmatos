@@ -13,6 +13,7 @@ const colors: Record<Unit, string> = {
   MOUSSAILLONS: "bg-orange-500",
   LUTINS: "bg-green-500",
   LUTINES: "bg-green-600",
+  CASTORS: "bg-green-600",
   JEANNETTES: "bg-yellow-500",
   LOUVETTES: "bg-yellow-500",
   LOUVETEAUX: "bg-orange-500",
@@ -27,6 +28,7 @@ const colors: Record<Unit, string> = {
   AINEES: "bg-red-500",
   EQUIPIERES: "bg-red-500",
   PIONNIERS: "bg-red-600",
+  PIONNIERES: "bg-red-600"
   AINES: "bg-red-600",
   ROUTIERS: "bg-red-600",
   EQUIPIERS: "bg-red-600",

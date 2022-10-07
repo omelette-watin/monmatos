@@ -62,6 +62,15 @@ export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
     COMPAGNONS: "COMPAGNONS",
     RESPONSABLES: "RESPONSABLES",
   },
+  SGP: {
+    CASTORS: "CASTORS",
+    LOUVETEAUX: "LOUVETEAUX",
+    LOUVETTES: "LOUVETTES",
+    ECLAIREURS: "ECLAIREURS",
+    GUIDES: "GUIDES",
+    PIONNIERS: "PIONNIERS",
+    PIONNIERES: "PIONNIERES",
+  },
 }
 
 export const movements: Record<Group["movement"], string> = {
@@ -72,4 +81,5 @@ export const movements: Record<Group["movement"], string> = {
   EEUDF: "Éclaireuses et Éclaireurs unionistes de France",
   EEDF: "Éclaireuses et Éclaireurs de France",
   EEIDF: "Éclaireuses et Éclaireurs Israélites de France",
+  SGP: "Scouts et Guides Pluralistes"
 }

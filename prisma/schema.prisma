@@ -44,12 +44,14 @@ enum Movement {
   EEUDF
   EEDF
   EEIDF
+  SGP
 }
 
 enum Unit {
   FARFADETS
   LUTINS
   LUTINES
+  CASTORS
   BATISSEURS
   MOUSSAILLONS
   JEANNETTES
