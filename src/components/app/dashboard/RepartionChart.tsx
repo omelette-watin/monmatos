@@ -32,7 +32,7 @@ const colors: Record<Unit, string> = {
   EQUIPIERS: "bg-red-600",
   PERSPECTIVES: "bg-red-600",
   COMPAGNONS: "bg-emerald-600",
-  RESPONSABLES: "bg-gray-500",
+  RESPONSABLES: "bg-violet-500",
   GROUPE: "bg-gray-200",
 }
 
