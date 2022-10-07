@@ -29,10 +29,20 @@ export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
     GUIDESAINNES: "GUIDES-AÎNÉES",
     GROUPE: "GROUPE",
   },
+  EEUDF: {
+    LOUVETEAUX: "LOUVETEAUX",
+    LOUVETTES: "LOUVETTES",
+    ECLAIREURS: "ÉCLAIREURS",
+    ECLAIREUSES: "ÉCLAIREUSES",
+    AINEES: "AÎNÉES",
+    AINES: "AÎNÉS",
+    RESPONSABLES: "RESPONSABLES",
+  },
 }
 
 export const movements: Record<Group["movement"], string> = {
   SGDF: "Scouts et Guides de France",
   SUF: "Scouts unitaire de France",
   AGSE: "Association des Guides et Scouts d'Europe",
+  EEUDF: "Éclaireurses et Éclaireurs unionistes de France",
 }

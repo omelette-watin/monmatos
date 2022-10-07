@@ -40,6 +40,7 @@ enum Movement {
   SGDF
   SUF
   AGSE
+  EEUDF
 }
 
 enum Unit {
@@ -53,10 +54,13 @@ enum Unit {
   SCOUTS
   ROUTIERS
   GUIDESAINNES
+  AINEES
+  AINES
   EQUIPIERS
   EQUIPIERES
   PIONNIERS
   CARAVELLES
+  RESPONSABLES
   GROUPE
 }
 
