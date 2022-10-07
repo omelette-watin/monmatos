@@ -21,7 +21,7 @@ const colors: Record<Unit, string> = {
   ECLAIREUSES: "bg-sky-500",
   SCOUTS: "bg-blue-500",
   ECLAIREURS: "bg-blue-500",
-  MARINES: "bg-red-600",
+  MARINS: "bg-red-600",
   CARAVELLES: "bg-red-500",
   GUIDESAINNES: "bg-red-500",
   AINEES: "bg-red-500",
