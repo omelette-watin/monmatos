@@ -10,7 +10,7 @@ import { useGroup } from "../../hooks/useGroup"
 const colors: Record<Unit, string> = {
   FARFADETS: "bg-green-500",
   BATISSEURS: "bg-green-500",
-  MOUSSAILLONS: "bg-green-500",
+  MOUSSAILLONS: "bg-orange-500",
   LUTINS: "bg-green-500",
   LUTINES: "bg-green-600",
   JEANNETTES: "bg-yellow-500",
