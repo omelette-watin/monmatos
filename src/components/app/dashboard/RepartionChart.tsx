@@ -18,10 +18,13 @@ const colors: Record<Unit, string> = {
   ECLAIREURS: "bg-blue-500",
   CARAVELLES: "bg-red-500",
   GUIDESAINNES: "bg-red-500",
+  AINEES: "bg-red-500",
   EQUIPIERES: "bg-red-500",
   PIONNIERS: "bg-red-600",
+  AINES: "bg-red-600",
   ROUTIERS: "bg-red-600",
   EQUIPIERS: "bg-red-600",
+  RESPONSABLES: "bg-gray-500",
   GROUPE: "bg-gray-200",
 }
 
