@@ -44,5 +44,5 @@ export const movements: Record<Group["movement"], string> = {
   SGDF: "Scouts et Guides de France",
   SUF: "Scouts unitaire de France",
   AGSE: "Association des Guides et Scouts d'Europe",
-  EEUDF: "Éclaireurses et Éclaireurs unionistes de France",
+  EEUDF: "Éclaireuses et Éclaireurs unionistes de France",
 }
