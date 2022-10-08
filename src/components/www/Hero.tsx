@@ -5,7 +5,7 @@ const Hero = () => {
   const { status } = useSession()
 
   return (
-    <div className="flex w-full flex-col items-center justify-center pt-20 text-center sm:pt-24 lg:pt-32">
+    <div className="flex w-full flex-col items-center justify-center pt-28 text-center lg:pt-32">
       <h1 className="text-center text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
         Gérez votre{" "}
         <span className="bg-gradient-to-tl from-emerald-400 to-emerald-600 bg-clip-text text-transparent">

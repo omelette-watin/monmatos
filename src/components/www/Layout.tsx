@@ -2,6 +2,7 @@ import { WithChildren } from "@/types/common"
 import { useSession } from "next-auth/react"
 import Head from "next/head"
 import LoadingPage from "../ui/LoadingPage"
+import { BannerBeta } from "./BannerBeta"
 import Navbar from "./Navbar"
 
 interface LayoutProps extends WithChildren {
@@ -40,6 +41,7 @@ const PublicLayout = ({ children, title }: LayoutProps) => {
         <meta property="og:image" content={logo} />
         <meta property="og:type" content="website" />
       </Head>
+      <BannerBeta />
       <Navbar />
       <main className="mx-auto p-4 lg:container">{children}</main>
     </>
