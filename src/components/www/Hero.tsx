@@ -18,7 +18,7 @@ const Hero = () => {
         <br />
         Conçu par et pour des scouts.
       </p>
-      <div className="mt-6 flex flex-col justify-center gap-6 text-sm sm:mt-10 sm:flex-row">
+      <div className="mt-6 flex flex-col items-center justify-center gap-6 text-sm sm:mt-10 sm:flex-row">
         <ButtonLink
           href={status === "authenticated" ? "/groupe" : "/inscription"}
           size="md"
@@ -32,6 +32,8 @@ const Hero = () => {
           href="https://monmatos.org/connexion?i=69c014bd-d264-4ff9-a734-ac9dddabb212&callbackUrl=/groupe"
           target="_blank"
           size="md"
+          className="max-w-fit"
+          icon="PlayIcon"
         >
           Voir la démo
         </ButtonLink>
