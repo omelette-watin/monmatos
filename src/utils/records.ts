@@ -10,7 +10,7 @@ export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
     PIONNIERS: "PIONNERS",
     CARAVELLES: "CARAVELLES",
     COMPAGNONS: "COMPAGNONS",
-    GROUPE: "GROUPE",
+    GROUPE: "NON ATTRIBUÉE",
   },
   AGSE: {
     LOUVETEAUX: "LOUVETEAUX",
@@ -19,7 +19,7 @@ export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
     ECLAIREUSES: "ÉCLAIREUSES",
     EQUIPIERES: "ÉQUIPIÈRES PILOTES",
     EQUIPIERS: "ÉQUIPIERS PILOTES",
-    GROUPE: "GROUPE",
+    GROUPE: "NON ATTRIBUÉE",
   },
   SUF: {
     LOUVETEAUX: "LOUVETEAUX",
@@ -28,7 +28,7 @@ export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
     GUIDES: "GUIDES",
     ROUTIERS: "ROUTIER",
     GUIDESAINNES: "GUIDES-AÎNÉES",
-    GROUPE: "GROUPE",
+    GROUPE: "NON ATTRIBUÉE",
   },
   EEUDF: {
     LOUVETEAUX: "LOUVETEAUX",
@@ -38,7 +38,7 @@ export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
     AINES: "AÎNÉS",
     AINEES: "AÎNÉES",
     RESPONSABLES: "RESPONSABLES",
-    GROUPE: "GROUPE",
+    GROUPE: "NON ATTRIBUÉE",
   },
   EEDF: {
     LUTINS: "LUTINS",
@@ -49,14 +49,14 @@ export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
     ECLAIREUSES: "ÉCLAIREUSES",
     AINES: "AÎNÉS",
     AINEES: "AÎNÉES",
-    GROUPE: "GROUPE",
+    GROUPE: "NON ATTRIBUÉE",
   },
   EEIDF: {
     BATISSEURS: "BÂTISSEURS",
     ECLAIREURS: "ÉCLAIREURS",
     ECLAIREUSES: "ÉCLAIREUSES",
     PERSPECTIVES: "PERSPECTIVES",
-    GROUPE: "GROUPE",
+    GROUPE: "NON ATTRIBUÉE",
   },
   SGDFM: {
     FARFADETS: "FARFADETS",
@@ -65,7 +65,7 @@ export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
     MARINS: "MARINS",
     COMPAGNONS: "COMPAGNONS",
     RESPONSABLES: "RESPONSABLES",
-    GROUPE: "GROUPE",
+    GROUPE: "NON ATTRIBUÉE",
   },
 }
 
