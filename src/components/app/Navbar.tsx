@@ -23,7 +23,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={classNames("bg-main sticky top-0 z-20 lg:px-5", {
+      className={classNames("bg-main sticky top-0 z-20", {
         "shadow-lg": scrolled,
       })}
     >

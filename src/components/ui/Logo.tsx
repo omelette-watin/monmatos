@@ -49,7 +49,7 @@ const Logo: FC<
   return (
     <div
       className={classNames(
-        "flex items-center truncate font-bold",
+        "relative flex w-fit items-center font-bold",
         className,
         sizes[size].className,
         {
@@ -71,6 +71,9 @@ const Logo: FC<
       </svg>
 
       <p className="truncate">MonMatos</p>
+      <div className="absolute -right-7 -top-2 rounded-sm bg-violet-500/90 px-1 text-xs font-semibold text-white">
+        Beta
+      </div>
     </div>
   )
 }
