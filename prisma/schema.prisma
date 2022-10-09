@@ -1,14 +1,13 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
   referentialIntegrity = "prisma"
 }
-
 
 model Group {
   id        String   @id @default(uuid())
@@ -19,19 +18,20 @@ model Group {
 }
 
 model Tent {
-  id             String   @id @default(uuid())
-  identifyingNum Int
-  size           Int
-  unit           Unit     @default(GROUPE)
-  state          State
-  complete       Boolean  @default(true)
-  integrated     Boolean  @default(false)
-  type           String   @default("Canadienne")
-  comments       String?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  groupId        String
-  group          Group    @relation(fields: [groupId], references: [id])
+  id                String   @id @default(uuid())
+  identifyingNum    Int
+  identifyingString String?
+  size              Int
+  unit              Unit     @default(GROUPE)
+  state             State
+  complete          Boolean  @default(true)
+  integrated        Boolean  @default(false)
+  type              String   @default("Canadienne")
+  comments          String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  groupId           String
+  group             Group    @relation(fields: [groupId], references: [id])
 
   @@unique([groupId, identifyingNum], name: "TentIdentifier")
 }
