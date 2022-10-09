@@ -8,6 +8,7 @@ import { Tents } from "@/pages/tentes"
 import { units } from "@/utils/records"
 import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
+import { Switch } from "@headlessui/react"
 import { State, Unit } from "@prisma/client"
 import classNames from "classnames"
 import Head from "next/head"
@@ -25,16 +26,17 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
       setModal({} as Modal)
     },
     onError() {
-      setBlacklist((prev) => [...prev, identifyingNum as number])
+      setBlacklist((prev) => [...prev, identifier])
     },
     onSettled() {
       trpcCtx.tents.getAll.invalidate()
     },
   })
   const [blacklist, setBlacklist] = useState(
-    tents.map((tent) => tent.identifyingNum),
+    tents.map((tent) => tent.identifier),
   )
-  const [identifyingNum, setIdentifyingNum] = useState<number | null>(null)
+  const [textIdentifier, setTextIdentifier] = useState(false)
+  const [identifier, setIdentifier] = useState<string>("")
   const [state, setState] = useState<State>("NEUF")
   const [unit, setUnit] = useState<Unit>("GROUPE")
   const [size, setSize] = useState(6)
@@ -46,9 +48,9 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
   const handleAdd = (e: FormEvent) => {
     e.preventDefault()
 
-    if (identifyingNum) {
+    if (identifier) {
       const createPromise = createMutation.mutateAsync({
-        identifyingNum,
+        identifier,
         state,
         size,
         unit,
@@ -71,48 +73,88 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
         <title>Ajouter une tente | MonMatos</title>
       </Head>
       <form
-        className="mx-auto max-w-[450px] space-y-6 py-4"
+        className="mx-auto flex max-w-[450px] flex-col gap-6 py-4"
         onSubmit={handleAdd}
       >
-        <div
-          className={classNames(
-            "mx-auto flex h-28 w-28 items-center justify-center rounded-full border-4",
-            {
-              "border-slate-800 text-slate-800": !identifyingNum,
+        <div className="mx-auto flex items-center gap-2 text-sm font-medium">
+          <span>Nom ou numéro ?</span>
+          <Switch
+            checked={textIdentifier}
+            onChange={setTextIdentifier}
+            className={`${textIdentifier ? "bg-emerald-500" : "bg-slate-900"}
+          relative inline-flex h-6 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none  focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+          >
+            <span className="sr-only">Type d'identifiant</span>
+            <span
+              aria-hidden="true"
+              className={`${textIdentifier ? "translate-x-6" : "translate-x-0"}
+            pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+            />
+          </Switch>
+        </div>
+        {!textIdentifier ? (
+          <div
+            className={classNames(
+              "mx-auto flex h-28 w-28 items-center justify-center rounded-full border-4",
+              {
+                "border-slate-800 text-slate-800": !identifier,
 
-              "border-emerald-500/90 text-emerald-500/90":
-                identifyingNum && !blacklist.includes(identifyingNum),
-              "border-red-500/90 text-red-500/90":
-                identifyingNum && blacklist.includes(identifyingNum),
-            },
-          )}
-        >
+                "border-emerald-500/90 text-emerald-500/90":
+                  identifier && !blacklist.includes(identifier),
+                "border-red-500/90 text-red-500/90":
+                  identifier && blacklist.includes(identifier),
+              },
+            )}
+          >
+            <input
+              type="text"
+              autoFocus
+              className="w-[90px] bg-transparent p-1 px-2 text-center text-3xl font-bold outline-none"
+              placeholder={"XX"}
+              onChange={(e) => {
+                if (parseInt(e.target.value) || !e.target.value.length) {
+                  setIdentifier(e.target.value)
+                }
+              }}
+              value={identifier}
+            />
+          </div>
+        ) : (
           <input
             type="text"
             autoFocus
-            className="w-[90px] rounded-lg border-2 border-dashed bg-transparent p-1 px-2 text-center text-3xl font-bold outline-none"
-            placeholder={"XX"}
-            onChange={(e) => setIdentifyingNum(parseInt(e.target.value))}
-            value={identifyingNum || ""}
+            className={classNames(
+              "mx-auto my-8 block max-w-[250px] border-b-2 border-t-2 border-t-transparent bg-transparent p-1 px-4 text-3xl font-bold outline-none placeholder:font-medium",
+              {
+                "border-slate-800 text-slate-800": !identifier,
+
+                "border-emerald-500/90 text-emerald-500/90":
+                  identifier && !blacklist.includes(identifier),
+                "border-red-500/90 text-red-500/90":
+                  identifier && blacklist.includes(identifier),
+              },
+            )}
+            placeholder="La Téméraire"
+            onChange={(e) => setIdentifier(e.target.value)}
+            value={identifier}
           />
-        </div>
+        )}
+
         <div className="pt-4">
           <div
             className={classNames(
               "mx-auto flex w-fit items-center space-x-2 rounded-lg py-1 px-2 text-sm font-medium  sm:text-base",
               {
-                "bg-amber-100 text-amber-800": !identifyingNum,
+                "bg-amber-100 text-amber-800": !identifier,
                 "bg-green-100 text-green-800":
-                  identifyingNum &&
-                  !blacklist.includes(identifyingNum as number),
+                  identifier && !blacklist.includes(identifier),
                 "bg-red-100 text-red-800":
-                  identifyingNum &&
-                  blacklist.includes(identifyingNum as number),
+                  identifier && blacklist.includes(identifier),
               },
             )}
           >
             <Icon name="MdOutlineErrorOutline" className="text-xl" />
-            <span>Choisissez un numéro de tente non attribué</span>
+            <span>Choisissez un identifiant de tente non attribué</span>
           </div>
         </div>
         <div>
@@ -205,8 +247,8 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
           <Button
             type="submit"
             disabled={
-              !identifyingNum ||
-              blacklist.includes(identifyingNum) ||
+              !identifier ||
+              blacklist.includes(identifier) ||
               createMutation.isLoading
             }
             size="sm"

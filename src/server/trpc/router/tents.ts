@@ -13,7 +13,7 @@ export const tentsRouter = t.router({
         groupId: session.user.id,
       },
       orderBy: {
-        identifyingNum: "asc",
+        identifier: "asc",
       },
     })
 

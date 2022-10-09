@@ -17,7 +17,7 @@ const TentViewPanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
   const { movement, id: groupId } = useGroup()
   const {
     id,
-    identifyingNum,
+    identifier,
     size,
     unit,
     state,
@@ -30,7 +30,7 @@ const TentViewPanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
   } = tent
   const { setModal } = useModalContext()
   const downloadQRCode = () =>
-    downloadImageFromCanvas(id, `tente ${identifyingNum} QR Code`)
+    downloadImageFromCanvas(id, `tente ${identifier} QR Code`)
 
   const goToDeletePanel = () =>
     setModal({
@@ -46,12 +46,19 @@ const TentViewPanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
   return (
     <>
       <Head>
-        <title>{`Tente ${identifyingNum} | MonMatos`}</title>
+        <title>{`Tente ${identifier} | MonMatos`}</title>
       </Head>
       <div className="mx-auto max-w-[450px] space-y-6 py-4">
-        <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full border-4 border-slate-800">
-          <h2 className="text-3xl font-bold">{identifyingNum}</h2>
-        </div>
+        {isNaN(Number(identifier)) ? (
+          <h2 className="mx-auto my-10 w-fit truncate text-3xl font-bold">
+            {identifier}
+          </h2>
+        ) : (
+          <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full border-4 border-slate-800">
+            <h2 className="text-3xl font-bold">{identifier}</h2>
+          </div>
+        )}
+
         <div className="flex flex-wrap items-center justify-center gap-2 pt-4">
           <Button
             type="button"

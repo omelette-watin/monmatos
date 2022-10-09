@@ -15,7 +15,7 @@ import TentViewPanel from "./TentViewPanel"
 
 const TentCard: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
   const { movement } = useGroup()
-  const { identifyingNum, identifyingString, size, unit, state, type } = tent
+  const { identifier, size, unit, state, type } = tent
   const { setModal } = useModalContext()
   const openViewPanel = () =>
     setModal({
@@ -42,11 +42,9 @@ const TentCard: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
   return (
     <Card className="cursor-pointer" onClick={openViewPanel}>
       <div className="flex flex-col gap-4">
-        {identifyingString ? (
+        {isNaN(Number(identifier)) ? (
           <div className="flex flex-col gap-2 pt-3 pb-2">
-            <h2 className="truncate text-2xl font-semibold">
-              {identifyingString}
-            </h2>
+            <h2 className="truncate text-2xl font-semibold">{identifier}</h2>
             <h3 className="text-sm font-bold">
               {units[movement][unit] || "GROUPE"} -{" "}
               <span className="text-sm font-semibold ">{size} places</span>
@@ -55,7 +53,7 @@ const TentCard: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
         ) : (
           <div className="flex w-full items-center gap-4">
             <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-slate-800">
-              <h2 className="text-2xl font-bold">{identifyingNum}</h2>
+              <h2 className="text-2xl font-bold">{identifier}</h2>
             </div>
             <div className="text-left">
               <h3 className="text-sm font-bold leading-tight">

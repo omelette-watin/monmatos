@@ -45,7 +45,7 @@ const TentUpdatePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
     const updatePromise = updateMutation.mutateAsync({
       id: tent.id,
       values: {
-        identifyingNum: tent.identifyingNum,
+        identifier: tent.identifier,
         state,
         size,
         unit,
@@ -66,15 +66,21 @@ const TentUpdatePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
   return (
     <>
       <Head>
-        <title>{`Modifier la tente ${tent.identifyingNum} | MonMatos`}</title>
+        <title>{`Modifier la tente ${tent.identifier} | MonMatos`}</title>
       </Head>
       <form
         className="mx-auto max-w-[450px] space-y-6 py-4"
         onSubmit={handleUpdate}
       >
-        <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full border-4 border-slate-800">
-          <h2 className="text-3xl font-bold">{tent.identifyingNum}</h2>
-        </div>
+        {isNaN(Number(tent.identifier)) ? (
+          <h2 className="mx-auto my-10 w-fit truncate text-3xl font-bold">
+            {tent.identifier}
+          </h2>
+        ) : (
+          <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full border-4 border-slate-800">
+            <h2 className="text-3xl font-bold">{tent.identifier}</h2>
+          </div>
+        )}
         <div className="pt-4">
           <div className="mx-auto flex w-fit items-center space-x-2 rounded-lg bg-green-100 py-1 px-2 text-sm font-medium text-green-800 sm:text-base">
             <Icon name="MdOutlineErrorOutline" className="text-xl" />

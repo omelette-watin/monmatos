@@ -16,7 +16,7 @@ const unit = z.enum(unitsEnum)
 const state = z.enum(stateEnum)
 
 export const createTentSchema = z.object({
-  identifyingNum: z.number(),
+  identifier: z.string(),
   size: z.number(),
   unit,
   state,

@@ -72,8 +72,12 @@ const TentsContainer: FC<
           {getTentToBeDisplayed(tents)
             .sort((a, b) =>
               sorting === "asc"
-                ? a.identifyingNum - b.identifyingNum
-                : b.identifyingNum - a.identifyingNum,
+                ? a.identifier.localeCompare(b.identifier, undefined, {
+                    numeric: true,
+                  })
+                : b.identifier.localeCompare(a.identifier, undefined, {
+                    numeric: true,
+                  }),
             )
             .map((tent) => (
               <TentCard tent={tent} key={tent.id} />

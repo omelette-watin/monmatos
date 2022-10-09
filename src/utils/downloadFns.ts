@@ -22,7 +22,7 @@ export const downloadExcel = (
 ) => {
   const formatedTents = tents.map((tent) => {
     return {
-      ["Numéro de tente"]: tent.identifyingNum,
+      ["Identifiant"]: tent.identifier,
       ["Unité"]: tent.unit,
       ["Nombres de place"]: tent.size,
       ["Type de tente"]: tent.type,
