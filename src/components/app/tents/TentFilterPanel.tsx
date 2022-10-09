@@ -84,6 +84,7 @@ const TentFilterPanel: FC<
             4: "4 places",
             5: "5 places",
             6: "6 places",
+            7: "7 places",
             8: "8 places",
             10: "10 places",
           })}
