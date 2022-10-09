@@ -19,7 +19,7 @@ model Group {
 
 model Tent {
   id                String   @id @default(uuid())
-  identifyingNum    Int
+  identifyingNum    Int?
   identifyingString String?
   size              Int
   unit              Unit     @default(GROUPE)
@@ -33,7 +33,8 @@ model Tent {
   groupId           String
   group             Group    @relation(fields: [groupId], references: [id])
 
-  @@unique([groupId, identifyingNum], name: "TentIdentifier")
+  @@unique([groupId, identifyingString], name: "TentIdentifyingString")
+  @@unique([groupId, identifyingNum], name: "TentIdentifyingNum")
 }
 
 enum Movement {
