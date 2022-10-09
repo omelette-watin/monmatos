@@ -23,7 +23,7 @@ const BetaBanner = () => {
 
   return (
     <div className="w-full bg-gradient-to-tl from-emerald-400 to-emerald-600 text-white">
-      <div className="mx-auto flex flex-col items-center justify-between gap-1 p-2 text-sm sm:flex-row sm:gap-2 sm:p-4 sm:py-4 sm:text-base lg:container">
+      <div className="mx-auto flex flex-col items-center justify-between gap-1 p-3 text-sm sm:flex-row sm:gap-2 sm:p-4  sm:text-base lg:container">
         <div className="text-center">
           <span className="font-bold">MonMatos</span> est encore en cours de{" "}
           <span className="font-bold">développement.</span>
