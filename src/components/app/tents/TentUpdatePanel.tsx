@@ -73,7 +73,7 @@ const TentUpdatePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
         onSubmit={handleUpdate}
       >
         {isNaN(Number(tent.identifier)) ? (
-          <h2 className="mx-auto my-10 w-fit truncate text-3xl font-bold">
+          <h2 className="mx-auto my-10 w-fit max-w-[90%] truncate text-3xl font-bold">
             {tent.identifier}
           </h2>
         ) : (

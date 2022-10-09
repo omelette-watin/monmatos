@@ -44,7 +44,7 @@ const TentDeletePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
       </Head>
       <div className="mx-auto max-w-[450px] space-y-6 py-4">
         {isNaN(Number(identifier)) ? (
-          <h2 className="mx-auto my-10 w-fit truncate text-3xl font-bold">
+          <h2 className="mx-auto my-10 w-fit max-w-[90%] truncate text-3xl font-bold">
             {identifier}
           </h2>
         ) : (

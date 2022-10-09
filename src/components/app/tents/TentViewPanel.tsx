@@ -50,12 +50,12 @@ const TentViewPanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
       </Head>
       <div className="mx-auto max-w-[450px] space-y-6 py-4">
         {isNaN(Number(identifier)) ? (
-          <h2 className="mx-auto my-10 w-fit truncate text-3xl font-bold">
+          <h2 className="mx-auto my-10 w-fit max-w-[90%] truncate text-3xl font-bold">
             {identifier}
           </h2>
         ) : (
           <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full border-4 border-slate-800">
-            <h2 className="text-3xl font-bold">{identifier}</h2>
+            <h2 className="text-3xl font-bold">{parseInt(identifier)}</h2>
           </div>
         )}
 
