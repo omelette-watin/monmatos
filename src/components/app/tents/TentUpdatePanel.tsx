@@ -88,7 +88,7 @@ const TentUpdatePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
         </div>
         <div className="space-y-2">
           <TentInput
-            label={`Attribué au${unit !== "GROUPE" ? "x" : ""}`}
+            label="Attribué aux"
             value={unit}
             setValue={(value) => setUnit(value as Unit)}
             options={Object.entries(units[movement]).map(([key, value]) => [

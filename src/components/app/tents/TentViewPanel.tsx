@@ -85,7 +85,7 @@ const TentViewPanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
         <div className="space-y-2">
           <TentCharacteristic
             type="unit"
-            label={`Attribuée au${unit !== "GROUPE" ? "x" : ""}`}
+            label="Attribué aux"
             value={units[movement][unit] || "GROUPE"}
           />
           <TentCharacteristic
