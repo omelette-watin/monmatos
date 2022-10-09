@@ -36,7 +36,7 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
   )
   const [identifyingNum, setIdentifyingNum] = useState<number | null>(null)
   const [state, setState] = useState<State>("NEUF")
-  const [unit, setUnit] = useState<Unit>("LOUVETEAUX")
+  const [unit, setUnit] = useState<Unit>("GROUPE")
   const [size, setSize] = useState(6)
   const [complete, setComplete] = useState(true)
   const [integrated, setIntegrated] = useState(false)

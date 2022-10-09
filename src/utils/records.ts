@@ -38,6 +38,7 @@ export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
     AINES: "AÎNÉS",
     AINEES: "AÎNÉES",
     RESPONSABLES: "RESPONSABLES",
+    GROUPE: "GROUPE",
   },
   EEDF: {
     LUTINS: "LUTINS",
@@ -48,12 +49,14 @@ export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
     ECLAIREUSES: "ÉCLAIREUSES",
     AINES: "AÎNÉS",
     AINEES: "AÎNÉES",
+    GROUPE: "GROUPE",
   },
   EEIDF: {
     BATISSEURS: "BÂTISSEURS",
     ECLAIREURS: "ÉCLAIREURS",
     ECLAIREUSES: "ÉCLAIREUSES",
     PERSPECTIVES: "PERSPECTIVES",
+    GROUPE: "GROUPE",
   },
   SGDFM: {
     FARFADETS: "FARFADETS",
@@ -62,6 +65,7 @@ export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
     MARINS: "MARINS",
     COMPAGNONS: "COMPAGNONS",
     RESPONSABLES: "RESPONSABLES",
+    GROUPE: "GROUPE",
   },
 }
 
