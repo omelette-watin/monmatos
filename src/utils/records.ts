@@ -9,6 +9,7 @@ export const units: Record<Group["movement"], Partial<Record<Unit, string>>> = {
     GUIDES: "GUIDES",
     PIONNIERS: "PIONNERS",
     CARAVELLES: "CARAVELLES",
+    COMPAGNONS: "COMPAGNONS",
     GROUPE: "GROUPE",
   },
   AGSE: {
