@@ -44,8 +44,9 @@ const Logo: FC<
   UIProps<{
     size?: keyof typeof sizes
     white?: boolean
+    noBetaTag?: boolean
   }>
-> = ({ size = "md", white, className }) => {
+> = ({ size = "md", white, className, noBetaTag }) => {
   return (
     <div
       className={classNames(
@@ -71,9 +72,11 @@ const Logo: FC<
       </svg>
 
       <p className="truncate">MonMatos</p>
-      <div className="absolute -right-7 -top-2 rounded-sm bg-violet-500/90 px-1 text-xs font-semibold text-white">
-        Beta
-      </div>
+      {!noBetaTag && (
+        <div className="absolute -right-7 -top-2 rounded-sm bg-pink-500 px-1 text-xs font-semibold text-white">
+          Beta
+        </div>
+      )}
     </div>
   )
 }
