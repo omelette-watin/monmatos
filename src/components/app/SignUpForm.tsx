@@ -226,7 +226,7 @@ const SignUpForm = () => {
                 <>
                   <h2 className="text-lg font-semibold">
                     Vous pouvez créer jusqu'à{" "}
-                    <span className="text-emerald-500">20 types</span> d'unités
+                    <span className="text-emerald-500">15 types</span> d'unités
                     différents.
                   </h2>
                   <p className="-mt-8 text-sm">
@@ -247,7 +247,7 @@ const SignUpForm = () => {
                           size="xs"
                           variant="green"
                           onClick={() => push("")}
-                          disabled={values.customUnits?.length === 20}
+                          disabled={values.customUnits?.length === 15}
                           icon="BsPlusLg"
                           className="mb-4 max-w-fit"
                         >
@@ -276,12 +276,27 @@ const SignUpForm = () => {
                                   <Icon name="HiTrash" className="text-xl" />
                                 </button>
                               </div>
-                              {errors.customUnits &&
-                                errors.customUnits[index] && (
-                                  <p className="pl-1 text-xs">
-                                    {errors.customUnits[index]}
-                                  </p>
-                                )}
+                              <div className="pl-1 text-xs text-red-500">
+                                {errors.customUnits &&
+                                  errors.customUnits[index] && (
+                                    <p className="pl-1 text-xs">
+                                      {errors.customUnits[index]}
+                                    </p>
+                                  )}
+                                {values.customUnits &&
+                                  values.customUnits[index] &&
+                                  values.customUnits
+                                    .filter(
+                                      (item, index) =>
+                                        values.customUnits?.indexOf(item) !==
+                                        index,
+                                    )
+                                    .includes(
+                                      values.customUnits[index] as string,
+                                    ) && (
+                                    <p>Veuillez ne pas faire de duplicata</p>
+                                  )}
+                              </div>
                             </div>
                           ))}
                       </div>
@@ -297,6 +312,10 @@ const SignUpForm = () => {
                         !isValid ||
                         !dirty ||
                         !values.customUnits?.length ||
+                        !!values.customUnits?.filter(
+                          (item, index) =>
+                            values.customUnits?.indexOf(item) !== index,
+                        ).length ||
                         isSubmitting
                       }
                     >
