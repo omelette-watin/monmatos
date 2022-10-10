@@ -195,7 +195,7 @@ const SignUpForm = () => {
                         setValues((prev) => {
                           return {
                             ...prev,
-                            customUnits: [""],
+                            customUnits: ["Mon unité"],
                           }
                         })
                         setStep(2)
@@ -243,17 +243,6 @@ const SignUpForm = () => {
                   <FieldArray name="customUnits">
                     {({ remove, push }) => (
                       <div className="-mt-4 flex flex-col gap-2">
-                        <Button
-                          size="xs"
-                          variant="green"
-                          onClick={() => push("")}
-                          disabled={values.customUnits?.length === 15}
-                          icon="BsPlusLg"
-                          className="mb-4 max-w-fit"
-                        >
-                          Ajouter une unité
-                        </Button>
-
                         {values.customUnits &&
                           values.customUnits.map((customUnit, index) => (
                             <div
@@ -299,6 +288,23 @@ const SignUpForm = () => {
                               </div>
                             </div>
                           ))}
+                        <Button
+                          size="xs"
+                          variant="green"
+                          onClick={() => push("")}
+                          disabled={
+                            Array.isArray(errors.customUnits) ||
+                            values.customUnits?.length === 20 ||
+                            !!values.customUnits?.filter(
+                              (item, index) =>
+                                values.customUnits?.indexOf(item) !== index,
+                            ).length
+                          }
+                          icon="BsPlusLg"
+                          className="mt-4 max-w-fit"
+                        >
+                          Ajouter une unité
+                        </Button>
                       </div>
                     )}
                   </FieldArray>
