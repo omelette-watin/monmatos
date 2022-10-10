@@ -234,6 +234,12 @@ const SignUpForm = () => {
                     accès aux noms d'unités par défaut, pensez donc à recréer
                     ceux dont vous avez besoin.
                   </p>
+                  <p className="-mt-8 text-sm">
+                    Il n'est pas nécessaire de mettre un type{" "}
+                    <span className="font-medium">GROUPE</span> ou{" "}
+                    <span className="font-medium">NON ATTRIBUÉE</span>, on s'en
+                    charge pour vous.
+                  </p>
                   <FieldArray name="customUnits">
                     {({ remove, push }) => (
                       <div className="-mt-4 flex flex-col gap-2">
