@@ -235,7 +235,7 @@ const SignUpForm = () => {
                     ceux dont vous avez besoin.
                   </p>
                   <p className="-mt-8 text-sm">
-                    Il n'est pas nécessaire de mettre un type{" "}
+                    Il n'est pas nécessaire de créer un type{" "}
                     <span className="font-medium">GROUPE</span> ou{" "}
                     <span className="font-medium">NON ATTRIBUÉE</span>, on s'en
                     charge pour vous.
