@@ -7,7 +7,6 @@ import { UIProps } from "@/utils/typedProps"
 import { Tent } from "@prisma/client"
 import { FC } from "react"
 import { useGroup } from "../../hooks/useGroup"
-import RepartitionChart from "./RepartionChart"
 import StateChart from "./StateChart"
 
 const OverviewPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
@@ -63,9 +62,9 @@ const OverviewPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
               </div>
             </div>
           </Card>
-          <RepartitionChart tents={tents} customUnits={customUnits} />
+          <StateChart tents={tents} />
+          {/* <RepartitionChart tents={tents} customUnits={customUnits} /> */}
         </div>
-        <StateChart tents={tents} />
       </div>
     </Panel>
   )
