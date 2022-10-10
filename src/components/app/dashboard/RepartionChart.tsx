@@ -36,11 +36,27 @@ const colors: Record<Unit, string> = {
   GROUPE: "bg-gray-200",
 }
 
-const Bar: FC<UIProps<{ unit: Unit; count: number; total: number }>> = ({
-  unit,
-  count,
-  total,
-}) => {
+const customColors = [
+  "bg-green-500",
+  "bg-orange-500",
+  "bg-yellow-500",
+  "bg-green-600",
+  "bg-orange-600",
+  "bg-yellow-400",
+  "bg-blue-500",
+  "bg-sky-500",
+  "bg-red-600",
+  "bg-red-500",
+  "bg-red-600",
+  "bg-pink-500",
+  "bg-emerald-500",
+  "bg-emerald-600",
+  "bg-violet-500",
+]
+
+const Bar: FC<
+  UIProps<{ unit: string; count: number; total: number; index?: number }>
+> = ({ unit, count, total, index }) => {
   return (
     <div className="flex w-full flex-col-reverse items-center font-bold text-slate-900 md:w-16">
       <div className="flex h-8 w-full items-center justify-center">
@@ -48,19 +64,28 @@ const Bar: FC<UIProps<{ unit: Unit; count: number; total: number }>> = ({
       </div>
       <div
         style={{ height: `${(count / total) * 230 || 4}px` }}
-        className={classNames("expends w-full rounded-sm", colors[unit])}
+        className={classNames(
+          "expends w-full rounded-sm",
+          typeof index !== "undefined"
+            ? customColors[index]
+            : colors[unit as Unit],
+          unit === "GROUPE" && colors["GROUPE"],
+        )}
       />
     </div>
   )
 }
 
-const RepartitionChart: FC<UIProps<{ tents: Tent[]; className?: string }>> = ({
-  tents,
-}) => {
+const RepartitionChart: FC<
+  UIProps<{ tents: Tent[]; customUnits: string[]; className?: string }>
+> = ({ tents, customUnits }) => {
   const { movement } = useGroup()
+
   const movementUnits = units[movement] as Record<Unit, string>
-  const countOf = (unit: keyof typeof movementUnits) => {
-    return tents.filter((tents) => tents.unit === unit).length
+  const countOf = (unit: string) => {
+    return tents.filter(
+      (tent) => tent.unit === unit || tent.customUnit === unit,
+    ).length
   }
 
   return (
@@ -72,33 +97,71 @@ const RepartitionChart: FC<UIProps<{ tents: Tent[]; className?: string }>> = ({
         </span>
       </h3>
       <div className="flex w-full flex-col items-end gap-8 lg:h-[300px] lg:flex-row">
-        <div className="mr-4 space-y-1 self-start py-3">
-          {Object.entries(movementUnits).map(([key, value]) => {
-            return (
-              <div key={value} className="flex items-center space-x-2">
-                <div
-                  className={classNames(
-                    "h-5 w-5 rounded-sm",
-                    colors[key as Unit],
-                  )}
-                />
-                <span className="whitespace-nowrap text-xs">{value}</span>
-              </div>
-            )
-          })}
-        </div>
-        <div className="mx-auto flex w-full items-end space-x-3 md:w-fit">
-          {Object.entries(movementUnits).map(([key]) => {
-            return (
-              <Bar
-                unit={key as Unit}
-                count={countOf(key as Unit)}
-                total={tents.length}
-                key={key}
-              />
-            )
-          })}
-        </div>
+        {!customUnits.length ? (
+          <>
+            <div className="mr-4 space-y-1 self-start py-3">
+              {Object.entries(movementUnits).map(([key, value]) => {
+                return (
+                  <div key={value} className="flex items-center space-x-2">
+                    <div
+                      className={classNames(
+                        "h-5 w-5 rounded-sm",
+                        colors[key as Unit],
+                      )}
+                    />
+                    <span className="whitespace-nowrap text-xs">{value}</span>
+                  </div>
+                )
+              })}
+            </div>
+            <div className="mx-auto flex w-full items-end space-x-3 md:w-fit">
+              {Object.entries(movementUnits).map(([key]) => {
+                return (
+                  <Bar
+                    unit={key as Unit}
+                    count={countOf(key as Unit)}
+                    total={tents.length}
+                    key={key}
+                  />
+                )
+              })}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="mr-4 space-y-1 self-start py-3">
+              {customUnits.concat(["NON ATTRIBUÉE"]).map((value, index) => {
+                return (
+                  <div key={value} className="flex items-center space-x-2">
+                    <div
+                      className={classNames(
+                        "h-5 w-5 rounded-sm",
+                        value === "NON ATTRIBUÉE" && colors["GROUPE"],
+                        customColors[index],
+                      )}
+                    />
+                    <span className="whitespace-nowrap text-xs">{value}</span>
+                  </div>
+                )
+              })}
+            </div>
+            <div className="mx-auto flex w-full items-end space-x-3 md:w-fit">
+              {customUnits.concat(["GROUPE"]).map((value, index) => {
+                console.log(index)
+
+                return (
+                  <Bar
+                    unit={value}
+                    count={countOf(value)}
+                    total={tents.length}
+                    key={value}
+                    index={index}
+                  />
+                )
+              })}
+            </div>
+          </>
+        )}
       </div>
     </Card>
   )

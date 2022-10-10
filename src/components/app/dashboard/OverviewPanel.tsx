@@ -2,6 +2,7 @@ import Card from "@/components/ui/Card"
 import Icon from "@/components/ui/Icon"
 import Panel from "@/components/ui/Panel"
 import { units } from "@/utils/records"
+import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import { Tent } from "@prisma/client"
 import { FC } from "react"
@@ -11,7 +12,14 @@ import StateChart from "./StateChart"
 
 const OverviewPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
   const { movement } = useGroup()
-  const numberOfUnits = Object.keys(units[movement]).length - 1
+  const { data: customUnits, isLoading } = trpc.tents.getCustomUnits.useQuery()
+
+  if (isLoading || !customUnits) {
+    return null
+  }
+
+  const numberOfUnits =
+    customUnits.length || Object.keys(units[movement]).length - 1
 
   return (
     <Panel id="overview">
@@ -55,7 +63,7 @@ const OverviewPanel: FC<UIProps<{ tents: Tent[] }>> = ({ tents }) => {
               </div>
             </div>
           </Card>
-          <RepartitionChart tents={tents} />
+          <RepartitionChart tents={tents} customUnits={customUnits} />
         </div>
         <StateChart tents={tents} />
       </div>
