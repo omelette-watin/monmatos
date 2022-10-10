@@ -140,7 +140,7 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
               className="w-[90px] bg-transparent p-1 px-2 text-center text-3xl font-bold outline-none"
               placeholder={"XX"}
               onChange={(e) => {
-                if (parseInt(e.target.value) || !e.target.value.length) {
+                if (!isNaN(Number(e.target.value)) || !e.target.value.length) {
                   setIdentifier(e.target.value)
                 }
               }}
