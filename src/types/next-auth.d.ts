@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { Movement } from "@prisma/client"
 import "next-auth/jwt"
 
 declare module "next-auth" {
@@ -12,7 +13,7 @@ declare module "next-auth" {
   interface User {
     id: string
     name: string
-    movement: "SUF" | "AGSE" | "SGDF"
+    movement: Movement
   }
 }
 
