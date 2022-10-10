@@ -105,12 +105,12 @@ const TentUpdatePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
           <TentInput
             label="Attribué aux"
             value={unit as string}
-            setValue={(value) => setUnit(value as string)}
+            setValue={(value) => setUnit(value)}
             options={
               customUnits.length
                 ? customUnits
                     .map((cu) => [cu, cu])
-                    .concat([["NON ATTRIBUÉE", "NON ATTRIBUÉE"]])
+                    .concat([["GROUPE", "NON ATTRIBUÉE"]])
                 : Object.entries(units[movement]).map(([key, value]) => [
                     key as Unit,
                     value,

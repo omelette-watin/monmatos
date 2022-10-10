@@ -193,7 +193,7 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
           <TentInput
             label="Attribué aux"
             value={unit}
-            setValue={(value) => setUnit(value as Unit)}
+            setValue={(value) => setUnit(value)}
             options={
               customUnits.length
                 ? customUnits
