@@ -80,7 +80,10 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
           <span>Nom ou numéro ?</span>
           <Switch
             checked={textIdentifier}
-            onChange={setTextIdentifier}
+            onChange={(e: boolean) => {
+              setIdentifier("")
+              setTextIdentifier(e)
+            }}
             className={`${textIdentifier ? "bg-emerald-500" : "bg-slate-900"}
           relative inline-flex h-6 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none  focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
           >
@@ -124,7 +127,7 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
             type="text"
             autoFocus
             className={classNames(
-              "mx-auto my-8 block max-w-[250px] border-b-2 border-t-2 border-t-transparent bg-transparent p-1 px-4 text-3xl font-bold outline-none placeholder:font-medium",
+              "mx-auto my-8 block max-w-[250px] rounded-none border-b-2 border-t-2 border-t-transparent bg-transparent p-1 px-4 text-3xl font-bold outline-none placeholder:font-medium",
               {
                 "border-slate-800 text-slate-800": !identifier,
 
