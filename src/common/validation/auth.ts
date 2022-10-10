@@ -17,9 +17,9 @@ export const registerSchema = z.object({
       z
         .string({ required_error: "Veuillez donner un nom à l'unité" })
         .trim()
-        .max(20, "Maximum 20 caractères"),
+        .max(25, "Maximum 25 caractères"),
     )
-    .max(20)
+    .max(15)
     .min(1)
     .nullable(),
 })
