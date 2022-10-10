@@ -20,6 +20,7 @@ const TentUpdatePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
   const { movement } = useGroup()
   const { setModal } = useModalContext()
   const trpcCtx = trpc.useContext()
+  const { data: customUnits, isLoading } = trpc.tents.getCustomUnits.useQuery()
   const updateMutation = trpc.tents.update.useMutation({
     onSuccess() {
       setModal({} as Modal)
@@ -29,7 +30,9 @@ const TentUpdatePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
     },
   })
   const [state, setState] = useState(tent.state)
-  const [unit, setUnit] = useState(tent.unit)
+  const [unit, setUnit] = useState<Unit | string>(
+    tent.customUnit || (tent.unit as Unit),
+  )
   const [size, setSize] = useState(tent.size)
   const [complete, setComplete] = useState(tent.complete)
   const [integrated, setIntegrated] = useState(tent.integrated)
@@ -40,19 +43,25 @@ const TentUpdatePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
       component: <TentViewPanel tent={tent} />,
       visible: true,
     })
+
+  if (isLoading || typeof customUnits === "undefined") {
+    return null
+  }
   const handleUpdate = (e: FormEvent) => {
     e.preventDefault()
+
     const updatePromise = updateMutation.mutateAsync({
       id: tent.id,
       values: {
         identifier: tent.identifier,
         state,
         size,
-        unit,
         complete,
         integrated,
         type,
         comments,
+        unit: customUnits.length ? null : (unit as Unit),
+        customUnit: !customUnits.length ? null : unit,
       },
     })
 
@@ -95,12 +104,18 @@ const TentUpdatePanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
         <div className="space-y-2">
           <TentInput
             label="Attribué aux"
-            value={unit}
-            setValue={(value) => setUnit(value as Unit)}
-            options={Object.entries(units[movement]).map(([key, value]) => [
-              key as Unit,
-              value,
-            ])}
+            value={unit as string}
+            setValue={(value) => setUnit(value as string)}
+            options={
+              customUnits.length
+                ? customUnits
+                    .map((cu) => [cu, cu])
+                    .concat([["NON ATTRIBUÉE", "NON ATTRIBUÉE"]])
+                : Object.entries(units[movement]).map(([key, value]) => [
+                    key as Unit,
+                    value,
+                  ])
+            }
           />
           <TentInput
             label="Taille"

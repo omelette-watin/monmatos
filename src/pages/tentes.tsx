@@ -24,7 +24,8 @@ export type Tent = ArrayElement<Tents>
 
 export type Filters = {
   size: Tent["size"] | null
-  unit: Tent["unit"] | null
+  unit: Tent["unit"]
+  customUnit: Tent["customUnit"]
   state: Tent["state"] | null
 }
 
@@ -36,6 +37,7 @@ const TentsPage: NextPageWithLayout = () => {
     size: null,
     unit: null,
     state: null,
+    customUnit: null,
   })
   const [sorting, setSorting] = useState<"asc" | "desc">("asc")
   const openAddTentPanel = () =>

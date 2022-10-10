@@ -1,8 +1,10 @@
 import { Modal } from "@/components/app/modal"
+import { useGroup } from "@/components/hooks/useGroup"
 import { useModalContext } from "@/components/hooks/useModalContext"
 import Button from "@/components/ui/Button"
 import { Filters } from "@/pages/tentes"
 import { units } from "@/utils/records"
+import { trpc } from "@/utils/trpc"
 import { UIProps } from "@/utils/typedProps"
 import { State, Unit } from "@prisma/client"
 import Head from "next/head"
@@ -13,25 +15,32 @@ const TentFilterPanel: FC<
   UIProps<{ filters: Filters; setFilters: Dispatch<SetStateAction<Filters>> }>
 > = ({ filters, setFilters }) => {
   const { setModal } = useModalContext()
+  const { movement } = useGroup()
+  const { data: customUnits, isLoading } = trpc.tents.getCustomUnits.useQuery()
   const [wantedFilters, setWantedFilters] = useState<Filters>(filters)
   const resetFilters = () => {
     setWantedFilters({
       size: null,
       unit: null,
       state: null,
+      customUnit: null,
     })
   }
   const applyFilters = () => {
     setFilters(wantedFilters)
     setModal({} as Modal)
   }
-  const getOptions = (obj: Record<string, string>) =>
-    [
-      ...Object.entries(obj).map(
-        ([key, value]) => [key, value] as [string, string],
-      ),
-      ["TOUTES", "TOUTES"],
-    ] as [string, string][]
+
+  if (isLoading || typeof customUnits === "undefined") {
+    return null
+  }
+
+  const getOptions = (obj: Record<string, string>) => [
+    ...Object.entries(obj).map(
+      ([key, value]) => [key, value] as [string, string],
+    ),
+    ["TOUTES", "TOUTES"],
+  ]
 
   return (
     <>
@@ -41,17 +50,37 @@ const TentFilterPanel: FC<
       <div className="mx-auto max-w-[450px] space-y-2 py-4">
         <h2 className="mb-8 text-3xl font-bold">Choisir mes filtres</h2>
         <TentInput
-          value={wantedFilters.unit || "TOUTES"}
+          value={
+            customUnits.length
+              ? wantedFilters.customUnit || "TOUTES"
+              : wantedFilters.unit || "TOUTES"
+          }
           label="Par unité"
           setValue={(value) =>
             setWantedFilters((prev) => {
               return {
                 ...prev,
-                unit: value === "TOUTES" ? null : (value as Unit),
+                unit:
+                  customUnits.length || value === "TOUTES"
+                    ? null
+                    : (value as Unit),
+                customUnit:
+                  !customUnits.length || value === "TOUTES"
+                    ? null
+                    : (value as Unit),
               }
             })
           }
-          options={getOptions(units["SGDF"])}
+          options={
+            customUnits.length
+              ? customUnits
+                  .map((cu) => [cu, cu])
+                  .concat([
+                    ["GROUPE", "NON ATTRIBUÉE"],
+                    ["TOUTES", "TOUTES"],
+                  ])
+              : getOptions(units[movement])
+          }
         />
         <TentInput
           value={wantedFilters.state || "TOUTES"}

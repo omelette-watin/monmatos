@@ -10,29 +10,39 @@ datasource db {
 }
 
 model Group {
-  id        String   @id @default(uuid())
-  name      String
-  movement  Movement
-  createdAt DateTime @default(now())
-  tents     Tent[]
+  id           String       @id @default(uuid())
+  name         String
+  movement     Movement
+  createdAt    DateTime     @default(now())
+  movementUnit Boolean      @default(true)
+  customUnits  CustomUnit[]
+  tents        Tent[]
 }
 
 model Tent {
-  id                String   @id @default(uuid())
-  identifier        String
-  size              Int
-  unit              Unit     @default(GROUPE)
-  state             State
-  complete          Boolean  @default(true)
-  integrated        Boolean  @default(false)
-  type              String   @default("Canadienne")
-  comments          String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  groupId           String
-  group             Group    @relation(fields: [groupId], references: [id])
+  id         String   @id @default(uuid())
+  identifier String
+  size       Int
+  unit       Unit?
+  customUnit String?
+  state      State
+  complete   Boolean  @default(true)
+  integrated Boolean  @default(false)
+  type       String   @default("Canadienne")
+  comments   String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  groupId    String
+  group      Group    @relation(fields: [groupId], references: [id])
 
   @@unique([groupId, identifier], name: "TentIdentifier")
+}
+
+model CustomUnit {
+  id      Int    @id @default(autoincrement())
+  label   String
+  groupId String
+  group   Group  @relation(fields: [groupId], references: [id])
 }
 
 enum Movement {

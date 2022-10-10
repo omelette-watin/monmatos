@@ -6,6 +6,7 @@ import type { Tent } from "@/pages/tentes"
 import { downloadImageFromCanvas } from "@/utils/downloadFns"
 import { units } from "@/utils/records"
 import { UIProps } from "@/utils/typedProps"
+import { Unit } from "@prisma/client"
 import Head from "next/head"
 import { QRCodeCanvas } from "qrcode.react"
 import { FC } from "react"
@@ -18,6 +19,7 @@ const TentViewPanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
   const {
     id,
     identifier,
+    customUnit,
     size,
     unit,
     state,
@@ -91,9 +93,14 @@ const TentViewPanel: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
 
         <div className="space-y-2">
           <TentCharacteristic
-            type="unit"
             label="Attribué aux"
-            value={units[movement][unit] || "GROUPE"}
+            value={
+              customUnit
+                ? customUnit === "GROUPE"
+                  ? "NON ATTRIBUÉE"
+                  : customUnit
+                : units[movement][unit as Unit] || "NON ATTRIBUÉE"
+            }
           />
           <TentCharacteristic
             type="size"

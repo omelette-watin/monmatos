@@ -7,6 +7,7 @@ import Tooltip from "@/components/ui/Tooltip"
 import type { Tent } from "@/pages/tentes"
 import { units } from "@/utils/records"
 import { UIProps } from "@/utils/typedProps"
+import { Unit } from "@prisma/client"
 import { FC } from "react"
 import TentCharacteristic from "./TentCharacteristic"
 import TentDeletePanel from "./TentDeletePanel"
@@ -15,7 +16,7 @@ import TentViewPanel from "./TentViewPanel"
 
 const TentCard: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
   const { movement } = useGroup()
-  const { identifier, size, unit, state, type } = tent
+  const { identifier, customUnit, size, unit, state, type } = tent
   const { setModal } = useModalContext()
   const openViewPanel = () =>
     setModal({
@@ -46,8 +47,12 @@ const TentCard: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
           <div className="flex flex-col gap-2 pt-3 pb-2">
             <h2 className="truncate text-2xl font-semibold">{identifier}</h2>
             <h3 className="text-sm font-bold">
-              {units[movement][unit] || "GROUPE"} -{" "}
-              <span className="text-sm font-semibold ">{size} places</span>
+              {customUnit
+                ? customUnit === "GROUPE"
+                  ? "NON ATTRIBUÉE"
+                  : customUnit
+                : units[movement][unit as Unit] || "NON ATTRIBUÉE"}{" "}
+              - <span className="text-sm font-semibold ">{size} places</span>
             </h3>
           </div>
         ) : (
@@ -57,7 +62,11 @@ const TentCard: FC<UIProps<{ tent: Tent }>> = ({ tent }) => {
             </div>
             <div className="text-left">
               <h3 className="text-sm font-bold leading-tight">
-                {units[movement][unit] || "GROUPE"}
+                {customUnit
+                  ? customUnit === "GROUPE"
+                    ? "NON ATTRIBUÉE"
+                    : customUnit
+                  : units[movement][unit as Unit] || "NON ATTRIBUÉE"}
               </h3>
               <p className="text-sm font-semibold ">{size} places</p>
             </div>

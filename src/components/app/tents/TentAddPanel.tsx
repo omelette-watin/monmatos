@@ -21,6 +21,7 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
   const { movement } = useGroup()
   const { setModal } = useModalContext()
   const trpcCtx = trpc.useContext()
+  const { data: customUnits, isLoading } = trpc.tents.getCustomUnits.useQuery()
   const createMutation = trpc.tents.create.useMutation({
     onSuccess() {
       setModal({} as Modal)
@@ -38,13 +39,18 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
   const [textIdentifier, setTextIdentifier] = useState(false)
   const [identifier, setIdentifier] = useState<string>("")
   const [state, setState] = useState<State>("NEUF")
-  const [unit, setUnit] = useState<Unit>("GROUPE")
+  const [unit, setUnit] = useState<Unit | string>("GROUPE")
   const [size, setSize] = useState(6)
   const [complete, setComplete] = useState(true)
   const [integrated, setIntegrated] = useState(false)
   const [type, setType] = useState("CANADIENNE")
   const [comments, setComments] = useState("")
   const closePanel = () => setModal({} as Modal)
+
+  if (isLoading || typeof customUnits === "undefined") {
+    return null
+  }
+
   const handleAdd = (e: FormEvent) => {
     e.preventDefault()
 
@@ -53,11 +59,12 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
         identifier,
         state,
         size,
-        unit,
         complete,
         integrated,
         type,
         comments,
+        unit: customUnits.length ? null : (unit as Unit),
+        customUnit: !customUnits.length ? null : unit,
       })
       toast.promise(createPromise, {
         success: "Tente ajoutée",
@@ -77,7 +84,25 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
         onSubmit={handleAdd}
       >
         <div className="mx-auto flex items-center gap-2 text-sm font-medium">
-          <span>Nom ou numéro ?</span>
+          <span>
+            {" "}
+            <span
+              className={`${
+                !textIdentifier ? "text-emerald-500" : ""
+              } transition-colors`}
+            >
+              Numéro
+            </span>{" "}
+            ou{" "}
+            <span
+              className={`${
+                textIdentifier ? "text-emerald-500" : ""
+              } transition-colors`}
+            >
+              Nom
+            </span>{" "}
+            ?
+          </span>
           <Switch
             checked={textIdentifier}
             onChange={(e: boolean) => {
@@ -169,10 +194,16 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
             label="Attribué aux"
             value={unit}
             setValue={(value) => setUnit(value as Unit)}
-            options={Object.entries(units[movement]).map(([key, value]) => [
-              key as Unit,
-              value,
-            ])}
+            options={
+              customUnits.length
+                ? customUnits
+                    .map((cu) => [cu, cu])
+                    .concat([["GROUPE", "NON ATTRIBUÉE"]])
+                : Object.entries(units[movement]).map(([key, value]) => [
+                    key as Unit,
+                    value,
+                  ])
+            }
           />
           <TentInput
             label="Taille"

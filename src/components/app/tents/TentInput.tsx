@@ -7,7 +7,7 @@ interface TentInputProps {
   label: string
   value: string
   setValue: Dispatch<SetStateAction<string>>
-  options: [string, string][]
+  options: [string, string][] | string[][]
 }
 const TentInput = ({ label, value, setValue, options }: TentInputProps) => {
   return (

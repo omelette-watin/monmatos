@@ -12,12 +12,20 @@ export const tentsRouter = t.router({
       where: {
         groupId: session.user.id,
       },
-      orderBy: {
-        identifier: "asc",
-      },
     })
 
     return tents
+  }),
+  getCustomUnits: authedProcedure.query(async ({ ctx }) => {
+    const { session, prisma } = ctx
+
+    const customUnits = await prisma.customUnit.findMany({
+      where: {
+        groupId: session.user.id,
+      },
+    })
+
+    return customUnits.map((customUnit) => customUnit.label)
   }),
   getById: authedProcedure.input(z.string()).query(async ({ input, ctx }) => {
     const { prisma } = ctx
