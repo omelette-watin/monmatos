@@ -18,11 +18,15 @@ import LoadingDots from "../ui/LoadingDots"
 
 const SignUpForm = () => {
   const logo = "/favicon.ico"
-  const registerMutation = trpc.group.create.useMutation()
+  const registerMutation = trpc.group.create.useMutation({
+    onError() {
+      setStep(0)
+    },
+  })
   const [step, setStep] = useState(0)
   const handleSubmit = useCallback(
     async (values: IRegister) => {
-      toast
+      await toast
         .promise(registerMutation.mutateAsync(values), {
           loading: "Création du groupe ...",
           error: "Veuillez réessayer plus tard",
@@ -70,7 +74,7 @@ const SignUpForm = () => {
                     Nom du Groupe
                   </label>
                   <div className="flex w-full items-center">
-                    <div className="flex w-full items-center gap-4 rounded-lg border border-gray-200 p-3 focus-within:border-2 focus-within:border-blue-500">
+                    <div className="flex w-full items-center gap-4 rounded-lg border border-gray-200 p-3  focus-within:border-blue-500">
                       <Field
                         name="name"
                         id="name"
@@ -84,7 +88,7 @@ const SignUpForm = () => {
                     Mouvement scout
                   </label>
                   <div className="flex w-full items-center">
-                    <div className="flex w-full items-center gap-4 rounded-lg border border-gray-200 p-3 focus-within:border-2  focus-within:border-blue-500">
+                    <div className="flex w-full items-center gap-4 rounded-lg border border-gray-200 p-3  focus-within:border-blue-500">
                       <Icon name="GiJerusalemCross" className="w-6" />
                       <Field
                         id="movement"
@@ -105,7 +109,7 @@ const SignUpForm = () => {
                     {({ open }) => (
                       <div>
                         <Disclosure.Button className="-mt-5 flex w-full justify-between rounded-lg bg-blue-50 px-4 py-2 text-left text-sm font-medium text-blue-900 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
-                          <span>Il n'y a pas mon mouvement</span>
+                          <span>Je ne trouve pas mon mouvement</span>
                           <ChevronUpIcon
                             className={classNames(
                               "h-5 w-5 transform text-blue-900 transition-transform duration-300",
@@ -153,7 +157,7 @@ const SignUpForm = () => {
                 <>
                   <h2 className="text-lg font-semibold">
                     Souhaitez-utiliser les noms d'unités par défaut de votre
-                    mouvement ?
+                    <span className="text-emerald-500"> mouvement</span> ?
                   </h2>
                   <Disclosure>
                     {({ open }) => (
@@ -195,7 +199,9 @@ const SignUpForm = () => {
                         setValues((prev) => {
                           return {
                             ...prev,
-                            customUnits: ["Mon unité"],
+                            customUnits: Object.entries(units[values.movement])
+                              .map(([, label]) => label)
+                              .filter((unit) => unit !== "NON ATTRIBUÉE"),
                           }
                         })
                         setStep(2)
@@ -225,48 +231,48 @@ const SignUpForm = () => {
               {step === 2 && (
                 <>
                   <h2 className="text-lg font-semibold">
-                    Vous pouvez créer jusqu'à{" "}
-                    <span className="text-emerald-500">15 types</span> d'unités
-                    différents.
+                    Vous pouvez{" "}
+                    <span className="text-emerald-500">modifier</span> vos
+                    unités ou en <span className="text-blue-500">créer</span> de
+                    nouvelles.
                   </h2>
-                  <p className="-mt-8 text-sm">
-                    <span className="font-medium">Note</span>: vous n'aurez pas
-                    accès aux noms d'unités par défaut, pensez donc à recréer
-                    ceux dont vous avez besoin.
-                  </p>
-                  <p className="-mt-8 text-sm">
-                    Il n'est pas nécessaire de créer un type{" "}
+                  <p className="-mt-8 text-xs">
+                    <span className="font-medium">Note</span>: il n'est pas
+                    nécessaire de créer un type{" "}
                     <span className="font-medium">GROUPE</span> ou{" "}
                     <span className="font-medium">NON ATTRIBUÉE</span>, on s'en
-                    charge pour vous.
+                    charge pour vous !
                   </p>
                   <FieldArray name="customUnits">
                     {({ remove, push }) => (
-                      <div className="-mt-4 flex flex-col gap-2">
+                      <div className="-mt-4 flex flex-col gap-3">
+                        <input
+                          type="text"
+                          disabled
+                          className="w-full rounded-md border border-gray-200 p-3 outline-none placeholder:font-bold placeholder:text-slate-900"
+                          placeholder="NON ATTRIBUÉE ( obligatoire )"
+                        />
                         {values.customUnits &&
                           values.customUnits.map((customUnit, index) => (
-                            <div
-                              className="flex flex-col gap-1"
-                              key={customUnit}
-                            >
+                            <div className="flex flex-col gap-1" key={index}>
                               <div className="flex items-center gap-3">
                                 <Field
                                   type="text"
                                   name={`customUnits[${index}]`}
-                                  autoFocus
                                   placeholder="Mon unité"
-                                  className="w-full rounded-md border-2 border-gray-200 px-2 py-1 outline-none  focus-within:border-blue-500"
+                                  className="w-full rounded-md border border-gray-200 p-3 outline-none  focus-within:border-blue-500"
                                 />
                                 <button
                                   type="button"
                                   className="hover:text-red-500"
                                   onClick={() => remove(index)}
                                 >
-                                  <Icon name="HiTrash" className="text-xl" />
+                                  <Icon name="HiTrash" className="text-3xl" />
                                 </button>
                               </div>
                               <div className="pl-1 text-xs text-red-500">
                                 {errors.customUnits &&
+                                  Array.isArray(errors.customUnits) &&
                                   errors.customUnits[index] && (
                                     <p className="pl-1 text-xs">
                                       {errors.customUnits[index]}
@@ -288,23 +294,29 @@ const SignUpForm = () => {
                               </div>
                             </div>
                           ))}
-                        <Button
-                          size="xs"
-                          variant="green"
-                          onClick={() => push("")}
-                          disabled={
-                            Array.isArray(errors.customUnits) ||
-                            values.customUnits?.length === 20 ||
-                            !!values.customUnits?.filter(
-                              (item, index) =>
-                                values.customUnits?.indexOf(item) !== index,
-                            ).length
-                          }
-                          icon="BsPlusLg"
-                          className="mt-4 max-w-fit"
-                        >
-                          Ajouter une unité
-                        </Button>
+                        <div className="mt-2 flex flex-wrap items-center justify-center gap-2 sm:justify-between">
+                          <p className="pl-1 text-sm text-gray-500">
+                            <span className="font-bold">15</span> unités maximum
+                          </p>
+                          <Button
+                            size="xs"
+                            type="button"
+                            variant="green"
+                            onClick={() => push("")}
+                            disabled={
+                              Array.isArray(errors.customUnits) ||
+                              values.customUnits?.length === 20 ||
+                              !!values.customUnits?.filter(
+                                (item, index) =>
+                                  values.customUnits?.indexOf(item) !== index,
+                              ).length
+                            }
+                            icon="BsPlusLg"
+                            className="max-w-fit"
+                          >
+                            Ajouter une unité
+                          </Button>
+                        </div>
                       </div>
                     )}
                   </FieldArray>
