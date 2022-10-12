@@ -1,4 +1,4 @@
-import SignUpForm from "@/components/app/SignUpForm"
+import SignUpForm from "@/components/app/sign-up/SignUpForm"
 import { NextPageWithLayout } from "./_app"
 
 const InscriptionPage: NextPageWithLayout = () => {
