@@ -119,7 +119,7 @@ const CustomUnitsStep = ({ form, goBackward, goForward }: ISignUpSteps) => {
               customUnits: null,
             }
           })
-          goForward()
+          goBackward()
         }}
         className="-mt-2 flex items-center gap-2 font-medium text-blue-500"
       >

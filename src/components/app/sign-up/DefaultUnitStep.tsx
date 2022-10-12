@@ -76,7 +76,7 @@ const DefaultUnitStep = ({ form, goBackward, goForward }: ISignUpSteps) => {
       </div>
       <button
         type="button"
-        onClick={() => goBackward}
+        onClick={goBackward}
         className="-mt-2 flex items-center gap-2 font-medium text-blue-500"
       >
         <Icon name="ArrowLeftIcon" className="w-4" /> Retour
