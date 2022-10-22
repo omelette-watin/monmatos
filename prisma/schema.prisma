@@ -10,13 +10,28 @@ datasource db {
 }
 
 model Group {
-  id           String       @id @default(uuid())
-  name         String
-  movement     Movement
-  createdAt    DateTime     @default(now())
-  movementUnit Boolean      @default(true)
-  customUnits  CustomUnit[]
-  tents        Tent[]
+  id                 String       @id @default(uuid())
+  name               String
+  movement           Movement
+  createdAt          DateTime     @default(now())
+  adminEmailVerified Boolean      @default(false)
+  customUnits        CustomUnit[]
+  tents              Tent[]
+  users              User[]
+}
+
+model User {
+  id             String   @unique @default(uuid())
+  firstName      String?
+  lastName       String?
+  email          String   @unique
+  emailVerified  Boolean  @default(false)
+  hashedPassword String
+  isAdmin        Boolean  @default(false)
+  groupId        String
+  group          Group    @relation(fields: [groupId], references: [id])
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model Tent {
