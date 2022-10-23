@@ -34,7 +34,7 @@ const LinkLogin = ({ groupId, callbackUrl }: LinkLoginProps) => {
 
   useEffect(() => {
     if (typeof session !== "undefined") {
-      if (session?.user?.id === groupId) {
+      if (session?.user?.group.id === groupId) {
         router.push(callbackUrl)
 
         return

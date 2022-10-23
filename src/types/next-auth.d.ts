@@ -11,9 +11,18 @@ declare module "next-auth" {
   }
 
   interface User {
-    id: string
-    name: string
-    movement: Movement
+    group: {
+      id: string
+      name: string
+      movement: Movement
+    }
+    user?: {
+      id: string
+      isAdmin: boolean
+      email: string
+      firstName?: string
+      lastName?: string
+    }
   }
 }
 

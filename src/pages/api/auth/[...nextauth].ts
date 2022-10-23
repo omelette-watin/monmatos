@@ -23,31 +23,30 @@ export const authOptions: NextAuthOptions = {
         if (!group) return null
 
         return {
-          id: group.id,
-          name: group.name,
-          movement: group.movement,
+          group: {
+            id: group.id,
+            name: group.name,
+            movement: group.movement,
+          },
         }
       },
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user }) => {
-      if (user) {
+    jwt: async ({ token, user: infos }) => {
+      if (infos) {
+        const { user, group } = infos
+
         token.user = {
-          id: user.id,
-          name: user.name,
-          movement: user.movement,
+          group,
+          user,
         }
       }
 
       return token
     },
     session: async ({ session, token: { user } }) => {
-      session.user = {
-        id: user.id,
-        name: user.name,
-        movement: user.movement,
-      }
+      session.user = user
 
       return session
     },

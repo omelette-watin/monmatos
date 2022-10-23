@@ -7,7 +7,7 @@ export const t = initTRPC.context<Context>().create({
 })
 
 export const authedProcedure = t.procedure.use(({ ctx, next }) => {
-  if (!ctx.session || !ctx.session.user || !ctx.session.user.id) {
+  if (!ctx.session || !ctx.session.user || !ctx.session.user.group.id) {
     throw new TRPCError({ code: "UNAUTHORIZED" })
   }
 
@@ -16,7 +16,7 @@ export const authedProcedure = t.procedure.use(({ ctx, next }) => {
       ...ctx,
       session: {
         ...ctx.session,
-        user: { ...ctx.session.user, id: ctx.session.user.id },
+        user: { ...ctx.session.user.group, id: ctx.session.user.group.id },
       },
     },
   })
