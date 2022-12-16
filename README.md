@@ -41,7 +41,7 @@ $ npm install
 
 3. Set up database
 - rename `.env.example` to `.env` 
-- specify a database url in `DATABASE_URL` environement variable
+- specify a database url in `DATABASE_URL` environment variable
 - apply schema to this database : 
 
 ```bash
