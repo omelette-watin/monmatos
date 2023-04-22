@@ -144,6 +144,8 @@ const TentAddPanel: FC<UIProps<{ tents: Tents }>> = ({ tents }) => {
               ["5", "5 places"],
               ["6", "6 places"],
               ["8", "8 places"],
+              ["9", "9 places"],
+              ["10", "10 places"],
             ]}
           />
           <TentInput
