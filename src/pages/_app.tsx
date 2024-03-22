@@ -1,6 +1,7 @@
 import AppToaster from "@/components/ui/AppToaster"
 import { trpc } from "@/utils/trpc"
 import { NextPage } from "next"
+import { Session } from "next-auth"
 import { SessionProvider } from "next-auth/react"
 import { AppProps } from "next/app"
 import { ReactElement, ReactNode } from "react"
@@ -12,7 +13,7 @@ export type NextPageWithLayout = NextPage & {
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
-}
+} & { pageProps: { session: Session | null | undefined } }
 
 const App = ({
   Component,
