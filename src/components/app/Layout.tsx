@@ -3,7 +3,7 @@ import useRequireAuth from "@/components/hooks/useRequireAuth"
 import LoadingPage from "@/components/ui/LoadingPage"
 import type { WithChildren } from "@/types/common"
 import Head from "next/head"
-import BetaBanner from "../ui/BetaBanner"
+import SiteCloseBanner from "../ui/SiteCloseBanner"
 
 interface LayoutProps extends WithChildren {
   title?: string
@@ -41,7 +41,7 @@ const AppLayout = ({ children, title }: LayoutProps) => {
         <meta property="og:image" content={logo} />
         <meta property="og:type" content="website" />
       </Head>
-      <BetaBanner />
+      <SiteCloseBanner />
       <Navbar />
       <main className="mx-auto p-4 lg:container">{children}</main>
     </>

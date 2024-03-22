@@ -1,9 +1,9 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
-const BANNER_KEY = "hasSeenBanner"
+const BANNER_KEY = "hasSeenBanner2"
 
-const BetaBanner = () => {
+const SiteCloseBanner = () => {
   const [shouldBannerOpen, setShouldBannerOpen] = useState<
     boolean | undefined
   >()
@@ -22,11 +22,11 @@ const BetaBanner = () => {
   }
 
   return (
-    <div className="w-full bg-gradient-to-tl from-emerald-400 to-emerald-600 text-white">
-      <div className="mx-auto flex flex-col items-center justify-between gap-1 p-3 text-sm sm:flex-row sm:gap-2 sm:p-4  sm:text-base lg:container">
+    <div className="w-full bg-gradient-to-tl from-red-400 to-red-600 text-white">
+      <div className="mx-auto flex flex-col items-center justify-between gap-1 p-3 text-sm sm:flex-row sm:gap-2 sm:p-4 sm:text-base lg:container">
         <div className="text-center">
-          <span className="font-bold">MonMatos</span> est encore en cours de{" "}
-          <span className="font-bold">développement.</span>
+          <span className="font-bold">MonMatos</span> fermera définitivement le{" "}
+          <span className="font-bold">7 avril 2024</span>
         </div>
         <div className="flex gap-6">
           <button
@@ -35,7 +35,7 @@ const BetaBanner = () => {
           >
             J'ai compris
           </button>
-          <Link href="/beta">
+          <Link href="https://discord.gg/9Ue6cMAS" target="_blank">
             <a
               target="_blank"
               className="animate-[pulse_1500ms_infinite] underline underline-offset-1"
@@ -49,4 +49,4 @@ const BetaBanner = () => {
   )
 }
 
-export default BetaBanner
+export default SiteCloseBanner
